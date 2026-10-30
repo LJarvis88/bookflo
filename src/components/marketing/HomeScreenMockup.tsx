@@ -71,7 +71,7 @@ export function HomeScreenMockup() {
         </div>
       </div>
       <p className="mt-4 text-center text-xs text-bf-muted">
-        Demo examples · clients upload their own mark
+        Demo seeds only · every salon uploads their own mark
       </p>
     </div>
   );
