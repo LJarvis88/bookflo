@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
 import { HomeScreenMockup } from "@/components/marketing/HomeScreenMockup";
 import { ContourBookingPhone } from "@/components/marketing/ContourBookingPhone";
+import { OmsBookingPhone } from "@/components/marketing/OmsBookingPhone";
 import { Faq } from "@/components/marketing/Faq";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
@@ -144,7 +145,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Contour Preston case study — AI Brand Match layout (left copy, right visual). No OMS section. */}
+      {/* Contour Preston case study — copy left, phone right */}
       <section className="relative z-10 border-t border-bf-line/70 bg-white">
         <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-20 sm:px-8 lg:px-10">
           <div>
@@ -168,6 +169,34 @@ export default function HomePage() {
           </div>
           <div className="flex justify-center rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] px-6 py-10 sm:px-10">
             <ContourBookingPhone />
+          </div>
+        </div>
+      </section>
+
+      {/* Oh My Social Media case study — flipped: phone left, copy right */}
+      <section className="relative z-10 border-t border-bf-line/70 bg-white">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-20 sm:px-8 lg:px-10">
+          <div className="order-2 flex justify-center rounded-2xl border border-bf-line bg-gradient-to-br from-[#fff5f9] to-[#fff8f2] px-6 py-10 sm:px-10 md:order-1">
+            <OmsBookingPhone />
+          </div>
+          <div className="order-1 md:order-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
+              Case study · Oh My Social Media
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+              Tee’s brand. Tee’s bookings.
+            </h2>
+            <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
+              Same white-label engine, totally different skin. Oh My Social Media books Content
+              shoots, Studio shoots, and Packages on a clean white page — magenta and orange only,
+              real logo, real prices from £200 to £500.
+            </p>
+            <div className="mt-6">
+              <Button href="/book/oh-my-social-media" variant="secondary" className="px-5">
+                Open OMS booking
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
