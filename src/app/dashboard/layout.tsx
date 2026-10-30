@@ -1,4 +1,18 @@
+import Link from "next/link";
 import { Sidebar } from "@/components/dashboard/Sidebar";
+
+const mobileLinks = [
+  ["/dashboard", "Today"],
+  ["/dashboard/calendar", "Calendar"],
+  ["/dashboard/customers", "Customers"],
+  ["/dashboard/services", "Services"],
+  ["/dashboard/staff", "Staff"],
+  ["/dashboard/branding", "Branding"],
+  ["/dashboard/payments", "Payments"],
+  ["/dashboard/subscription", "Plan"],
+  ["/dashboard/settings", "Settings"],
+  ["/book/contour-preston", "Booking"],
+] as const;
 
 export default function DashboardLayout({
   children,
@@ -14,28 +28,37 @@ export default function DashboardLayout({
           </div>
         </div>
         <div className="flex min-w-0 flex-1 flex-col">
-          <div className="border-b border-bf-line bg-white/60 px-4 py-3 md:hidden">
-            <p className="font-display text-lg font-semibold">BOOKFLO</p>
-            <p className="text-xs text-bf-muted">Contour Preston · demo</p>
-            <div className="mt-3 flex gap-2 overflow-x-auto pb-1 text-xs">
-              {[
-                ["/dashboard", "Today"],
-                ["/dashboard/calendar", "Calendar"],
-                ["/dashboard/branding", "Branding"],
-                ["/dashboard/services", "Services"],
-                ["/dashboard/payments", "Payments"],
-              ].map(([href, label]) => (
-                <a
+          <div className="border-b border-bf-line bg-white/80 px-4 py-3 backdrop-blur md:hidden">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="font-display text-lg font-semibold">BOOKFLO</p>
+                <p className="text-xs text-bf-muted">Liv · Contour Preston</p>
+              </div>
+              <Link
+                href="/login"
+                className="shrink-0 rounded-full border border-bf-line bg-white px-3 py-2 text-xs font-medium text-bf-muted"
+              >
+                Demo login
+              </Link>
+            </div>
+            <nav
+              aria-label="Dashboard"
+              className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {mobileLinks.map(([href, label]) => (
+                <Link
                   key={href}
                   href={href}
-                  className="shrink-0 rounded-full border border-bf-line bg-white px-3 py-1.5 text-bf-muted"
+                  className="shrink-0 rounded-full border border-bf-line bg-white px-3 py-2 text-xs font-medium text-bf-muted active:bg-bf-fog"
                 >
                   {label}
-                </a>
+                </Link>
               ))}
-            </div>
+            </nav>
           </div>
-          <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</main>
+          <main className="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+            {children}
+          </main>
         </div>
       </div>
     </div>
