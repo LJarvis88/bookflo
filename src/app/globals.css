@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bf-ink: #0e1420;
+  --bf-mist: #f5f6f8;
+  --bf-fog: #e8ebf0;
+  --bf-line: #d5dae3;
+  --bf-accent: #1b6b5a;
+  --bf-accent-soft: #d7ebe4;
+  --bf-brass: #a67c4a;
+  --bf-muted: #5c6678;
+  --background: #f5f6f8;
+  --foreground: #0e1420;
+
+  /* Contour Preston official palette (overridden per booking surface) */
+  --tenant-bg: #0c111b; /* Deep Ink */
+  --tenant-ink: #f0eae2; /* Kim K Cream */
+  --tenant-primary: #c8a36c; /* Champagne Gold */
+  --tenant-secondary: #192c42; /* Midnight Navy */
+  --tenant-muted: #d5c4b2; /* Cashmere */
+  --tenant-surface: #192c42; /* Midnight Navy */
+  --tenant-button: #c8a36c; /* Champagne Gold */
+  --tenant-button-text: #0c111b; /* Deep Ink */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--bf-accent) 28%, white);
+  color: var(--bf-ink);
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-xl border border-bf-line bg-white px-3.5 py-2.5 text-sm outline-none focus:border-bf-accent;
+  }
+
+  .tenant-field {
+    width: 100%;
+    border-radius: 0.875rem;
+    border: 1px solid color-mix(in srgb, var(--tenant-primary) 28%, transparent);
+    background: var(--tenant-surface);
+    color: var(--tenant-ink);
+    padding: 0.7rem 0.9rem;
+    outline: none;
+  }
+
+  .tenant-field:focus {
+    border-color: var(--tenant-primary);
+  }
+
+  .tenant-field::placeholder {
+    color: color-mix(in srgb, var(--tenant-muted) 80%, transparent);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bf-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+  }
+}
