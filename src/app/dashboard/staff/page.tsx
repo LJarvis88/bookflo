@@ -1,22 +1,21 @@
-import { contourPreston } from "@/data/contour-preston";
+"use client";
+
+import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 import { weekdayLabel } from "@/lib/format";
 
 export default function StaffPage() {
-  const tenant = contourPreston;
+  const tenant = useDemoTenant();
 
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">Staff</h1>
-        <p className="mt-1 text-sm text-bf-muted">Thin multi-staff model for the prototype</p>
+        <h1 className="font-display text-3xl font-semibold tracking-tight">Team</h1>
+        <p className="mt-1 text-sm text-bf-muted">{tenant.name} · demo roster</p>
       </header>
 
       <div className="grid gap-4 sm:grid-cols-3">
         {tenant.staff.map((member) => (
-          <div
-            key={member.id}
-            className="rounded-2xl border border-bf-line/80 bg-white/60 p-5"
-          >
+          <div key={member.id} className="rounded-2xl border border-bf-line bg-white p-5">
             <div
               className="flex h-11 w-11 items-center justify-center rounded-full text-sm font-semibold text-white"
               style={{ background: member.color }}
@@ -25,7 +24,7 @@ export default function StaffPage() {
             </div>
             <p className="mt-4 font-display text-xl font-semibold tracking-tight">{member.name}</p>
             <p className="text-sm text-bf-muted">{member.role}</p>
-            <p className="mt-3 text-xs uppercase tracking-wider text-bf-accent">Active</p>
+            <p className="mt-3 text-xs uppercase tracking-wider text-bf-muted">Active</p>
           </div>
         ))}
       </div>

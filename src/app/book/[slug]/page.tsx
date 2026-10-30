@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { BookingFlow } from "@/components/booking/BookingFlow";
+import { getTenantBySlug, listTenantSlugs, TENANTS } from "@/data/tenants";
 
 export function generateStaticParams() {
-  return [{ slug: "contour-preston" }];
+  return listTenantSlugs().map((slug) => ({ slug }));
 }
 
 export default async function BookPage({
@@ -11,6 +12,7 @@ export default async function BookPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug !== "contour-preston") notFound();
-  return <BookingFlow />;
+  const tenant = TENANTS.find((t) => t.slug === slug);
+  if (!tenant) notFound();
+  return <BookingFlow tenant={getTenantBySlug(slug)} />;
 }

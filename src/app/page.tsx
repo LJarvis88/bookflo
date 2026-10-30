@@ -3,19 +3,19 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { BookingPreview } from "@/components/marketing/BookingPreview";
 import { Faq } from "@/components/marketing/Faq";
 import { Button } from "@/components/ui/Button";
-import { PLANS } from "@/data/pricing";
+import { PLANS, TRIAL_DAYS } from "@/data/pricing";
 import { ArrowRight, Sparkles, Palette, CalendarDays, Shield } from "lucide-react";
 
 const features = [
   {
+    icon: CalendarDays,
+    title: "Calendar-first admin",
+    body: "Staff day columns, soft appointment blocks, and a mobile list that feels calm under pressure — not a cluttered inbox.",
+  },
+  {
     icon: Palette,
     title: "Brand that holds",
     body: "Logo, colour, type, cover, and voice — live-previewed before you publish. Your clients never see a marketplace skin.",
-  },
-  {
-    icon: CalendarDays,
-    title: "Booking without friction",
-    body: "Category → service → staff → time → confirm. Mobile-first, calm, and fast enough for Instagram bio links.",
   },
   {
     icon: Sparkles,
@@ -25,7 +25,7 @@ const features = [
   {
     icon: Shield,
     title: "Zero commission",
-    body: "Flat subscription. No cut of your bookings. Stripe Connect stubs are labelled test mode until Phase 3.",
+    body: "Flat subscription with a 14-day free trial. No cut of your bookings. Stripe stays out of this prototype.",
   },
 ];
 
@@ -52,25 +52,25 @@ const testimonials = [
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-bf-atmosphere text-bf-ink">
-      <div className="bf-grain absolute inset-0 z-0" aria-hidden />
+    <div className="relative min-h-screen overflow-x-hidden bg-white text-bf-ink">
       <SiteHeader />
 
-      {/* Hero — brand first, full-bleed atmosphere, one composition */}
-      <section className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-8 md:grid-cols-2 md:gap-10 md:px-8 md:pb-28 md:pt-12">
-        <div className="animate-fade-up">
-          <p className="font-display text-5xl font-semibold tracking-tight text-bf-ink sm:text-6xl md:text-7xl">
-            BOOKFLO
+      {/* Hero — Fresha-like calm: brand, one headline, one line, CTAs, product visual */}
+      <section className="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-8 md:pb-24 md:pt-16">
+        <div className="mx-auto max-w-3xl text-center animate-fade-up">
+          <p className="font-display text-4xl font-semibold tracking-tight text-bf-ink sm:text-5xl md:text-6xl">
+            bookflo
           </p>
-          <h1 className="mt-5 max-w-md text-balance font-display text-2xl font-medium leading-snug tracking-tight text-bf-ink/90 sm:text-3xl">
-            Your brand. Your bookings. Beautifully connected.
+          <h1 className="mt-5 text-balance font-display text-2xl font-medium leading-snug tracking-tight text-bf-ink sm:text-3xl md:text-4xl">
+            The booking software for salons that care how they look.
           </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-bf-muted sm:text-lg">
-            Zero-commission white-label booking for salons and independents who refuse to look generic.
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-bf-muted sm:text-lg">
+            White-label booking with a calendar-first admin. Zero commission.{" "}
+            {TRIAL_DAYS}-day free trial on every plan.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button href="/signup" variant="dark" className="px-6 py-3">
-              Start free
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Button href="/signup" variant="dark" className="px-7 py-3">
+              Start free trial
               <ArrowRight className="h-4 w-4" />
             </Button>
             <Button href="/book/contour-preston" variant="secondary" className="px-6 py-3">
@@ -79,36 +79,60 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="relative animate-fade-up [animation-delay:120ms]">
+        <div className="relative mx-auto mt-14 max-w-sm animate-fade-up [animation-delay:120ms] md:mt-16">
           <div
-            className="absolute -inset-8 -z-10 rounded-full bg-bf-accent/10 blur-3xl animate-soft-pulse"
+            className="absolute -inset-10 -z-10 rounded-full bg-bf-fog/80 blur-3xl animate-soft-pulse"
             aria-hidden
           />
           <BookingPreview />
         </div>
       </section>
 
-      {/* AI branding explanation */}
-      <section className="relative z-10 border-y border-bf-line/70 bg-white/40 backdrop-blur-sm">
+      {/* Features */}
+      <section
+        id="features"
+        className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]"
+      >
+        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+          <h2 className="text-center font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            Simple, flexible booking software
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-bf-muted">
+            Fresha-like admin for your team. Contour-level brand craft for your clients.
+          </p>
+          <div className="mt-14 grid gap-10 sm:grid-cols-2">
+            {features.map((f) => (
+              <div key={f.title} className="space-y-3">
+                <f.icon className="h-5 w-5 text-bf-ink" strokeWidth={1.75} />
+                <h3 className="font-display text-xl font-semibold tracking-tight">{f.title}</h3>
+                <p className="text-sm leading-relaxed text-bf-muted md:text-base">{f.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI branding — secondary, quieter */}
+      <section className="relative z-10 border-t border-bf-line/70 bg-white">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-20">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-accent">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
               AI brand match
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-              Your website becomes your booking brand — in one pass.
+              Your website becomes your booking brand.
             </h2>
             <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
               Point BOOKFLO at your site and we suggest colours, type, and tone. In this prototype the
-              match is mocked with Contour Preston’s palette and clearly labelled{" "}
-              <span className="font-medium text-bf-ink">“AI brand match — demo”</span>. Every
-              token stays fully overridable before you publish.
+              match is mocked with Contour Preston’s palette and labelled{" "}
+              <span className="font-medium text-bf-ink">“AI brand match — demo”</span>. Every token
+              stays fully overridable.
             </p>
           </div>
-          <div className="rounded-3xl border border-bf-line bg-bf-mist/80 p-6 shadow-soft">
+          <div className="rounded-2xl border border-bf-line bg-[#f7f8fa] p-6">
             <div className="flex items-center justify-between text-xs text-bf-muted">
               <span>From contourpreston.example</span>
-              <span className="rounded-full bg-bf-accent-soft px-2.5 py-1 font-medium text-bf-accent">
+              <span className="rounded-full bg-white px-2.5 py-1 font-medium text-bf-ink ring-1 ring-bf-line">
                 Demo only
               </span>
             </div>
@@ -133,96 +157,50 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-            <p className="mt-5 text-sm text-bf-muted">
-              Suggested type: Cormorant Garamond + Outfit · Cover: ink → navy
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="relative z-10 mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
-        <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-          Built to win on craft — not marketplace noise.
-        </h2>
-        <p className="mt-3 max-w-2xl text-bf-muted">
-          Fresha and Booksy own discovery. BOOKFLO owns how your brand shows up when someone is ready to book.
-        </p>
-        <div className="mt-12 grid gap-10 sm:grid-cols-2">
-          {features.map((f) => (
-            <div key={f.title} className="space-y-3">
-              <f.icon className="h-5 w-5 text-bf-accent" strokeWidth={1.75} />
-              <h3 className="font-display text-xl font-semibold tracking-tight">{f.title}</h3>
-              <p className="text-sm leading-relaxed text-bf-muted md:text-base">{f.body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="relative z-10 bg-bf-ink text-white">
+      {/* Pricing — Fresha-like light cards + 14-day trial badges */}
+      <section id="pricing" className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
         <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
-          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-            Simple pricing. Zero commission.
+          <h2 className="text-center font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            Software that grows with your business
           </h2>
-          <p className="mt-3 max-w-xl text-white/65">
-            Pick a plan. Keep 100% of what you earn from clients.
+          <p className="mx-auto mt-3 max-w-xl text-center text-bf-muted">
+            Flat monthly pricing. Zero commission. {TRIAL_DAYS}-day free trial on every plan.
           </p>
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 lg:grid-cols-3">
             {PLANS.map((plan) => (
               <div
                 key={plan.id}
-                className={`flex flex-col rounded-3xl p-6 ${
-                  plan.highlighted
-                    ? "bg-white text-bf-ink shadow-lift"
-                    : "bg-white/5 ring-1 ring-white/10"
+                className={`flex flex-col rounded-2xl bg-white p-6 ring-1 ${
+                  plan.highlighted ? "ring-bf-ink shadow-soft" : "ring-bf-line"
                 }`}
               >
-                <div className="flex items-baseline justify-between">
+                <div className="flex flex-wrap items-center gap-2">
                   <h3 className="font-display text-2xl font-semibold">{plan.name}</h3>
-                  {plan.highlighted && (
-                    <span className="text-xs font-medium uppercase tracking-wider text-bf-accent">
-                      Popular
-                    </span>
-                  )}
+                  <span className="rounded-full bg-bf-fog px-2.5 py-0.5 text-xs font-medium text-bf-muted">
+                    {TRIAL_DAYS} day trial
+                  </span>
                 </div>
-                <p className="mt-4 font-display text-4xl font-semibold tracking-tight">
+                <p className="mt-5 font-display text-4xl font-semibold tracking-tight">
                   £{plan.price}
-                  <span
-                    className={`ml-1 text-base font-sans font-normal ${
-                      plan.highlighted ? "text-bf-muted" : "text-white/55"
-                    }`}
-                  >
-                    /mo
+                  <span className="ml-1 text-base font-sans font-normal text-bf-muted">
+                    {plan.priceNote ? ` ${plan.priceNote}` : " per month"}
                   </span>
                 </p>
-                <p
-                  className={`mt-3 text-sm leading-relaxed ${
-                    plan.highlighted ? "text-bf-muted" : "text-white/60"
-                  }`}
-                >
-                  {plan.blurb}
-                </p>
-                <ul className="mt-6 flex-1 space-y-2.5 text-sm">
+                <p className="mt-3 text-sm leading-relaxed text-bf-muted">{plan.blurb}</p>
+                <ul className="mt-6 flex-1 space-y-2.5 text-sm text-bf-ink/80">
                   {plan.features.map((feat) => (
                     <li key={feat} className="flex gap-2">
-                      <span className={plan.highlighted ? "text-bf-accent" : "text-bf-brass"}>
-                        —
-                      </span>
-                      <span className={plan.highlighted ? "text-bf-ink/80" : "text-white/80"}>
-                        {feat}
-                      </span>
+                      <span className="text-bf-muted">—</span>
+                      <span>{feat}</span>
                     </li>
                   ))}
                 </ul>
-                <Button
-                  href="/signup"
-                  variant={plan.highlighted ? "dark" : "secondary"}
-                  className={`mt-8 w-full ${
-                    !plan.highlighted ? "border-white/20 bg-transparent text-white hover:bg-white/10" : ""
-                  }`}
-                >
-                  Choose {plan.name}
+                <Button href="/signup" variant="dark" className="mt-8 w-full">
+                  {plan.cta}
                 </Button>
               </div>
             ))}
@@ -261,44 +239,40 @@ export default function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative z-10 mx-auto max-w-6xl px-5 pb-24 md:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-bf-mesh bg-white/70 px-8 py-14 text-center shadow-soft ring-1 ring-bf-line md:px-16">
-          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-5xl">
-            Publish a booking page that feels like you.
+      <section className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
+        <div className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
+          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            Try BOOKFLO free for {TRIAL_DAYS} days
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-bf-muted">
-            Scaffolded for multi-tenant SaaS. This Phase 2 build uses fictional in-memory data —
-            no live payments or scraping.
+            Publish a booking page that feels like you — and run the day from a calm calendar.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button href="/signup" variant="dark" className="px-6 py-3">
-              Create account
+            <Button href="/signup" variant="dark" className="px-7 py-3">
+              Start free trial
             </Button>
             <Button href="/login" variant="secondary" className="px-6 py-3">
               Log in
-            </Button>
-            <Button href="/dashboard" variant="ghost" className="px-6 py-3">
-              Open demo dashboard
             </Button>
           </div>
         </div>
       </section>
 
-      <footer className="relative z-10 border-t border-bf-line/80 bg-white/30">
+      <footer className="relative z-10 border-t border-bf-line bg-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-bf-muted md:flex-row md:items-center md:justify-between md:px-8">
-          <p className="font-display text-lg font-semibold text-bf-ink">BOOKFLO</p>
+          <p className="font-display text-lg font-semibold text-bf-ink">bookflo</p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/onboarding" className="hover:text-bf-ink">
-              Onboarding
-            </Link>
             <Link href="/dashboard" className="hover:text-bf-ink">
               Dashboard
             </Link>
             <Link href="/book/contour-preston" className="hover:text-bf-ink">
               Booking demo
             </Link>
+            <Link href="/login" className="hover:text-bf-ink">
+              Log in
+            </Link>
           </div>
-          <p>Phase 2 visual prototype · Temporary name</p>
+          <p>{TRIAL_DAYS}-day free trial · Zero commission</p>
         </div>
       </footer>
     </div>

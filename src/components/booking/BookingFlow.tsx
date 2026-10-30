@@ -6,11 +6,11 @@ import {
   BOOKING_SLOTS,
   DEMO_AVAILABLE_DATES,
   contourPreston,
-  getService,
-  getStaff,
 } from "@/data/contour-preston";
+import { getService, getStaff } from "@/data/tenants";
 import { TenantLogo } from "@/components/branding/TenantLogo";
 import { formatDateLabel, formatDuration, formatGBP } from "@/lib/format";
+import type { BrandTokens, Tenant } from "@/lib/types";
 import { ArrowLeft, Check } from "lucide-react";
 
 type Step =
@@ -34,9 +34,9 @@ const STEP_ORDER: Step[] = [
   "confirmed",
 ];
 
-export function BookingFlow() {
-  const tenant = contourPreston;
+export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const brand = tenant.brand;
+  const refPrefix = tenant.slug === "oh-my-social-media" ? "OMS" : "CP";
 
   const [step, setStep] = useState<Step>("category");
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -70,7 +70,7 @@ export function BookingFlow() {
   }
 
   function confirm() {
-    setRefCode(`CP-${Math.floor(100000 + Math.random() * 900000)}`);
+    setRefCode(`${refPrefix}-${Math.floor(100000 + Math.random() * 900000)}`);
     go("confirmed");
   }
 
@@ -412,7 +412,9 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
     <div>
       <h2
         className="mb-5 text-2xl tracking-tight"
-        style={{ fontFamily: `var(--font-tenant-display), Georgia, serif` }}
+        style={{
+          fontFamily: `var(--font-tenant-display), var(--font-syne), Georgia, serif`,
+        }}
       >
         {title}
       </h2>
@@ -434,7 +436,7 @@ function Choice({
   hint?: string;
   active: boolean;
   onClick: () => void;
-  brand: typeof contourPreston.brand;
+  brand: BrandTokens;
   avatar?: string;
   avatarColor?: string;
 }) {

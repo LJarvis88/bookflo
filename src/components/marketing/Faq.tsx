@@ -10,6 +10,10 @@ const faqs = [
     a: "Yes. You pay a flat monthly subscription. We don’t take a cut of your bookings. Client payments stay between you and your clients (pay at venue in this prototype; Stripe Connect arrives later).",
   },
   {
+    q: "Do you offer a free trial?",
+    a: "Yes — every plan includes a 14-day free trial. No card required in this prototype; subscription billing is stubbed for Phase 3.",
+  },
+  {
     q: "Will my booking page look like BOOKFLO?",
     a: "No. Your booking page uses your logo, colours, fonts, and copy. BOOKFLO’s identity stays on the platform shell — onboarding, dashboard, and marketing — never over your client-facing brand.",
   },
@@ -20,10 +24,6 @@ const faqs = [
   {
     q: "How long does onboarding take?",
     a: "Most salons can publish a shareable booking link in under fifteen minutes: account, business details, branding, services, hours, preview, publish.",
-  },
-  {
-    q: "Can I try before I subscribe?",
-    a: "This Phase 2 build is a visual prototype with fictional data. Subscription and payments are stubbed and labelled as test mode for Phase 3+.",
   },
 ];
 

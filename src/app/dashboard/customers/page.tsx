@@ -1,14 +1,19 @@
-import { contourPreston } from "@/data/contour-preston";
+"use client";
+
+import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 import { formatDateLabel } from "@/lib/format";
 
 export default function CustomersPage() {
-  const customers = contourPreston.customers;
+  const tenant = useDemoTenant();
+  const customers = tenant.customers;
 
   return (
     <div className="space-y-8">
       <header>
         <h1 className="font-display text-3xl font-semibold tracking-tight">Customers</h1>
-        <p className="mt-1 text-sm text-bf-muted">{customers.length} on file · fictional demo data</p>
+        <p className="mt-1 text-sm text-bf-muted">
+          {customers.length} on file · {tenant.name} demo data
+        </p>
       </header>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-left text-sm">

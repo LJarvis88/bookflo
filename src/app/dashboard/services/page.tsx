@@ -1,15 +1,19 @@
-import { contourPreston } from "@/data/contour-preston";
+"use client";
+
+import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 import { formatDuration, formatGBP } from "@/lib/format";
 
 export default function ServicesPage() {
-  const tenant = contourPreston;
+  const tenant = useDemoTenant();
 
   return (
     <div className="space-y-8">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-semibold tracking-tight">Services</h1>
-          <p className="mt-1 text-sm text-bf-muted">Prices in GBP · edit UI stubbed for Phase 3</p>
+          <p className="mt-1 text-sm text-bf-muted">
+            {tenant.name} · prices in GBP · edit UI stubbed
+          </p>
         </div>
         <button
           type="button"

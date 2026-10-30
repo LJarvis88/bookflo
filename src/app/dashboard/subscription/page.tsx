@@ -1,4 +1,4 @@
-import { PLANS } from "@/data/pricing";
+import { PLANS, TRIAL_DAYS } from "@/data/pricing";
 
 export default function SubscriptionPage() {
   const current = "salon";
@@ -6,14 +6,15 @@ export default function SubscriptionPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">Subscription</h1>
+        <h1 className="font-display text-3xl font-semibold tracking-tight">Plan</h1>
         <p className="mt-1 text-sm text-bf-muted">
-          Contour Preston is on <strong className="text-bf-ink">Salon · £39/mo</strong> (demo).
+          Contour Preston is on <strong className="text-bf-ink">Team · £39/mo</strong> (demo).
+          Every plan includes a {TRIAL_DAYS}-day free trial.
         </p>
       </header>
 
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-        Plan changes are stubbed — no live billing in Phase 2.
+      <div className="rounded-2xl border border-bf-line bg-white px-4 py-3 text-sm text-bf-muted">
+        Plan changes are stubbed — no live billing. Stripe is out of scope for this prototype.
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
@@ -22,14 +23,17 @@ export default function SubscriptionPage() {
           return (
             <div
               key={plan.id}
-              className={`rounded-3xl border p-6 ${
-                active ? "border-bf-ink bg-white shadow-soft" : "border-bf-line bg-white/50"
+              className={`rounded-2xl border p-6 ${
+                active ? "border-bf-ink bg-white shadow-soft" : "border-bf-line bg-white"
               }`}
             >
-              <div className="flex items-baseline justify-between">
+              <div className="flex flex-wrap items-center gap-2">
                 <h2 className="font-display text-2xl font-semibold">{plan.name}</h2>
+                <span className="rounded-full bg-bf-fog px-2.5 py-0.5 text-xs font-medium text-bf-muted">
+                  {TRIAL_DAYS} day trial
+                </span>
                 {active && (
-                  <span className="text-xs font-semibold uppercase tracking-wider text-bf-accent">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-bf-ink">
                     Current
                   </span>
                 )}

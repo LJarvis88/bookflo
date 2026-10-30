@@ -9,9 +9,9 @@ export default function SignupPage() {
           BOOKFLO
         </Link>
         <div className="mt-10 rounded-3xl border border-bf-line bg-white/80 p-8 shadow-soft backdrop-blur">
-          <h1 className="font-display text-3xl font-semibold tracking-tight">Start with BOOKFLO</h1>
+          <h1 className="font-display text-3xl font-semibold tracking-tight">Start your free trial</h1>
           <p className="mt-2 text-sm text-bf-muted">
-            Demo signup — creates no real account. Continues into onboarding.
+            14 days free on every plan. Demo signup — creates no real account.
           </p>
           <form className="mt-8 space-y-4" action="/onboarding">
             <label className="block space-y-1.5 text-sm">

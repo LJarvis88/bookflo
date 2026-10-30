@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LivePreview } from "@/components/branding/LivePreview";
 import { TenantLogo } from "@/components/branding/TenantLogo";
-import { CONTOUR_PRESTON_BRAND } from "@/data/contour-preston";
+import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 import type { BrandTokens } from "@/lib/types";
 import { Sparkles } from "lucide-react";
 
 export function BrandingEditor() {
-  const [brand, setBrand] = useState<BrandTokens>(CONTOUR_PRESTON_BRAND);
+  const tenant = useDemoTenant();
+  const [brand, setBrand] = useState<BrandTokens>(tenant.brand);
+
+  useEffect(() => {
+    setBrand(tenant.brand);
+  }, [tenant.slug, tenant.brand]);
 
   function update<K extends keyof BrandTokens>(key: K, value: BrandTokens[K]) {
     setBrand((b) => ({ ...b, [key]: value }));
@@ -20,20 +25,20 @@ export function BrandingEditor() {
         <header>
           <h1 className="font-display text-3xl font-semibold tracking-tight">Branding</h1>
           <p className="mt-1 text-sm text-bf-muted">
-            Live preview updates as you edit. Changes stay in this session only.
+            {tenant.name} · live preview updates as you edit. Session-only.
           </p>
         </header>
 
         <button
           type="button"
-          onClick={() => setBrand(CONTOUR_PRESTON_BRAND)}
+          onClick={() => setBrand(tenant.brand)}
           className="flex w-full items-start gap-3 rounded-2xl border border-dashed border-bf-accent/40 bg-bf-accent-soft/40 px-4 py-3 text-left"
         >
           <Sparkles className="mt-0.5 h-4 w-4 text-bf-accent" />
           <div>
             <p className="text-sm font-semibold">AI brand match — demo</p>
             <p className="text-xs text-bf-muted">
-              Resets to Contour Preston sample tokens + real logo. Not live website scraping.
+              Resets to {tenant.name} sample tokens. Not live website scraping.
             </p>
           </div>
         </button>

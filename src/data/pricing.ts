@@ -4,50 +4,58 @@ export interface Plan {
   id: PlanId;
   name: string;
   price: number;
+  priceNote?: string;
   blurb: string;
   features: string[];
   highlighted?: boolean;
+  cta: string;
 }
+
+export const TRIAL_DAYS = 14;
 
 export const PLANS: Plan[] = [
   {
     id: "solo",
-    name: "Solo",
+    name: "Independent",
     price: 19,
-    blurb: "Independent beauty pros who want a branded page that looks paid-for.",
+    blurb: "For solo beauty pros who want a branded booking page.",
     features: [
+      "Single calendar column",
       "1 branded booking page",
       "Unlimited bookings",
-      "Services & hours",
       "Email confirmations",
-      "Pay at venue",
+      "Email and chat support",
     ],
+    cta: "Start free trial",
   },
   {
     id: "salon",
-    name: "Salon",
+    name: "Team",
     price: 39,
-    blurb: "Multi-staff salons and aesthetics clinics ready to look unmistakably theirs.",
+    priceNote: "per salon monthly",
+    blurb: "Multi-staff salons and clinics with shared calendars.",
     features: [
-      "Everything in Solo",
-      "Up to 8 staff calendars",
+      "Multiple calendar columns",
+      "Up to 8 team members",
       "Branding editor + live preview",
       "Customer list",
-      "AI brand match (demo)",
+      "Phone, chat, and email support",
     ],
     highlighted: true,
+    cta: "Start free trial",
   },
   {
     id: "pro",
-    name: "Pro",
+    name: "Studio",
     price: 59,
-    blurb: "Growing studios that want priority support and room to expand.",
+    blurb: "Growing studios that need room to expand.",
     features: [
-      "Everything in Salon",
+      "Everything in Team",
       "Unlimited staff",
       "Priority support",
       "Custom domain path (soon)",
       "Stripe Connect ready (stub)",
     ],
+    cta: "Start free trial",
   },
 ];

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/LoginForm";
-import { DEMO_OWNER } from "@/lib/demo-auth";
 
 export default function LoginPage() {
   return (
@@ -14,28 +13,8 @@ export default function LoginPage() {
             Welcome back
           </h1>
           <p className="mt-2 text-sm text-bf-muted">
-            Stub login for Contour Preston — no real auth in this prototype.
+            Stub login — no real auth in this prototype. Tap a demo account to fill the form.
           </p>
-
-          <div className="mt-5 rounded-2xl border border-dashed border-bf-accent/40 bg-bf-accent-soft/50 px-4 py-3.5">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bf-accent">
-              Demo credentials
-            </p>
-            <p className="mt-1.5 text-sm text-bf-ink">
-              <span className="font-medium">{DEMO_OWNER.name}</span>
-              <span className="text-bf-muted"> · {DEMO_OWNER.role}</span>
-            </p>
-            <dl className="mt-3 space-y-1.5 text-sm">
-              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
-                <dt className="shrink-0 text-bf-muted">Email</dt>
-                <dd className="break-all font-medium text-bf-ink">{DEMO_OWNER.email}</dd>
-              </div>
-              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
-                <dt className="shrink-0 text-bf-muted">Password</dt>
-                <dd className="font-medium text-bf-ink">{DEMO_OWNER.password}</dd>
-              </div>
-            </dl>
-          </div>
 
           <LoginForm />
 
