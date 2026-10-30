@@ -7,6 +7,10 @@ import {
   DEMO_AVAILABLE_DATES,
   contourPreston,
 } from "@/data/contour-preston";
+import {
+  getOmsSlotsForService,
+  OMS_AVAILABLE_DATES,
+} from "@/data/oh-my-social-media";
 import { getService, getStaff } from "@/data/tenants";
 import { TenantLogo } from "@/components/branding/TenantLogo";
 import { formatDateLabel, formatDuration, formatGBP } from "@/lib/format";
@@ -58,6 +62,16 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const service = serviceId ? getService(tenant, serviceId) : undefined;
   const staff = staffId ? getStaff(tenant, staffId) : undefined;
 
+  const availableDates =
+    tenant.slug === "oh-my-social-media"
+      ? [...OMS_AVAILABLE_DATES]
+      : DEMO_AVAILABLE_DATES;
+
+  const bookingSlots =
+    tenant.slug === "oh-my-social-media"
+      ? getOmsSlotsForService(serviceId)
+      : BOOKING_SLOTS;
+
   const stepIndex = STEP_ORDER.indexOf(step);
 
   function go(next: Step) {
@@ -98,13 +112,27 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
       <header
         className="relative w-full border-b"
         style={{
-          background: brand.background,
-          borderColor: `${brand.primary}33`,
+          // OMS wordmark is designed on black; Contour uses its ink header.
+          background: tenant.slug === "oh-my-social-media" ? "#0A0A0A" : brand.background,
+          borderColor:
+            tenant.slug === "oh-my-social-media"
+              ? `${brand.primary}44`
+              : `${brand.primary}33`,
         }}
       >
         <div className="mx-auto flex w-full max-w-md flex-col items-center gap-3 px-5 py-8 sm:py-10">
-          <TenantLogo brand={brand} size="hero" className="object-center" />
-          <p className="text-center text-sm" style={{ color: brand.muted }}>
+          <TenantLogo
+            brand={brand}
+            size="hero"
+            className="object-center max-w-[280px] sm:max-w-[320px]"
+          />
+          <p
+            className="text-center text-sm"
+            style={{
+              color:
+                tenant.slug === "oh-my-social-media" ? "#D5C4B2" : brand.muted,
+            }}
+          >
             {brand.tagline}
           </p>
         </div>
@@ -224,13 +252,19 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
 
             {step === "date" && (
               <Block title="Pick a date">
+                {tenant.slug === "oh-my-social-media" && (
+                  <p className="mb-3 text-sm" style={{ color: brand.muted }}>
+                    Available any day of the week
+                  </p>
+                )}
                 <div className="grid grid-cols-2 gap-2">
-                  {DEMO_AVAILABLE_DATES.map((d) => (
+                  {availableDates.map((d) => (
                     <button
                       key={d}
                       type="button"
                       onClick={() => {
                         setDate(d);
+                        setTime(null);
                         go("time");
                       }}
                       className="rounded-2xl px-3 py-4 text-left text-sm transition"
@@ -251,8 +285,13 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
 
             {step === "time" && (
               <Block title="Pick a time">
+                {tenant.slug === "oh-my-social-media" && serviceId === "oms_svc_studio_2h" && (
+                  <p className="mb-3 text-sm" style={{ color: brand.muted }}>
+                    Studio slots: 10:00, 12:00, or 14:00
+                  </p>
+                )}
                 <div className="grid grid-cols-3 gap-2">
-                  {BOOKING_SLOTS.map((slot) => (
+                  {bookingSlots.map((slot) => (
                     <button
                       key={slot}
                       type="button"

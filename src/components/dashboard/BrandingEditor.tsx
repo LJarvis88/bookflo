@@ -46,11 +46,17 @@ export function BrandingEditor() {
         {brand.logoUrl && (
           <div
             className="rounded-2xl border border-bf-line px-4 py-5"
-            style={{ background: brand.background }}
+            style={{
+              background:
+                tenant.slug === "oh-my-social-media" ? "#0A0A0A" : brand.background,
+            }}
           >
             <p
               className="mb-3 text-xs font-medium uppercase tracking-wider"
-              style={{ color: brand.muted }}
+              style={{
+                color:
+                  tenant.slug === "oh-my-social-media" ? "#D5C4B2" : brand.muted,
+              }}
             >
               Logo
             </p>

@@ -9,10 +9,13 @@ interface TenantLogoProps {
 }
 
 const sizes = {
-  sm: { box: "h-9 w-auto max-w-[120px]", initials: "h-9 w-9 text-xs" },
-  md: { box: "h-12 w-auto max-w-[160px]", initials: "h-12 w-12 text-sm" },
-  lg: { box: "h-14 w-auto max-w-[200px]", initials: "h-14 w-14 text-base" },
-  hero: { box: "h-16 w-auto max-w-[240px] sm:h-20 sm:max-w-[280px]", initials: "h-16 w-16 text-lg" },
+  sm: { box: "h-8 w-auto max-w-[148px]", initials: "h-9 w-9 text-xs" },
+  md: { box: "h-11 w-auto max-w-[180px]", initials: "h-12 w-12 text-sm" },
+  lg: { box: "h-12 w-auto max-w-[220px]", initials: "h-14 w-14 text-base" },
+  hero: {
+    box: "h-14 w-auto max-w-[280px] sm:h-16 sm:max-w-[320px]",
+    initials: "h-16 w-16 text-lg",
+  },
 };
 
 export function TenantLogo({ brand, size = "md", className = "" }: TenantLogoProps) {

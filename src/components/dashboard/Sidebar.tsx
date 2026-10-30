@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
+import { TenantLogo } from "@/components/branding/TenantLogo";
 
 const primaryLinks = [
   { href: "/dashboard", label: "Appointments", icon: CalendarDays },
@@ -70,7 +71,16 @@ export function Sidebar() {
         <Link href="/" className="font-display text-xl font-semibold tracking-tight text-bf-ink">
           BOOKFLO
         </Link>
-        <p className="mt-1 text-xs text-bf-muted">{tenant.name}</p>
+        <div
+          className="mt-4 rounded-xl px-3 py-3"
+          style={{
+            background:
+              tenant.slug === "oh-my-social-media" ? "#0A0A0A" : tenant.brand.background,
+          }}
+        >
+          <TenantLogo brand={tenant.brand} size="sm" className="object-left max-w-[140px]" />
+        </div>
+        <p className="mt-2 text-xs text-bf-muted">{tenant.name} · demo tenant</p>
       </div>
       <nav className="flex-1 space-y-4 overflow-y-auto p-3">
         <div className="space-y-0.5">
