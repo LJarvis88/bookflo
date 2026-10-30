@@ -5,9 +5,11 @@ import { TenantLogo } from "@/components/branding/TenantLogo";
 
 const staff = [
   { name: "Amelia", role: "Lead", bg: "#F8E8E4", text: "#5C3D4A", initials: "AH" },
-  { name: "Noah", role: "Injectables", bg: "#E4EEF8", text: "#2F4A66", initials: "NE" },
-  { name: "Priya", role: "Skin", bg: "#D7E8F0", text: "#3D5A68", initials: "PS" },
-  { name: "Liv", role: "Owner", bg: "#F3E8F0", text: "#5C3D5A", initials: "LV" },
+  /* Noah — soft Air Force Blue */
+  { name: "Noah", role: "Injectables", bg: "#D5E6EF", text: "#3D5A68", initials: "NE" },
+  /* Priya — lavender / mauve (no mint/green) */
+  { name: "Priya", role: "Skin", bg: "#E7D5FA", text: "#845D81", initials: "PS" },
+  { name: "Liv", role: "Owner", bg: "#EFE4F2", text: "#5C3D5A", initials: "LV" },
 ];
 
 const blocks: Record<number, Array<{ top: string; h: string; title: string; sub: string }>> = {

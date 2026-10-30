@@ -2,11 +2,11 @@ import Image from "next/image";
 
 const filler = [
   { label: "Photos", tone: "#dbe4f0" },
-  { label: "Maps", tone: "#d8efe4" },
+  { label: "Maps", tone: "#c5d8e4" }, /* Air Force Blue family — no mint */
   { label: "Music", tone: "#f5dde8" },
   { label: "Mail", tone: "#e8e4f5" },
   { label: "Safari", tone: "#d9e8fb" },
-  { label: "Notes", tone: "#f7efd6" },
+  { label: "Notes", tone: "#e7d5fa" },
 ];
 
 /**
@@ -58,7 +58,8 @@ export function HomeScreenMockup() {
 
             {/* Dock */}
             <div className="mt-8 flex items-center justify-center gap-4 rounded-[1.35rem] bg-white/15 px-4 py-3 backdrop-blur-md">
-              {["#8ec5ff", "#ff9f7a", "#9ae6b4", "#f6e05e"].map((c) => (
+              {/* Dock fillers — lavender / mauve / sky / peach (no green) */}
+              {["#A2BECC", "#E7D5FA", "#845D81", "#f5dde8"].map((c) => (
                 <div
                   key={c}
                   className="h-11 w-11 rounded-[12px]"
