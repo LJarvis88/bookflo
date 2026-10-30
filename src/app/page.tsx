@@ -137,9 +137,8 @@ export default function HomePage() {
               Their booking app. On their home screen.
             </h2>
             <p className="mt-4 max-w-lg text-bf-muted leading-relaxed">
-              Clients upload their own logo mark — that icon, their name, no BOOKFLO in sight. Contour
-              and Oh My Social Media appear as examples on the home screen; every live salon ships with
-              their mark.
+              Clients upload their own logo mark — that icon, their name, no BOOKFLO on their install.
+              Oh My and Contour show as salon examples; Bookflo is the platform mark on this mock only.
             </p>
           </div>
           <HomeScreenMockup />
