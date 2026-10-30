@@ -8,6 +8,7 @@ import { Faq } from "@/components/marketing/Faq";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
+import { BOOKFLO_CONTACT_EMAIL, BOOKFLO_MAILTO } from "@/lib/contact";
 import {
   ArrowRight,
   Sparkles,
@@ -359,6 +360,9 @@ export default function HomePage() {
         <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-8 text-sm text-bf-muted sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
           <BookfloWordmark size="sm" />
           <div className="flex flex-wrap gap-4">
+            <a href={BOOKFLO_MAILTO} className="hover:text-bf-ink">
+              {BOOKFLO_CONTACT_EMAIL}
+            </a>
             <Link href="/dashboard" className="hover:text-bf-ink">
               Dashboard
             </Link>

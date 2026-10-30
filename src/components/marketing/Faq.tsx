@@ -25,6 +25,10 @@ const faqs = [
     q: "How long does onboarding take?",
     a: "Most salons can publish a shareable booking link in under fifteen minutes: account, business details, branding, services, hours, preview, publish.",
   },
+  {
+    q: "How do I contact BOOKFLO?",
+    a: "Email hello@bookflo.app — that’s our dedicated inbox for product questions, demos, and support.",
+  },
 ];
 
 export function Faq() {
