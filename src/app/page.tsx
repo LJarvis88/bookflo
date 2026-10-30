@@ -184,7 +184,7 @@ export default function HomePage() {
               Case study · Oh My Social Media
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-              Tee’s brand. Tee’s bookings.
+              Oh My’s brand. Oh My’s bookings.
             </h2>
             <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
               Same white-label engine, totally different skin. Oh My Social Media books Content
