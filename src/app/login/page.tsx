@@ -1,39 +1,44 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { LoginForm } from "@/components/auth/LoginForm";
+import { DEMO_OWNER } from "@/lib/demo-auth";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-bf-atmosphere px-5 py-12">
+    <div className="min-h-screen bg-bf-atmosphere px-4 py-8 sm:px-5 sm:py-12">
       <div className="mx-auto w-full max-w-md">
         <Link href="/" className="font-display text-2xl font-semibold text-bf-ink">
           BOOKFLO
         </Link>
-        <div className="mt-10 rounded-3xl border border-bf-line bg-white/80 p-8 shadow-soft backdrop-blur">
-          <h1 className="font-display text-3xl font-semibold tracking-tight">Welcome back</h1>
+        <div className="mt-8 rounded-3xl border border-bf-line bg-white/80 p-5 shadow-soft backdrop-blur sm:mt-10 sm:p-8">
+          <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+            Welcome back
+          </h1>
           <p className="mt-2 text-sm text-bf-muted">
-            Demo login — no real auth. Continues to the Contour Preston dashboard.
+            Stub login for Contour Preston — no real auth in this prototype.
           </p>
-          <form className="mt-8 space-y-4" action="/dashboard">
-            <label className="block space-y-1.5 text-sm">
-              <span className="font-medium text-bf-ink">Email</span>
-              <input
-                type="email"
-                defaultValue="amelia@contourpreston.example"
-                className="w-full rounded-xl border border-bf-line bg-white px-3.5 py-2.5 outline-none focus:border-bf-accent"
-              />
-            </label>
-            <label className="block space-y-1.5 text-sm">
-              <span className="font-medium text-bf-ink">Password</span>
-              <input
-                type="password"
-                defaultValue="demo-password"
-                className="w-full rounded-xl border border-bf-line bg-white px-3.5 py-2.5 outline-none focus:border-bf-accent"
-              />
-            </label>
-            <Button type="submit" variant="dark" className="w-full py-3">
-              Log in
-            </Button>
-          </form>
+
+          <div className="mt-5 rounded-2xl border border-dashed border-bf-accent/40 bg-bf-accent-soft/50 px-4 py-3.5">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bf-accent">
+              Demo credentials
+            </p>
+            <p className="mt-1.5 text-sm text-bf-ink">
+              <span className="font-medium">{DEMO_OWNER.name}</span>
+              <span className="text-bf-muted"> · {DEMO_OWNER.role}</span>
+            </p>
+            <dl className="mt-3 space-y-1.5 text-sm">
+              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
+                <dt className="shrink-0 text-bf-muted">Email</dt>
+                <dd className="break-all font-medium text-bf-ink">{DEMO_OWNER.email}</dd>
+              </div>
+              <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
+                <dt className="shrink-0 text-bf-muted">Password</dt>
+                <dd className="font-medium text-bf-ink">{DEMO_OWNER.password}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <LoginForm />
+
           <p className="mt-6 text-center text-sm text-bf-muted">
             New here?{" "}
             <Link href="/signup" className="font-medium text-bf-accent hover:underline">

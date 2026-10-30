@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | Route | Surface |
 |---|---|
 | `/` | Marketing homepage |
-| `/signup` · `/login` | Auth stubs (no real accounts) |
+| `/signup` · `/login` | Auth stubs — login: `liv@contourpreston.com` / `contour-demo` → `/dashboard` |
 | `/onboarding` | Multi-step salon onboarding |
 | `/dashboard` | Today’s appointments |
 | `/dashboard/calendar` | Week calendar |
