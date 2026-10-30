@@ -112,43 +112,70 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
       <header
         className="relative w-full border-b"
         style={{
-          // Contour: Deep Ink → Midnight Navy (brand kit, not flat black).
-          // OMS: pure white customer-facing header.
+          // Contour: Deep Ink → Midnight Navy (quiet luxury).
+          // OMS: pure white customer-facing header (premium, not loud).
           background:
             tenant.slug === "contour-preston"
-              ? `linear-gradient(160deg, ${brand.background} 0%, ${brand.secondary} 100%)`
+              ? `linear-gradient(165deg, ${brand.background} 0%, ${brand.secondary} 100%)`
               : brand.background,
-          borderColor: `${brand.primary}33`,
+          borderColor:
+            tenant.slug === "oh-my-social-media" ? "#F0F0F2" : `${brand.primary}33`,
         }}
       >
-        <div className="mx-auto flex w-full max-w-md flex-col items-center gap-3 px-5 py-8 sm:py-10">
+        <div className="mx-auto flex w-full max-w-md flex-col items-center gap-3.5 px-5 py-10 sm:py-12">
           <TenantLogo
             brand={brand}
             size="hero"
-            className="object-center max-w-[280px] sm:max-w-[320px]"
+            className="object-center max-w-[260px] sm:max-w-[300px]"
           />
-          <p className="text-center text-sm" style={{ color: brand.muted }}>
+          <p
+            className="max-w-sm text-center text-[13px] leading-relaxed tracking-[0.02em] sm:text-sm"
+            style={{ color: brand.muted }}
+          >
             {brand.tagline}
           </p>
         </div>
       </header>
 
-      <div className="mx-auto w-full max-w-md px-5 py-6 pb-28">
+      <div className="mx-auto w-full max-w-md px-5 py-7 pb-28 sm:py-8">
         {step !== "confirmed" && (
-          <div className="mb-6 flex items-center justify-between">
-            <button
-              type="button"
-              onClick={back}
-              disabled={stepIndex === 0}
-              className="inline-flex items-center gap-1 text-sm disabled:opacity-30"
-              style={{ color: brand.muted }}
+          <div className="mb-7">
+            <div className="mb-3 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={back}
+                disabled={stepIndex === 0}
+                className="inline-flex items-center gap-1.5 text-sm tracking-[0.02em] disabled:opacity-30"
+                style={{ color: brand.muted }}
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back
+              </button>
+              <p
+                className="text-[11px] font-medium uppercase tracking-[0.18em]"
+                style={{ color: brand.muted }}
+              >
+                {String(stepIndex + 1).padStart(2, "0")} / {String(STEP_ORDER.length - 1).padStart(2, "0")}
+              </p>
+            </div>
+            <div
+              className="h-px overflow-hidden"
+              style={{
+                background:
+                  tenant.slug === "oh-my-social-media" ? "#EFEFF1" : `${brand.primary}28`,
+              }}
             >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </button>
-            <p className="text-xs uppercase tracking-[0.14em]" style={{ color: brand.muted }}>
-              {stepIndex + 1} / {STEP_ORDER.length - 1}
-            </p>
+              <div
+                className="h-full transition-all duration-300"
+                style={{
+                  width: `${((stepIndex + 1) / (STEP_ORDER.length - 1)) * 100}%`,
+                  background:
+                    tenant.slug === "oh-my-social-media"
+                      ? `linear-gradient(90deg, ${brand.primary}, ${brand.secondary})`
+                      : brand.primary,
+                }}
+              />
+            </div>
           </div>
         )}
 
@@ -162,7 +189,7 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
           >
             {step === "category" && (
               <Block title="What are you looking for?">
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {tenant.categories.map((cat) => (
                     <Choice
                       key={cat.id}
@@ -182,33 +209,47 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
 
             {step === "service" && (
               <Block title="Choose a service">
-                <div className="space-y-2">
-                  {services.map((svc) => (
-                    <button
-                      key={svc.id}
-                      type="button"
-                      onClick={() => {
-                        setServiceId(svc.id);
-                        go("staff");
-                      }}
-                      className="flex w-full flex-col gap-1 rounded-2xl px-4 py-3.5 text-left transition"
-                      style={{
-                        background: serviceId === svc.id ? `${brand.primary}22` : surface,
-                        outline:
-                          serviceId === svc.id
-                            ? `1px solid ${brand.primary}88`
-                            : `1px solid ${brand.primary}22`,
-                      }}
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <span className="font-medium">{svc.name}</span>
-                        <span className="shrink-0 text-sm">{formatGBP(svc.pricePence)}</span>
-                      </div>
-                      <p className="text-sm" style={{ color: brand.muted }}>
-                        {formatDuration(svc.durationMinutes)} · {svc.description}
-                      </p>
-                    </button>
-                  ))}
+                <div className="space-y-2.5">
+                  {services.map((svc) => {
+                    const isOms = tenant.slug === "oh-my-social-media";
+                    const selected = serviceId === svc.id;
+                    const idleSurface = isOms ? "#FFFFFF" : surface;
+                    const idleBorder = isOms ? "#E8E8EC" : `${brand.primary}28`;
+                    return (
+                      <button
+                        key={svc.id}
+                        type="button"
+                        onClick={() => {
+                          setServiceId(svc.id);
+                          go("staff");
+                        }}
+                        className="flex w-full flex-col gap-1.5 rounded-2xl px-4 py-4 text-left transition"
+                        style={{
+                          background: selected
+                            ? isOms
+                              ? "#FFFFFF"
+                              : `${brand.primary}18`
+                            : idleSurface,
+                          boxShadow: selected
+                            ? `inset 2px 0 0 ${brand.primary}, inset 0 0 0 1px ${brand.primary}66`
+                            : `inset 0 0 0 1px ${idleBorder}`,
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <span className="text-[15px] font-medium tracking-tight">{svc.name}</span>
+                          <span
+                            className="shrink-0 text-sm tabular-nums tracking-tight"
+                            style={{ color: selected ? brand.primary : brand.ink }}
+                          >
+                            {formatGBP(svc.pricePence)}
+                          </span>
+                        </div>
+                        <p className="text-[13px] leading-relaxed" style={{ color: brand.muted }}>
+                          {formatDuration(svc.durationMinutes)} · {svc.description}
+                        </p>
+                      </button>
+                    );
+                  })}
                 </div>
               </Block>
             )}
@@ -445,9 +486,10 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
   return (
     <div>
       <h2
-        className="mb-5 text-2xl tracking-tight"
+        className="mb-6 text-[1.65rem] leading-tight tracking-tight sm:text-2xl"
         style={{
           fontFamily: `var(--font-tenant-display), var(--font-syne), Georgia, serif`,
+          fontWeight: 500,
         }}
       >
         {title}
@@ -474,29 +516,37 @@ function Choice({
   avatar?: string;
   avatarColor?: string;
 }) {
-  const surface = brand.surface ?? brand.secondary;
+  const isOms = brand.logoUrl?.includes("oh-my-social-media");
+  const surface = isOms ? "#FFFFFF" : (brand.surface ?? brand.secondary);
+  const idleBorder = isOms ? "#E8E8EC" : `${brand.primary}28`;
   return (
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-2xl px-4 py-3.5 text-left transition"
+      className="flex w-full items-center gap-3.5 rounded-2xl px-4 py-4 text-left transition"
       style={{
-        background: active ? `${brand.primary}22` : surface,
-        outline: active ? `1px solid ${brand.primary}88` : `1px solid ${brand.primary}22`,
+        background: active
+          ? isOms
+            ? "#FFFFFF"
+            : `${brand.primary}18`
+          : surface,
+        boxShadow: active
+          ? `inset 2px 0 0 ${brand.primary}, inset 0 0 0 1px ${brand.primary}66`
+          : `inset 0 0 0 1px ${idleBorder}`,
       }}
     >
       {avatar && (
         <span
-          className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold text-white"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold tracking-wide text-white"
           style={{ background: avatarColor }}
         >
           {avatar}
         </span>
       )}
-      <span>
-        <span className="block font-medium">{label}</span>
+      <span className="min-w-0">
+        <span className="block text-[15px] font-medium tracking-tight">{label}</span>
         {hint && (
-          <span className="block text-sm" style={{ color: brand.muted }}>
+          <span className="mt-0.5 block text-[13px] tracking-[0.01em]" style={{ color: brand.muted }}>
             {hint}
           </span>
         )}
