@@ -1,0 +1,33 @@
+{
+  "id": "/book/contour-preston",
+  "name": "Contour Preston",
+  "short_name": "Contour",
+  "description": "Quiet luxury aesthetics in the heart of Preston — book with Contour.",
+  "start_url": "/book/contour-preston",
+  "scope": "/book/contour-preston",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#C8A36C",
+  "theme_color": "#0C111B",
+  "lang": "en-GB",
+  "icons": [
+    {
+      "src": "/tenants/contour-preston/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/tenants/contour-preston/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/tenants/contour-preston/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
