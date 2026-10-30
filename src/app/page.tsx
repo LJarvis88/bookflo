@@ -136,28 +136,28 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 max-w-lg text-bf-muted leading-relaxed">
               Clients upload their own logo mark — that icon, their name, no BOOKFLO in sight. Contour
-              and Oh My Social Media are demo examples on the home screen mockup; every live salon
-              ships with their mark.
+              and Oh My Social Media appear as examples on the home screen; every live salon ships with
+              their mark.
             </p>
           </div>
           <HomeScreenMockup />
         </div>
       </section>
 
-      {/* Contour booking demo — same layout as AI Brand Match (left copy, right visual) */}
+      {/* Contour Preston case study — AI Brand Match layout (left copy, right visual). No OMS section. */}
       <section className="relative z-10 border-t border-bf-line/70 bg-white">
         <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-20 sm:px-8 lg:px-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
-              Client booking page
+              Case study · Contour Preston
             </p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
               Contour’s brand. Contour’s bookings.
             </h2>
             <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
-              Every salon gets a white-label booking page — logo, palette, and type that match their
-              world. Contour Preston is the live demo: Deep Ink, Champagne Gold, and a calm cream
-              screen clients actually book on.
+              A white-label booking page that wears the salon’s identity — logo, palette, and type.
+              Contour Preston is the live demo: Deep Ink, Champagne Gold, and a calm cream screen
+              clients actually book on.
             </p>
             <div className="mt-6">
               <Button href="/book/contour-preston" variant="secondary" className="px-5">

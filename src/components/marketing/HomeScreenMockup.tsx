@@ -89,13 +89,13 @@ export function HomeScreenMockup() {
               {/* App grid */}
               <div className="relative z-10 flex h-[calc(100%-52px)] flex-col px-[18px] pb-3 pt-5">
                 <div className="grid grid-cols-4 gap-x-3 gap-y-4">
-                  <DemoAppIcon
+                  <BrandAppIcon
                     src="/marketing/contour-app-icon.jpg"
                     alt="Contour Preston app icon"
                     label="Contour"
                     ring="#C8A36C"
                   />
-                  <DemoAppIcon
+                  <BrandAppIcon
                     src="/marketing/oms-app-icon.png"
                     alt="Oh My Social Media app icon"
                     label="OMS"
@@ -162,7 +162,7 @@ export function HomeScreenMockup() {
       </div>
 
       <p className="mt-5 text-center text-xs text-bf-muted">
-        Demo examples · clients upload their own mark
+        Contour + OMS · clients upload their own mark
       </p>
     </div>
   );
@@ -183,7 +183,7 @@ function FillerIcon({ label, tone }: { label: string; tone: string }) {
   );
 }
 
-function DemoAppIcon({
+function BrandAppIcon({
   src,
   alt,
   label,
@@ -197,21 +197,12 @@ function DemoAppIcon({
   return (
     <div className="relative flex flex-col items-center gap-1">
       <div
-        className="relative rounded-[13px] p-[2px]"
+        className="relative overflow-hidden rounded-[13px]"
         style={{
-          background: `linear-gradient(145deg, ${ring}, ${ring}88)`,
-          boxShadow: `0 0 0 1px ${ring}55, 0 0 20px ${ring}55`,
+          boxShadow: `0 0 0 1.5px ${ring}88, 0 0 16px ${ring}44`,
         }}
       >
-        <div className="overflow-hidden rounded-[11px] bg-white">
-          <Image src={src} alt={alt} width={96} height={96} className="h-[48px] w-[48px] object-cover" />
-        </div>
-        <span
-          className="absolute -right-1.5 -top-1.5 rounded-full px-1.5 py-0.5 text-[7px] font-semibold uppercase tracking-wide text-white shadow-sm"
-          style={{ background: ring }}
-        >
-          Demo
-        </span>
+        <Image src={src} alt={alt} width={96} height={96} className="h-[48px] w-[48px] object-cover" />
       </div>
       <span className="max-w-[56px] truncate text-center text-[10px] font-medium text-white drop-shadow">
         {label}
