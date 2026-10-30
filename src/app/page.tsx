@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
+import { HomeScreenMockup } from "@/components/marketing/HomeScreenMockup";
 import { Faq } from "@/components/marketing/Faq";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
@@ -60,12 +61,11 @@ const testimonials = [
 export default function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white text-bf-ink">
-      {/* BOOKFLO atmosphere — champagne + sage (not Fresha L/R purple blobs) */}
+      {/* Soft lavender atmosphere — Pantone 7443 C #E7D5FA (not cream; not Fresha L/R purple) */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-        <div className="absolute -top-16 left-[12%] h-[480px] w-[560px] rounded-full bg-[#c8a36c]/40 blur-[90px]" />
-        <div className="absolute top-[6%] right-[-6%] h-[420px] w-[500px] rounded-full bg-[#1b6b5a]/22 blur-[100px]" />
-        <div className="absolute top-[38%] left-[-10%] h-[360px] w-[440px] rounded-full bg-[#d5c4b2]/55 blur-[80px]" />
-        <div className="absolute top-[22%] left-[55%] h-[240px] w-[320px] rounded-full bg-[#f0eae2]/90 blur-[60px]" />
+        <div className="absolute -top-20 left-1/2 h-[520px] w-[680px] -translate-x-1/2 rounded-full bg-[#E7D5FA]/70 blur-[110px]" />
+        <div className="absolute top-[18%] right-[-12%] h-[380px] w-[420px] rounded-full bg-[#E7D5FA]/55 blur-[100px]" />
+        <div className="absolute top-[48%] left-[-8%] h-[320px] w-[360px] rounded-full bg-[#E7D5FA]/40 blur-[90px]" />
       </div>
 
       <SiteHeader />
@@ -96,7 +96,7 @@ export default function HomePage() {
           </div>
 
           {/* Wide product mockup — uses nearly full content width */}
-          <div className="relative mt-12 w-full animate-fade-up pb-10 [animation-delay:120ms] sm:mt-16 sm:pb-14 md:mt-20">
+          <div className="relative mt-12 w-full animate-fade-up [animation-delay:120ms] sm:mt-16 md:mt-20">
             <HeroProductMockup />
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Branded home-screen install — one clear white-label perk */}
+      {/* Branded home-screen install — clients upload their own logo mark */}
       <section className="relative z-10 border-t border-bf-line/70 bg-white">
         <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 md:py-24 lg:px-10">
           <div>
@@ -135,42 +135,12 @@ export default function HomePage() {
               Their booking app. On their home screen.
             </h2>
             <p className="mt-4 max-w-lg text-bf-muted leading-relaxed">
-              Every salon gets a branded web app clients can install — their icon, their name, no
-              BOOKFLO in sight. Contour and Oh My Social Media each ship with their own icon in the
-              demos.
+              Clients upload their own logo mark — that icon, their name, no BOOKFLO in sight. Contour
+              and Oh My Social Media are demo examples on the home screen mockup; every live salon
+              ships with their mark.
             </p>
           </div>
-          <div className="mx-auto flex w-full max-w-sm items-end justify-center gap-6 rounded-[2rem] border border-bf-line bg-[#f7f8fa] px-8 py-10">
-            {/* Contour home-screen icon preview */}
-            <div className="flex flex-col items-center gap-2">
-              <div
-                className="flex h-16 w-16 items-center justify-center rounded-[1.1rem] shadow-soft"
-                style={{ background: "#0C111B" }}
-                aria-hidden
-              >
-                <span
-                  className="font-display text-lg font-semibold tracking-tight"
-                  style={{ color: "#C8A36C" }}
-                >
-                  CP
-                </span>
-              </div>
-              <p className="text-[11px] font-medium text-bf-ink">Contour</p>
-            </div>
-            {/* OMS home-screen icon preview */}
-            <div className="flex flex-col items-center gap-2">
-              <div
-                className="flex h-16 w-16 items-center justify-center rounded-[1.1rem] shadow-soft"
-                style={{
-                  background: "linear-gradient(145deg, #EB0E7F 0%, #FE5F0B 100%)",
-                }}
-                aria-hidden
-              >
-                <span className="text-sm font-semibold tracking-wide text-white">OH MY</span>
-              </div>
-              <p className="text-[11px] font-medium text-bf-ink">OMS</p>
-            </div>
-          </div>
+          <HomeScreenMockup />
         </div>
       </section>
 
@@ -303,11 +273,7 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className="relative z-10 overflow-hidden border-t border-bf-line/70 bg-[#f7f8fa]">
         <div
-          className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-[#c8a36c]/20 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-[#1b6b5a]/12 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-0 h-64 w-[28rem] -translate-x-1/2 rounded-full bg-[#E7D5FA]/50 blur-3xl"
           aria-hidden
         />
         <div className="relative mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">

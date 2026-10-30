@@ -27,28 +27,24 @@ const blocks: Record<number, Array<{ top: string; h: string; title: string; sub:
   3: [{ top: "30%", h: "20%", title: "12:00–13:30", sub: "Team briefing" }],
 };
 
-/** Wide Fresha-like product stage: staff-day calendar + booking phone. */
+/** Wide product stage: staff-day calendar + Contour booking phone nested in composition. */
 export function HeroProductMockup() {
   const brand = CONTOUR_PRESTON_BRAND;
 
   return (
     <div className="relative w-full">
-      {/* Local stage glows — champagne upper-centre, sage low-right (not Fresha L/R purple) */}
+      {/* Soft lavender stage wash — #E7D5FA, asymmetric (not Fresha L/R purple) */}
       <div
-        className="pointer-events-none absolute left-[28%] top-[-10%] h-[55%] w-[55%] -translate-x-1/2 rounded-full bg-[#c8a36c]/45 blur-[70px]"
+        className="pointer-events-none absolute left-[20%] top-[-6%] h-[50%] w-[60%] -translate-x-1/2 rounded-full bg-[#E7D5FA]/65 blur-[80px]"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute bottom-[-8%] right-[-6%] h-[60%] w-[45%] rounded-full bg-[#1b6b5a]/28 blur-[80px]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute bottom-[15%] left-[-10%] h-[45%] w-[40%] rounded-full bg-[#d5c4b2]/50 blur-[60px]"
+        className="pointer-events-none absolute bottom-[10%] right-[-4%] h-[45%] w-[38%] rounded-full bg-[#E7D5FA]/50 blur-[70px]"
         aria-hidden
       />
 
+      {/* Desktop calendar */}
       <div className="relative overflow-hidden rounded-2xl border border-bf-line bg-white/95 shadow-lift backdrop-blur-[2px] sm:rounded-3xl">
-        {/* Window chrome */}
         <div className="flex items-center gap-2 border-b border-bf-line bg-[#f7f8fa] px-4 py-3">
           <span className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
@@ -59,7 +55,6 @@ export function HeroProductMockup() {
           </span>
         </div>
 
-        {/* Staff day columns — uses horizontal width */}
         <div className="grid grid-cols-2 sm:grid-cols-4">
           {staff.map((s, i) => (
             <div
@@ -103,9 +98,9 @@ export function HeroProductMockup() {
         </div>
       </div>
 
-      {/* Booking phone — layered, uses right side of the wide stage */}
+      {/* Contour phone — overlaps lower-right of calendar (intentional, not footer-drift) */}
       <div
-        className="absolute -bottom-6 right-3 w-[42%] max-w-[220px] overflow-hidden rounded-[1.35rem] border shadow-lift sm:right-6 sm:bottom-[-1.5rem] sm:max-w-[260px] md:right-10 md:max-w-[280px]"
+        className="absolute bottom-6 right-3 w-[40%] max-w-[200px] overflow-hidden rounded-[1.35rem] border shadow-lift sm:bottom-10 sm:right-8 sm:max-w-[240px] md:bottom-12 md:right-12 md:max-w-[260px]"
         style={{
           background: brand.background,
           color: brand.ink,
@@ -113,7 +108,7 @@ export function HeroProductMockup() {
         }}
       >
         <div
-          className="flex h-20 items-center justify-center px-4 sm:h-24"
+          className="flex h-16 items-center justify-center px-4 sm:h-20"
           style={{
             background: `linear-gradient(160deg, ${brand.background} 0%, ${brand.surface} 100%)`,
           }}
