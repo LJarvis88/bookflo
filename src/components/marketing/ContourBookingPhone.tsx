@@ -12,8 +12,8 @@ const SERVICES = [
 ] as const;
 
 /**
- * Contour Preston booking phone — richer mid-flow UI for the case-study section
- * (Deep Ink header, progress, categories, service list, Champagne Gold accents).
+ * Contour Preston — quiet-luxury booking phone for the case-study section.
+ * Deep Ink / Champagne Gold / Kim K Cream. Refined type + spacing.
  */
 export function ContourBookingPhone({ className = "" }: { className?: string }) {
   const brand = CONTOUR_PRESTON_BRAND;
@@ -21,97 +21,100 @@ export function ContourBookingPhone({ className = "" }: { className?: string }) 
 
   return (
     <div
-      className={`mx-auto aspect-[9/19.5] w-full max-w-[240px] ${className}`}
-      style={{ filter: "drop-shadow(0 22px 40px rgba(14,20,32,0.22))" }}
+      className={`mx-auto aspect-[9/19.5] w-full max-w-[248px] ${className}`}
+      style={{ filter: "drop-shadow(0 28px 50px rgba(12,17,27,0.32))" }}
     >
       <div
-        className="h-full rounded-[2.6rem] p-[3px] ring-1 ring-white/10"
+        className="h-full rounded-[2.75rem] p-[2.5px]"
         style={{
-          background: `linear-gradient(160deg, ${deepInk} 0%, ${midnightNavy} 100%)`,
+          background: `linear-gradient(165deg, ${champagneGold}55 0%, ${deepInk} 38%, ${midnightNavy} 100%)`,
         }}
       >
-        <div className="h-full rounded-[2.4rem] bg-black p-[7px]">
+        <div className="h-full rounded-[2.55rem] p-[7px]" style={{ background: deepInk }}>
           <div
-            className="relative flex h-full flex-col overflow-hidden rounded-[1.95rem]"
+            className="relative flex h-full flex-col overflow-hidden rounded-[2.05rem]"
             style={{ background: kimKCream, color: deepInk }}
           >
-            {/* Dynamic Island */}
             <div
-              className="absolute left-1/2 top-[9px] z-20 h-[20px] w-[78px] -translate-x-1/2 rounded-full"
+              className="absolute left-1/2 top-[10px] z-20 h-[18px] w-[72px] -translate-x-1/2 rounded-full"
               style={{ background: deepInk }}
               aria-hidden
             />
 
-            {/* Contour header — Deep Ink → Midnight Navy like live booking */}
+            {/* Quiet luxury header */}
             <div
-              className="relative shrink-0 border-b px-3 pb-3 pt-9"
+              className="relative shrink-0 px-3.5 pb-3.5 pt-10"
               style={{
-                background: `linear-gradient(160deg, ${deepInk} 0%, ${midnightNavy} 100%)`,
-                borderColor: `${champagneGold}33`,
+                background: `linear-gradient(165deg, ${deepInk} 0%, ${midnightNavy} 100%)`,
               }}
             >
-              <div className="flex flex-col items-center gap-1.5">
-                <TenantLogo brand={brand} size="sm" className="object-center max-h-8" />
+              <div className="flex flex-col items-center gap-2">
+                <TenantLogo brand={brand} size="sm" className="object-center max-h-[34px]" />
                 <p
-                  className="text-center text-[9px] leading-tight"
+                  className="text-center text-[8.5px] font-light tracking-[0.18em] uppercase"
                   style={{ color: cashmere }}
                 >
                   Quiet luxury aesthetics
                 </p>
               </div>
 
-              {/* Progress */}
-              <div className="mt-3">
-                <div className="mb-1.5 flex items-center justify-between">
-                  <span className="text-[8px] uppercase tracking-[0.14em]" style={{ color: cashmere }}>
-                    Step 2 of 7
+              <div className="mt-4">
+                <div className="mb-1.5 flex items-baseline justify-between">
+                  <span
+                    className="text-[7.5px] font-medium uppercase tracking-[0.2em]"
+                    style={{ color: `${cashmere}cc` }}
+                  >
+                    02 / 07
                   </span>
-                  <span className="text-[8px] font-medium" style={{ color: champagneGold }}>
+                  <span
+                    className="text-[8px] tracking-[0.04em]"
+                    style={{ color: champagneGold, fontFamily: `"${brand.fontHeading}", Georgia, serif` }}
+                  >
                     Choose a service
                   </span>
                 </div>
-                <div className="h-[3px] overflow-hidden rounded-full" style={{ background: `${midnightNavy}` }}>
-                  <div
-                    className="h-full rounded-full"
-                    style={{ width: "28%", background: champagneGold }}
-                  />
+                <div className="h-px overflow-hidden" style={{ background: `${champagneGold}28` }}>
+                  <div className="h-full" style={{ width: "28%", background: champagneGold }} />
                 </div>
               </div>
             </div>
 
-            {/* Body */}
-            <div className="flex min-h-0 flex-1 flex-col px-2.5 pb-2 pt-2.5">
-              <div className="mb-1.5 flex items-center gap-1">
-                <span className="text-[9px]" style={{ color: cashmere }}>
-                  ← Back
-                </span>
-              </div>
+            {/* Cream body */}
+            <div className="flex min-h-0 flex-1 flex-col px-3 pb-2.5 pt-3">
+              <button
+                type="button"
+                tabIndex={-1}
+                className="mb-2.5 self-start text-[8.5px] tracking-[0.06em]"
+                style={{ color: cashmere }}
+              >
+                ← Back
+              </button>
 
               <p
-                className="mb-2 text-[12px] leading-tight tracking-tight"
-                style={{ fontFamily: `"${brand.fontHeading}", Georgia, serif` }}
+                className="mb-3 text-[13px] leading-none tracking-tight"
+                style={{ fontFamily: `"${brand.fontHeading}", Georgia, serif`, fontWeight: 500 }}
               >
                 Choose a service
               </p>
 
-              {/* Category chips */}
-              <div className="mb-2.5 flex gap-1 overflow-hidden">
+              {/* Refined category pills — outline, not chunky */}
+              <div className="mb-3 flex gap-1 overflow-hidden">
                 {CATEGORIES.map((cat, i) => {
                   const active = i === 0;
                   return (
                     <span
                       key={cat}
-                      className="shrink-0 rounded-full px-2 py-1 text-[7.5px] font-medium tracking-wide"
+                      className="shrink-0 rounded-full px-2 py-[5px] text-[7px] tracking-[0.04em]"
                       style={
                         active
                           ? {
-                              background: champagneGold,
-                              color: deepInk,
+                              background: deepInk,
+                              color: champagneGold,
                             }
                           : {
-                              background: "#FFFFFF",
+                              background: "transparent",
                               color: cashmere,
-                              boxShadow: `inset 0 0 0 1px ${champagneGold}40`,
+                              boxShadow: `inset 0 0 0 1px ${champagneGold}45`,
                             }
                       }
                     >
@@ -121,34 +124,37 @@ export function ContourBookingPhone({ className = "" }: { className?: string }) 
                 })}
               </div>
 
-              {/* Service cards */}
+              {/* Service list — hairline cards, gold rail on selection */}
               <div className="min-h-0 flex-1 space-y-1.5 overflow-hidden">
                 {SERVICES.map((svc) => (
                   <div
                     key={svc.name}
-                    className="rounded-[0.7rem] px-2 py-1.5"
-                    style={
-                      svc.active
-                        ? {
-                            background: `${champagneGold}28`,
-                            boxShadow: `inset 0 0 0 1px ${champagneGold}99`,
-                          }
-                        : {
-                            background: "#FFFFFF",
-                            boxShadow: `inset 0 0 0 1px ${champagneGold}30`,
-                          }
-                    }
+                    className="relative overflow-hidden rounded-xl px-2.5 py-2"
+                    style={{
+                      background: svc.active ? "#FFFFFF" : "rgba(255,255,255,0.55)",
+                      boxShadow: svc.active
+                        ? `inset 2px 0 0 ${champagneGold}, inset 0 0 0 1px ${champagneGold}55`
+                        : `inset 0 0 0 1px ${champagneGold}28`,
+                    }}
                   >
-                    <div className="flex items-start justify-between gap-1">
+                    <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0">
-                        <p className="truncate text-[9px] font-semibold leading-tight">{svc.name}</p>
-                        <p className="mt-0.5 text-[7.5px]" style={{ color: cashmere }}>
+                        <p
+                          className="truncate text-[9px] leading-snug tracking-tight"
+                          style={{ fontWeight: 550 }}
+                        >
+                          {svc.name}
+                        </p>
+                        <p className="mt-0.5 text-[7.5px] tracking-[0.02em]" style={{ color: cashmere }}>
                           {svc.meta}
                         </p>
                       </div>
                       <p
-                        className="shrink-0 text-[9px] font-semibold"
-                        style={{ color: svc.active ? champagneGold : deepInk }}
+                        className="shrink-0 text-[9px] tabular-nums tracking-tight"
+                        style={{
+                          color: svc.active ? champagneGold : deepInk,
+                          fontFamily: `"${brand.fontHeading}", Georgia, serif`,
+                        }}
                       >
                         {svc.price}
                       </p>
@@ -157,16 +163,15 @@ export function ContourBookingPhone({ className = "" }: { className?: string }) 
                 ))}
               </div>
 
-              {/* Sticky CTA */}
               <div
-                className="mt-2 rounded-full py-2 text-center text-[10px] font-semibold tracking-wide"
+                className="mt-2.5 rounded-full py-[9px] text-center text-[9px] font-medium tracking-[0.12em] uppercase"
                 style={{ background: champagneGold, color: deepInk }}
               >
-                Continue · Signature Facial
+                Continue
               </div>
 
               <div
-                className="mx-auto mt-2 h-[3px] w-[88px] rounded-full opacity-35"
+                className="mx-auto mt-2.5 h-[3px] w-[80px] rounded-full opacity-30"
                 style={{ background: deepInk }}
                 aria-hidden
               />

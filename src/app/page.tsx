@@ -145,54 +145,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Contour Preston case study — copy left, phone right */}
+      {/* Contour Preston — quiet luxury case study (copy left, phone right) */}
       <section className="relative z-10 border-t border-bf-line/70 bg-white">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 md:grid-cols-[1.05fr_0.95fr] md:py-24 sm:px-8 lg:px-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
+            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-bf-muted">
               Case study · Contour Preston
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem] md:leading-tight">
               Contour’s brand. Contour’s bookings.
             </h2>
-            <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
-              A white-label booking page that wears the salon’s identity — logo, palette, and type.
-              Contour Preston is the live demo: Deep Ink, Champagne Gold, and a calm cream screen
-              clients actually book on.
+            <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-bf-muted sm:text-base">
+              Quiet luxury, end to end — Deep Ink, Champagne Gold, and Kim K Cream. Contour’s booking
+              page feels like the studio: unhurried type, precise spacing, and a cream canvas clients
+              actually book on.
             </p>
-            <div className="mt-6">
-              <Button href="/book/contour-preston" variant="secondary" className="px-5">
+            <div className="mt-8">
+              <Button href="/book/contour-preston" variant="secondary" className="px-6">
                 Open Contour booking
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
           </div>
-          <div className="flex justify-center rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] px-6 py-10 sm:px-10">
+          <div className="flex justify-center rounded-[1.75rem] border border-[#E8E4DC] bg-gradient-to-br from-[#F0EAE2] via-[#F7F4EF] to-[#E8EBF0] px-8 py-12 sm:px-12">
             <ContourBookingPhone />
           </div>
         </div>
       </section>
 
-      {/* Oh My Social Media case study — flipped: phone left, copy right */}
+      {/* Oh My Social Media — premium white case study (phone left, copy right) */}
       <section className="relative z-10 border-t border-bf-line/70 bg-white">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-20 sm:px-8 lg:px-10">
-          <div className="order-2 flex justify-center rounded-2xl border border-bf-line bg-gradient-to-br from-[#fff5f9] to-[#fff8f2] px-6 py-10 sm:px-10 md:order-1">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 md:grid-cols-[0.95fr_1.05fr] md:py-24 sm:px-8 lg:px-10">
+          <div className="order-2 flex justify-center rounded-[1.75rem] border border-[#F0E8EC] bg-gradient-to-br from-[#FFFFFF] via-[#FCF8FA] to-[#FFF6F0] px-8 py-12 sm:px-12 md:order-1">
             <OmsBookingPhone />
           </div>
           <div className="order-1 md:order-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
+            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-bf-muted">
               Case study · Oh My Social Media
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight md:text-[2.5rem] md:leading-tight">
               Oh My’s brand. Oh My’s bookings.
             </h2>
-            <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
-              Same white-label engine, totally different skin. Oh My Social Media books Content
-              shoots, Studio shoots, and Packages on a clean white page — magenta and orange only,
-              real logo, real prices from £200 to £500.
+            <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-bf-muted sm:text-base">
+              Premium white space with magenta and orange used as accents — never noise. Content
+              shoots, Studio shoots, and Packages priced from £200 to £500 on a clean booking page
+              that feels editorial, not marketplace.
             </p>
-            <div className="mt-6">
-              <Button href="/book/oh-my-social-media" variant="secondary" className="px-5">
+            <div className="mt-8">
+              <Button href="/book/oh-my-social-media" variant="secondary" className="px-6">
                 Open OMS booking
                 <ArrowRight className="h-4 w-4" />
               </Button>
