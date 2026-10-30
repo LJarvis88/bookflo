@@ -4,15 +4,15 @@ import { DEMO_TODAY } from "@/lib/format";
 /**
  * Oh My Social Media palette (sampled from brand kit PNG):
  * Magenta / fuchsia #EB0E7F · Bright orange #FE5F0B
- * Cream surfaces #F7F1E8 (not pure white) · warm ink for contrast
+ * Pure white background + surface (Luke) — no cream tint
+ * Accents: magenta + orange only
  */
 export const OMS_PALETTE = {
   magenta: "#EB0E7F",
   orange: "#FE5F0B",
-  cream: "#F7F1E8",
-  creamDeep: "#F0E6D8",
+  white: "#FFFFFF",
   ink: "#1C1218",
-  muted: "#8B6A73",
+  muted: "#6B7280",
 } as const;
 
 export const OMS_BRAND: BrandTokens = {
@@ -25,10 +25,10 @@ export const OMS_BRAND: BrandTokens = {
   coverStyle: "blush",
   primary: OMS_PALETTE.magenta,
   secondary: OMS_PALETTE.orange,
-  background: OMS_PALETTE.cream,
+  background: OMS_PALETTE.white,
   ink: OMS_PALETTE.ink,
   muted: OMS_PALETTE.muted,
-  surface: OMS_PALETTE.creamDeep,
+  surface: OMS_PALETTE.white,
   buttonBg: OMS_PALETTE.magenta,
   buttonText: "#FFFFFF",
   fontHeading: "Syne",
@@ -73,6 +73,7 @@ export const ohMySocialMedia: Tenant = {
   categories: [
     { id: "oms_cat_content", name: "Content shoots" },
     { id: "oms_cat_studio", name: "Studio shoots" },
+    { id: "oms_cat_packages", name: "Packages" },
     { id: "oms_cat_discovery", name: "Discovery call slots" },
   ],
   services: [
@@ -80,27 +81,50 @@ export const ohMySocialMedia: Tenant = {
       id: "oms_svc_content_3h",
       categoryId: "oms_cat_content",
       name: "Content shoot — 3 hours",
-      description: "On-brand content day package. Shot list + direction included.",
+      description:
+        "On-location content day. Shot list + direction included. £50 extra over 15 miles.",
       durationMinutes: 180,
-      pricePence: 45000,
+      pricePence: 25000,
       active: true,
     },
     {
       id: "oms_svc_content_6h",
       categoryId: "oms_cat_content",
       name: "Content shoot — 6 hours",
-      description: "Full content day package for multi-set / multi-outfit batches.",
+      description:
+        "Full content day for multi-set / multi-outfit batches. £50 extra over 15 miles.",
       durationMinutes: 360,
-      pricePence: 78000,
+      pricePence: 40000,
       active: true,
     },
     {
       id: "oms_svc_studio_2h",
       categoryId: "oms_cat_studio",
       name: "Studio shoot — 2 hours",
-      description: "In-studio session. Slots at 10:00, 12:00, or 14:00 — any day.",
+      description:
+        "In-studio session. Slots at 10:00, 12:00, or 14:00 — any day. 50% off when booked in a package.",
       durationMinutes: 120,
-      pricePence: 28000,
+      pricePence: 20000,
+      active: true,
+    },
+    {
+      id: "oms_svc_pkg_3h",
+      categoryId: "oms_cat_packages",
+      name: "3 hour content day + studio shoot",
+      description:
+        "Package deal: 3-hour content day plus studio shoot. Includes 50% off studio shoots.",
+      durationMinutes: 300,
+      pricePence: 35000,
+      active: true,
+    },
+    {
+      id: "oms_svc_pkg_6h",
+      categoryId: "oms_cat_packages",
+      name: "6 hour content day + studio shoot",
+      description:
+        "Package deal: 6-hour content day plus studio shoot. Includes 50% off studio shoots.",
+      durationMinutes: 480,
+      pricePence: 50000,
       active: true,
     },
     {
@@ -172,7 +196,7 @@ export const ohMySocialMedia: Tenant = {
       startTime: "10:00",
       endTime: "12:00",
       status: "confirmed",
-      pricePence: 28000,
+      pricePence: 20000,
     },
     {
       id: "oms_apt_2",
@@ -186,7 +210,7 @@ export const ohMySocialMedia: Tenant = {
       startTime: "12:00",
       endTime: "15:00",
       status: "confirmed",
-      pricePence: 45000,
+      pricePence: 25000,
     },
     {
       id: "oms_apt_3",
@@ -199,7 +223,7 @@ export const ohMySocialMedia: Tenant = {
       startTime: "14:00",
       endTime: "16:00",
       status: "pending",
-      pricePence: 28000,
+      pricePence: 20000,
     },
     {
       id: "oms_apt_4",
@@ -212,19 +236,19 @@ export const ohMySocialMedia: Tenant = {
       startTime: "10:00",
       endTime: "16:00",
       status: "confirmed",
-      pricePence: 78000,
+      pricePence: 40000,
     },
   ],
 };
 
-/** Slots for a given OMS service. Studio: 10 / 12 / 2; discovery shares those; content package starts. */
+/** Slots for a given OMS service. Studio: 10 / 12 / 2; discovery shares those; content/package starts. */
 export function getOmsSlotsForService(serviceId: string | null | undefined): string[] {
-  if (serviceId === "oms_svc_content_6h") {
-    // Full day — morning start only
+  if (serviceId === "oms_svc_content_6h" || serviceId === "oms_svc_pkg_6h") {
+    // Full / long day — morning start only
     return ["10:00"];
   }
-  if (serviceId === "oms_svc_content_3h") {
-    // 3h fits 10:00 or 12:00 before close
+  if (serviceId === "oms_svc_content_3h" || serviceId === "oms_svc_pkg_3h") {
+    // 3h (+ package) fits 10:00 or 12:00 before close
     return ["10:00", "12:00"];
   }
   // Studio 2h + discovery calls — 10am, 12pm, 2pm any day

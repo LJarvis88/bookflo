@@ -15,12 +15,12 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative z-20 border-b border-bf-line/60 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+    <header className="relative z-20 border-b border-bf-line/50 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
         <Link href="/" className="font-display text-xl font-semibold tracking-tight text-bf-ink">
           bookflo
         </Link>
-        <nav className="hidden items-center gap-8 text-sm text-bf-muted md:flex">
+        <nav className="hidden items-center gap-10 text-sm text-bf-muted md:flex">
           {nav.map((item) => (
             <a key={item.href} href={item.href} className="transition hover:text-bf-ink">
               {item.label}

@@ -72,10 +72,11 @@ export function Sidebar() {
           BOOKFLO
         </Link>
         <div
-          className="mt-4 rounded-xl px-3 py-3"
+          className="mt-4 rounded-xl border border-bf-line px-3 py-3"
           style={{
+            // OMS logo on white (customer-facing clean); Contour keeps ink plate.
             background:
-              tenant.slug === "oh-my-social-media" ? "#0A0A0A" : tenant.brand.background,
+              tenant.slug === "oh-my-social-media" ? "#FFFFFF" : tenant.brand.background,
           }}
         >
           <TenantLogo brand={tenant.brand} size="sm" className="object-left max-w-[140px]" />

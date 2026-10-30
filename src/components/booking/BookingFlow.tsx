@@ -112,12 +112,13 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
       <header
         className="relative w-full border-b"
         style={{
-          // OMS wordmark is designed on black; Contour uses its ink header.
-          background: tenant.slug === "oh-my-social-media" ? "#0A0A0A" : brand.background,
-          borderColor:
-            tenant.slug === "oh-my-social-media"
-              ? `${brand.primary}44`
-              : `${brand.primary}33`,
+          // Contour: Deep Ink → Midnight Navy (brand kit, not flat black).
+          // OMS: pure white customer-facing header.
+          background:
+            tenant.slug === "contour-preston"
+              ? `linear-gradient(160deg, ${brand.background} 0%, ${brand.secondary} 100%)`
+              : brand.background,
+          borderColor: `${brand.primary}33`,
         }}
       >
         <div className="mx-auto flex w-full max-w-md flex-col items-center gap-3 px-5 py-8 sm:py-10">
@@ -126,13 +127,7 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
             size="hero"
             className="object-center max-w-[280px] sm:max-w-[320px]"
           />
-          <p
-            className="text-center text-sm"
-            style={{
-              color:
-                tenant.slug === "oh-my-social-media" ? "#D5C4B2" : brand.muted,
-            }}
-          >
+          <p className="text-center text-sm" style={{ color: brand.muted }}>
             {brand.tagline}
           </p>
         </div>

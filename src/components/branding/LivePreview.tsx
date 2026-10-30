@@ -32,8 +32,9 @@ export function LivePreview({ brand, compact = false, className = "" }: LivePrev
       <div
         className={`relative flex ${compact ? "h-28" : "h-40"} w-full items-end p-4`}
         style={{
+          // OMS customer-facing preview stays white/clean; Contour keeps cover styles.
           background: brand.logoUrl?.includes("oh-my-social-media")
-            ? "#0A0A0A"
+            ? "#FFFFFF"
             : coverGradients[brand.coverStyle],
         }}
       >

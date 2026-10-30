@@ -22,8 +22,13 @@ const mobileLinks = [
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const tenant = useDemoTenant();
 
+  // OMS admin may use a soft cream wash for hierarchy; Contour stays cool grey.
+  // OMS public booking stays pure white via brand tokens — not this shell.
+  const shellBg =
+    tenant.slug === "oh-my-social-media" ? "#FAF7F2" : "#f7f8fa";
+
   return (
-    <div className="min-h-screen bg-[#f7f8fa] text-bf-ink">
+    <div className="min-h-screen text-bf-ink" style={{ background: shellBg }}>
       <div className="mx-auto flex min-h-screen max-w-[1480px]">
         <div className="hidden w-56 shrink-0 md:block lg:w-60">
           <div className="sticky top-0 h-screen">

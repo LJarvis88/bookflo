@@ -1,0 +1,149 @@
+"use client";
+
+import { CONTOUR_PRESTON_BRAND } from "@/data/contour-preston";
+import { TenantLogo } from "@/components/branding/TenantLogo";
+
+const staff = [
+  { name: "Amelia", role: "Lead", bg: "#F8E8E4", text: "#5C3D4A", initials: "AH" },
+  { name: "Noah", role: "Injectables", bg: "#E4EEF8", text: "#2F4A66", initials: "NE" },
+  { name: "Priya", role: "Skin", bg: "#E6F3EA", text: "#2F5A3E", initials: "PS" },
+  { name: "Liv", role: "Owner", bg: "#F3E8F0", text: "#5C3D5A", initials: "LV" },
+];
+
+const blocks: Record<number, Array<{ top: string; h: string; title: string; sub: string }>> = {
+  0: [
+    { top: "8%", h: "18%", title: "09:30–10:30", sub: "Sophie · Facial" },
+    { top: "42%", h: "12%", title: "14:00–14:30", sub: "Emma · Consult" },
+    { top: "62%", h: "16%", title: "16:00–16:45", sub: "Nora · Hydra" },
+  ],
+  1: [
+    { top: "14%", h: "12%", title: "10:00–10:30", sub: "Maya · Toxin" },
+    { top: "55%", h: "16%", title: "15:30–16:15", sub: "Olivia · Lips" },
+  ],
+  2: [
+    { top: "22%", h: "14%", title: "11:15–12:00", sub: "Hannah · Glow" },
+    { top: "48%", h: "14%", title: "14:30–15:10", sub: "Isabelle · Peel" },
+  ],
+  3: [{ top: "30%", h: "20%", title: "12:00–13:30", sub: "Team briefing" }],
+};
+
+/** Wide Fresha-like product stage: staff-day calendar + booking phone. */
+export function HeroProductMockup() {
+  const brand = CONTOUR_PRESTON_BRAND;
+
+  return (
+    <div className="relative w-full">
+      {/* Local stage glows — champagne upper-centre, sage low-right (not Fresha L/R purple) */}
+      <div
+        className="pointer-events-none absolute left-[28%] top-[-10%] h-[55%] w-[55%] -translate-x-1/2 rounded-full bg-[#c8a36c]/45 blur-[70px]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute bottom-[-8%] right-[-6%] h-[60%] w-[45%] rounded-full bg-[#1b6b5a]/28 blur-[80px]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute bottom-[15%] left-[-10%] h-[45%] w-[40%] rounded-full bg-[#d5c4b2]/50 blur-[60px]"
+        aria-hidden
+      />
+
+      <div className="relative overflow-hidden rounded-2xl border border-bf-line bg-white/95 shadow-lift backdrop-blur-[2px] sm:rounded-3xl">
+        {/* Window chrome */}
+        <div className="flex items-center gap-2 border-b border-bf-line bg-[#f7f8fa] px-4 py-3">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
+          <p className="ml-3 text-xs font-medium text-bf-muted">Appointments · Contour Preston</p>
+          <span className="ml-auto rounded-full bg-bf-ink px-2.5 py-1 text-[10px] font-medium text-white">
+            Add +
+          </span>
+        </div>
+
+        {/* Staff day columns — uses horizontal width */}
+        <div className="grid grid-cols-2 sm:grid-cols-4">
+          {staff.map((s, i) => (
+            <div
+              key={s.name}
+              className={`min-h-[220px] border-bf-line sm:min-h-[280px] md:min-h-[320px] ${
+                i > 0 ? "border-l" : ""
+              } ${i > 1 ? "hidden sm:block" : ""}`}
+            >
+              <div className="flex items-center gap-2 border-b border-bf-line px-3 py-2.5">
+                <div
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold"
+                  style={{ background: s.bg, color: s.text }}
+                >
+                  {s.initials}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-xs font-semibold text-bf-ink">{s.name}</p>
+                  <p className="truncate text-[10px] text-bf-muted">{s.role}</p>
+                </div>
+              </div>
+              <div className="relative h-[180px] bg-[linear-gradient(to_bottom,transparent_calc(100%-1px),#eef0f4_calc(100%-1px))] bg-[length:100%_36px] sm:h-[240px] md:h-[280px]">
+                {(blocks[i] ?? []).map((b) => (
+                  <div
+                    key={b.title}
+                    className="absolute left-1.5 right-1.5 overflow-hidden rounded-lg border px-1.5 py-1"
+                    style={{
+                      top: b.top,
+                      height: b.h,
+                      background: s.bg,
+                      borderColor: `${s.text}33`,
+                      color: s.text,
+                    }}
+                  >
+                    <p className="truncate text-[10px] font-semibold leading-tight">{b.title}</p>
+                    <p className="truncate text-[10px] leading-tight opacity-80">{b.sub}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Booking phone — layered, uses right side of the wide stage */}
+      <div
+        className="absolute -bottom-6 right-3 w-[42%] max-w-[220px] overflow-hidden rounded-[1.35rem] border shadow-lift sm:right-6 sm:bottom-[-1.5rem] sm:max-w-[260px] md:right-10 md:max-w-[280px]"
+        style={{
+          background: brand.background,
+          color: brand.ink,
+          borderColor: `${brand.primary}55`,
+        }}
+      >
+        <div
+          className="flex h-20 items-center justify-center px-4 sm:h-24"
+          style={{
+            background: `linear-gradient(160deg, ${brand.background} 0%, ${brand.surface} 100%)`,
+          }}
+        >
+          <TenantLogo brand={brand} size="md" className="object-center" />
+        </div>
+        <div className="space-y-2 p-3 sm:p-3.5">
+          <p
+            className="text-sm leading-none tracking-tight sm:text-base"
+            style={{ fontFamily: `"${brand.fontHeading}", Georgia, serif` }}
+          >
+            Contour Preston
+          </p>
+          <p className="text-[10px] sm:text-xs" style={{ color: brand.muted }}>
+            Their brand. Your bookings.
+          </p>
+          <div
+            className="rounded-xl px-2.5 py-2 text-[10px] sm:text-xs"
+            style={{ background: brand.surface }}
+          >
+            Signature Contour Facial · Amelia
+          </div>
+          <div
+            className="rounded-full py-2 text-center text-[10px] font-medium sm:text-xs"
+            style={{ background: brand.buttonBg, color: brand.buttonText }}
+          >
+            Book now
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
-import { BookingPreview } from "@/components/marketing/BookingPreview";
+import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
 import { Faq } from "@/components/marketing/Faq";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
-import { ArrowRight, Sparkles, Palette, CalendarDays, Shield } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  Palette,
+  CalendarDays,
+  Shield,
+  Smartphone,
+} from "lucide-react";
 
 const features = [
   {
@@ -53,54 +60,58 @@ const testimonials = [
 export default function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white text-bf-ink">
+      {/* BOOKFLO atmosphere — champagne + sage (not Fresha L/R purple blobs) */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
+        <div className="absolute -top-16 left-[12%] h-[480px] w-[560px] rounded-full bg-[#c8a36c]/40 blur-[90px]" />
+        <div className="absolute top-[6%] right-[-6%] h-[420px] w-[500px] rounded-full bg-[#1b6b5a]/22 blur-[100px]" />
+        <div className="absolute top-[38%] left-[-10%] h-[360px] w-[440px] rounded-full bg-[#d5c4b2]/55 blur-[80px]" />
+        <div className="absolute top-[22%] left-[55%] h-[240px] w-[320px] rounded-full bg-[#f0eae2]/90 blur-[60px]" />
+      </div>
+
       <SiteHeader />
 
-      {/* Hero — Fresha-like calm: brand, one headline, one line, CTAs, product visual */}
-      <section className="relative z-10 mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-8 md:pb-24 md:pt-16">
-        <div className="mx-auto max-w-3xl text-center animate-fade-up">
-          <p className="font-display text-4xl font-semibold tracking-tight text-bf-ink sm:text-5xl md:text-6xl">
-            bookflo
-          </p>
-          <h1 className="mt-5 text-balance font-display text-2xl font-medium leading-snug tracking-tight text-bf-ink sm:text-3xl md:text-4xl">
-            The booking software for salons that care how they look.
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-bf-muted sm:text-lg">
-            White-label booking with a calendar-first admin. Zero commission.{" "}
-            {TRIAL_DAYS}-day free trial on every plan.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/signup" variant="dark" className="px-7 py-3">
-              Start free trial
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Button href="/book/contour-preston" variant="secondary" className="px-6 py-3">
-              See Contour Preston
-            </Button>
+      {/* Hero — full-bleed width, brand first, wide product stage */}
+      <section className="relative z-10 w-full pb-20 pt-10 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
+        <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-4xl text-center animate-fade-up">
+            <p className="font-display text-5xl font-semibold tracking-tight text-bf-ink sm:text-6xl md:text-7xl">
+              bookflo
+            </p>
+            <h1 className="mt-5 text-balance font-display text-2xl font-medium leading-snug tracking-tight text-bf-ink sm:text-3xl md:text-4xl lg:text-[2.75rem]">
+              The booking software for salons that care how they look.
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-bf-muted sm:text-lg">
+              White-label booking with a calendar-first admin. Zero commission.{" "}
+              {TRIAL_DAYS}-day free trial on every plan.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Button href="/signup" variant="dark" className="px-7 py-3">
+                Start free trial
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+              <Button href="/book/contour-preston" variant="secondary" className="px-6 py-3">
+                See Contour Preston
+              </Button>
+            </div>
           </div>
-        </div>
 
-        <div className="relative mx-auto mt-14 max-w-sm animate-fade-up [animation-delay:120ms] md:mt-16">
-          <div
-            className="absolute -inset-10 -z-10 rounded-full bg-bf-fog/80 blur-3xl animate-soft-pulse"
-            aria-hidden
-          />
-          <BookingPreview />
+          {/* Wide product mockup — uses nearly full content width */}
+          <div className="relative mt-12 w-full animate-fade-up pb-10 [animation-delay:120ms] sm:mt-16 sm:pb-14 md:mt-20">
+            <HeroProductMockup />
+          </div>
         </div>
       </section>
 
       {/* Features */}
-      <section
-        id="features"
-        className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]"
-      >
-        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+      <section id="features" className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
+        <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:px-10">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Simple, flexible booking software
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-bf-muted">
             Fresha-like admin for your team. Contour-level brand craft for your clients.
           </p>
-          <div className="mt-14 grid gap-10 sm:grid-cols-2">
+          <div className="mx-auto mt-14 grid max-w-5xl gap-10 sm:grid-cols-2">
             {features.map((f) => (
               <div key={f.title} className="space-y-3">
                 <f.icon className="h-5 w-5 text-bf-ink" strokeWidth={1.75} />
@@ -112,9 +123,60 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* AI branding — secondary, quieter */}
+      {/* Branded home-screen install — one clear white-label perk */}
       <section className="relative z-10 border-t border-bf-line/70 bg-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:px-8 md:py-20">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 md:py-24 lg:px-10">
+          <div>
+            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
+              <Smartphone className="h-3.5 w-3.5" strokeWidth={1.75} />
+              White-label add-on
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+              Their booking app. On their home screen.
+            </h2>
+            <p className="mt-4 max-w-lg text-bf-muted leading-relaxed">
+              Every salon gets a branded web app clients can install — their icon, their name, no
+              BOOKFLO in sight. Contour and Oh My Social Media each ship with their own icon in the
+              demos.
+            </p>
+          </div>
+          <div className="mx-auto flex w-full max-w-sm items-end justify-center gap-6 rounded-[2rem] border border-bf-line bg-[#f7f8fa] px-8 py-10">
+            {/* Contour home-screen icon preview */}
+            <div className="flex flex-col items-center gap-2">
+              <div
+                className="flex h-16 w-16 items-center justify-center rounded-[1.1rem] shadow-soft"
+                style={{ background: "#0C111B" }}
+                aria-hidden
+              >
+                <span
+                  className="font-display text-lg font-semibold tracking-tight"
+                  style={{ color: "#C8A36C" }}
+                >
+                  CP
+                </span>
+              </div>
+              <p className="text-[11px] font-medium text-bf-ink">Contour</p>
+            </div>
+            {/* OMS home-screen icon preview */}
+            <div className="flex flex-col items-center gap-2">
+              <div
+                className="flex h-16 w-16 items-center justify-center rounded-[1.1rem] shadow-soft"
+                style={{
+                  background: "linear-gradient(145deg, #EB0E7F 0%, #FE5F0B 100%)",
+                }}
+                aria-hidden
+              >
+                <span className="text-sm font-semibold tracking-wide text-white">OH MY</span>
+              </div>
+              <p className="text-[11px] font-medium text-bf-ink">OMS</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI branding */}
+      <section className="relative z-10 border-t border-bf-line/70 bg-white">
+        <div className="mx-auto grid max-w-[1400px] gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-20 sm:px-8 lg:px-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
               AI brand match
@@ -161,16 +223,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Pricing — Fresha-like light cards + 14-day trial badges */}
+      {/* Pricing */}
       <section id="pricing" className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+        <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:px-10">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Software that grows with your business
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-center text-bf-muted">
             Flat monthly pricing. Zero commission. {TRIAL_DAYS}-day free trial on every plan.
           </p>
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div className="mx-auto mt-12 grid max-w-6xl gap-5 lg:grid-cols-3">
             {PLANS.map((plan) => (
               <div
                 key={plan.id}
@@ -209,7 +271,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="relative z-10 mx-auto max-w-6xl px-5 py-20 md:px-8">
+      <section className="relative z-10 mx-auto max-w-[1400px] px-5 py-20 sm:px-8 lg:px-10">
         <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
           What owners say
         </h2>
@@ -231,7 +293,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="relative z-10 mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-20">
+      <section id="faq" className="relative z-10 mx-auto max-w-3xl px-5 py-16 sm:px-8 md:py-20">
         <h2 className="mb-8 font-display text-3xl font-semibold tracking-tight md:text-4xl">
           Questions
         </h2>
@@ -239,8 +301,16 @@ export default function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
-        <div className="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
+      <section className="relative z-10 overflow-hidden border-t border-bf-line/70 bg-[#f7f8fa]">
+        <div
+          className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-[#c8a36c]/20 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-[#1b6b5a]/12 blur-3xl"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
           <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Try BOOKFLO free for {TRIAL_DAYS} days
           </h2>
@@ -259,7 +329,7 @@ export default function HomePage() {
       </section>
 
       <footer className="relative z-10 border-t border-bf-line bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 text-sm text-bf-muted md:flex-row md:items-center md:justify-between md:px-8">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-8 text-sm text-bf-muted sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
           <p className="font-display text-lg font-semibold text-bf-ink">bookflo</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/dashboard" className="hover:text-bf-ink">

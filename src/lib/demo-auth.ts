@@ -18,7 +18,7 @@ export const DEMO_OWNER: DemoAccount = {
   tenantSlug: "contour-preston",
 };
 
-/** Oh My Social Media (Tee) — magenta / orange / cream. */
+/** Oh My Social Media (Tee) — magenta / orange on pure white. */
 export const DEMO_TEE: DemoAccount = {
   name: "Tee",
   role: "Oh My Social Media",
