@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 
 const nav = [
   { href: "#features", label: "Features" },
@@ -17,8 +18,8 @@ export function SiteHeader() {
   return (
     <header className="relative z-20 border-b border-bf-line/50 bg-white/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
-        <Link href="/" className="font-display text-xl font-semibold tracking-tight text-bf-ink">
-          bookflo
+        <Link href="/" className="inline-flex items-center" aria-label="bookflo home">
+          <BookfloWordmark size="md" />
         </Link>
         <nav className="hidden items-center gap-10 text-sm text-bf-muted md:flex">
           {nav.map((item) => (

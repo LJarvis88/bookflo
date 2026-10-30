@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Sidebar } from "@/components/dashboard/Sidebar";
+import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import {
   DemoTenantProvider,
   useDemoTenant,
@@ -39,7 +40,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="border-b border-bf-line bg-white px-4 py-3 md:hidden">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="font-display text-lg font-semibold">BOOKFLO</p>
+                <BookfloWordmark size="sm" />
                 <p className="text-xs text-bf-muted">{tenant.name}</p>
               </div>
               <Link

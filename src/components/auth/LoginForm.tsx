@@ -51,7 +51,7 @@ export function LoginForm() {
             key={account.email}
             type="button"
             onClick={() => fillAccount(account)}
-            className="w-full rounded-2xl border border-dashed border-bf-line bg-[#f7f8fa] px-4 py-3.5 text-left transition hover:border-bf-ink/25 hover:bg-white"
+            className="w-full rounded-2xl border border-dashed border-bf-line bg-bf-sky/15 px-4 py-3.5 text-left transition hover:border-bf-accent/30 hover:bg-bf-accent-soft/40"
           >
             <p className="text-sm text-bf-ink">
               <span className="font-medium">{account.name}</span>

@@ -164,7 +164,7 @@ export function BrandingEditor() {
           </Field>
           <Field label="Cover style" className="sm:col-span-2">
             <div className="flex flex-wrap gap-2">
-              {(["noir", "ink", "blush", "sage"] as const).map((style) => (
+              {(["noir", "ink", "blush", "lavender"] as const).map((style) => (
                 <button
                   key={style}
                   type="button"

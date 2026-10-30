@@ -16,6 +16,7 @@ export default {
           line: "var(--bf-line)",
           accent: "var(--bf-accent)",
           "accent-soft": "var(--bf-accent-soft)",
+          sky: "var(--bf-sky)",
           brass: "var(--bf-brass)",
           muted: "var(--bf-muted)",
         },
@@ -31,10 +32,11 @@ export default {
         lift: "0 12px 40px -18px rgba(14, 20, 32, 0.28)",
       },
       backgroundImage: {
+        /* Lavender + Air Force Blue atmosphere (no sage/green) */
         "bf-atmosphere":
-          "radial-gradient(1200px 600px at 12% -10%, rgba(27, 107, 90, 0.14), transparent 55%), radial-gradient(900px 500px at 88% 8%, rgba(196, 165, 116, 0.16), transparent 50%), linear-gradient(180deg, #f7f8fa 0%, #eef1f5 48%, #f5f6f8 100%)",
+          "radial-gradient(1200px 600px at 12% -10%, rgba(231, 213, 250, 0.72), transparent 55%), radial-gradient(900px 500px at 88% 8%, rgba(162, 190, 204, 0.45), transparent 50%), linear-gradient(180deg, #f7f8fa 0%, #eef1f5 48%, #f5f6f8 100%)",
         "bf-mesh":
-          "radial-gradient(ellipse at 20% 0%, rgba(27, 107, 90, 0.09), transparent 45%), radial-gradient(ellipse at 80% 20%, rgba(196, 165, 116, 0.1), transparent 40%)",
+          "radial-gradient(ellipse at 20% 0%, rgba(231, 213, 250, 0.55), transparent 45%), radial-gradient(ellipse at 80% 20%, rgba(162, 190, 204, 0.35), transparent 40%)",
       },
       keyframes: {
         "fade-up": {

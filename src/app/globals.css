@@ -7,8 +7,10 @@
   --bf-mist: #f5f6f8;
   --bf-fog: #e8ebf0;
   --bf-line: #d5dae3;
-  --bf-accent: #1b6b5a;
-  --bf-accent-soft: #d7ebe4;
+  /* BOOKFLO palette — no green: mauve + lavender + Air Force Blue */
+  --bf-accent: #845d81; /* mauve */
+  --bf-accent-soft: #e7d5fa; /* Pantone 7443 C lavender */
+  --bf-sky: #a2becc; /* soft Air Force Blue */
   --bf-brass: #a67c4a;
   --bf-muted: #5c6678;
   --background: #f5f6f8;

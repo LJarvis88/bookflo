@@ -18,7 +18,7 @@ const DAYS = [
 const PASTELS: Record<string, { bg: string; text: string }> = {
   staff_amelia: { bg: "#F8E8E4", text: "#5C3D4A" },
   staff_noah: { bg: "#E4EEF8", text: "#2F4A66" },
-  staff_priya: { bg: "#E6F3EA", text: "#2F5A3E" },
+  staff_priya: { bg: "#D7E8F0", text: "#3D5A68" },
   oms_staff_tee: { bg: "#FCE4F0", text: "#8B0A4A" },
   oms_staff_jaz: { bg: "#FFE8D6", text: "#9A3A00" },
   oms_staff_mina: { bg: "#F8E0EA", text: "#6B2A48" },

@@ -13,7 +13,7 @@ export interface BrandTokens {
   description: string;
   logoText: string;
   logoUrl?: string;
-  coverStyle: "blush" | "ink" | "sage" | "noir";
+  coverStyle: "blush" | "ink" | "lavender" | "noir";
   primary: string;
   secondary: string;
   background: string;

@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
 import { HomeScreenMockup } from "@/components/marketing/HomeScreenMockup";
 import { Faq } from "@/components/marketing/Faq";
+import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
 import {
@@ -74,9 +75,7 @@ export default function HomePage() {
       <section className="relative z-10 w-full pb-20 pt-10 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
         <div className="mx-auto max-w-[1400px] px-5 sm:px-8 lg:px-10">
           <div className="mx-auto max-w-4xl text-center animate-fade-up">
-            <p className="font-display text-5xl font-semibold tracking-tight text-bf-ink sm:text-6xl md:text-7xl">
-              bookflo
-            </p>
+            <BookfloWordmark as="p" size="hero" />
             <h1 className="mt-5 text-balance font-display text-2xl font-medium leading-snug tracking-tight text-bf-ink sm:text-3xl md:text-4xl lg:text-[2.75rem]">
               The booking software for salons that care how they look.
             </h1>
@@ -103,7 +102,7 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
+      <section id="features" className="relative z-10 border-t border-bf-line/70 bg-gradient-to-b from-[#f4f8fa] to-[#eef4f7]">
         <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:px-10">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Simple, flexible booking software
@@ -161,7 +160,7 @@ export default function HomePage() {
               stays fully overridable.
             </p>
           </div>
-          <div className="rounded-2xl border border-bf-line bg-[#f7f8fa] p-6">
+          <div className="rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] p-6">
             <div className="flex items-center justify-between text-xs text-bf-muted">
               <span>From contourpreston.example</span>
               <span className="rounded-full bg-white px-2.5 py-1 font-medium text-bf-ink ring-1 ring-bf-line">
@@ -194,7 +193,7 @@ export default function HomePage() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="relative z-10 border-t border-bf-line/70 bg-[#f7f8fa]">
+      <section id="pricing" className="relative z-10 border-t border-bf-line/70 bg-gradient-to-b from-[#f7f8fa] via-[#eef4f7] to-[#f7f8fa]">
         <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 md:py-24 lg:px-10">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight md:text-4xl">
             Software that grows with your business
@@ -271,9 +270,13 @@ export default function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="relative z-10 overflow-hidden border-t border-bf-line/70 bg-[#f7f8fa]">
+      <section className="relative z-10 overflow-hidden border-t border-bf-line/70 bg-gradient-to-b from-[#eef4f7] to-[#f5f6f8]">
         <div
           className="pointer-events-none absolute left-1/2 top-0 h-64 w-[28rem] -translate-x-1/2 rounded-full bg-[#E7D5FA]/50 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute bottom-0 right-[10%] h-48 w-72 rounded-full bg-bf-sky/35 blur-3xl"
           aria-hidden
         />
         <div className="relative mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
@@ -296,7 +299,7 @@ export default function HomePage() {
 
       <footer className="relative z-10 border-t border-bf-line bg-white">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-8 text-sm text-bf-muted sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
-          <p className="font-display text-lg font-semibold text-bf-ink">bookflo</p>
+          <BookfloWordmark size="sm" />
           <div className="flex flex-wrap gap-4">
             <Link href="/dashboard" className="hover:text-bf-ink">
               Dashboard

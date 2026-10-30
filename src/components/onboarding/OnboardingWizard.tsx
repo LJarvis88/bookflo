@@ -27,14 +27,14 @@ const defaultBrand: BrandTokens = {
   tagline: "Book your next appointment",
   description: "A calm space for beauty treatments tailored to you.",
   logoText: "YS",
-  coverStyle: "sage",
-  primary: "#1B6B5A",
-  secondary: "#D7EBE4",
+  coverStyle: "lavender",
+  primary: "#845D81", /* mauve */
+  secondary: "#A2BECC", /* soft Air Force Blue */
   background: "#F7F8FA",
   ink: "#0E1420",
   muted: "#5C6678",
   surface: "#FFFFFF",
-  buttonBg: "#1B6B5A",
+  buttonBg: "#845D81",
   buttonText: "#FFFFFF",
   fontHeading: "Syne",
   fontBody: "Manrope",
@@ -110,9 +110,9 @@ export function OnboardingWizard() {
             </span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <div className="mt-2 h-1 overflow-hidden rounded-full bg-bf-fog">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-bf-sky/35">
             <motion.div
-              className="h-full bg-bf-accent"
+              className="h-full rounded-full bg-bf-accent"
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.35 }}
             />

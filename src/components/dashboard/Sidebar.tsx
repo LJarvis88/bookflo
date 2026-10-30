@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import {
   CalendarDays,
   CalendarRange,
@@ -68,8 +69,8 @@ export function Sidebar() {
   return (
     <aside className="flex h-full w-full flex-col border-r border-bf-line bg-white">
       <div className="border-b border-bf-line px-5 py-5">
-        <Link href="/" className="font-display text-xl font-semibold tracking-tight text-bf-ink">
-          BOOKFLO
+        <Link href="/" className="inline-flex items-center" aria-label="bookflo home">
+          <BookfloWordmark size="md" />
         </Link>
         <div
           className="mt-4 rounded-xl border border-bf-line px-3 py-3"

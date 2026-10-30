@@ -20,7 +20,7 @@ const DAY_OPTIONS = [
 const CONTOUR_PASTELS: Record<string, { bg: string; border: string; text: string }> = {
   staff_amelia: { bg: "#F8E8E4", border: "#E8C4BC", text: "#5C3D4A" },
   staff_noah: { bg: "#E4EEF8", border: "#B8CEE4", text: "#2F4A66" },
-  staff_priya: { bg: "#E6F3EA", border: "#B5D9C0", text: "#2F5A3E" },
+  staff_priya: { bg: "#D7E8F0", border: "#A2BECC", text: "#3D5A68" },
 };
 
 /** OMS staff pastels — magenta / orange / rose soft fills. */

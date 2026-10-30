@@ -6,7 +6,8 @@ import { TenantLogo } from "@/components/branding/TenantLogo";
 const coverGradients: Record<BrandTokens["coverStyle"], string> = {
   blush: "linear-gradient(145deg, #e8d5d0 0%, #f7ebe6 45%, #d4b8b0 100%)",
   ink: "linear-gradient(145deg, #2c2420 0%, #5c3d4a 55%, #8a6a5a 100%)",
-  sage: "linear-gradient(145deg, #d7ebe4 0%, #eef4f1 50%, #b8cfc4 100%)",
+  /* BOOKFLO calm cover — lavender → Air Force Blue (replaces sage/green) */
+  lavender: "linear-gradient(145deg, #E7D5FA 0%, #F3EAFB 42%, #A2BECC 100%)",
   noir: "linear-gradient(160deg, #0C111B 0%, #192C42 55%, #243852 100%)",
 };
 

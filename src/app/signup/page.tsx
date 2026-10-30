@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 
 export default function SignupPage() {
   return (
     <div className="min-h-screen bg-bf-atmosphere px-5 py-12">
       <div className="mx-auto w-full max-w-md">
-        <Link href="/" className="font-display text-2xl font-semibold text-bf-ink">
-          BOOKFLO
+        <Link href="/" className="inline-flex items-center" aria-label="bookflo home">
+          <BookfloWordmark size="lg" />
         </Link>
         <div className="mt-10 rounded-3xl border border-bf-line bg-white/80 p-8 shadow-soft backdrop-blur">
           <h1 className="font-display text-3xl font-semibold tracking-tight">Start your free trial</h1>

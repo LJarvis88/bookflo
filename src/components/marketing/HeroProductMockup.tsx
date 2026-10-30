@@ -6,7 +6,7 @@ import { TenantLogo } from "@/components/branding/TenantLogo";
 const staff = [
   { name: "Amelia", role: "Lead", bg: "#F8E8E4", text: "#5C3D4A", initials: "AH" },
   { name: "Noah", role: "Injectables", bg: "#E4EEF8", text: "#2F4A66", initials: "NE" },
-  { name: "Priya", role: "Skin", bg: "#E6F3EA", text: "#2F5A3E", initials: "PS" },
+  { name: "Priya", role: "Skin", bg: "#D7E8F0", text: "#3D5A68", initials: "PS" },
   { name: "Liv", role: "Owner", bg: "#F3E8F0", text: "#5C3D5A", initials: "LV" },
 ];
 
