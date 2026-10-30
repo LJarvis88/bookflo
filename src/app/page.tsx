@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
 import { HomeScreenMockup } from "@/components/marketing/HomeScreenMockup";
+import { ContourBookingPhone } from "@/components/marketing/ContourBookingPhone";
 import { Faq } from "@/components/marketing/Faq";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
@@ -140,6 +141,34 @@ export default function HomePage() {
             </p>
           </div>
           <HomeScreenMockup />
+        </div>
+      </section>
+
+      {/* Contour booking demo — same layout as AI Brand Match (left copy, right visual) */}
+      <section className="relative z-10 border-t border-bf-line/70 bg-white">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-5 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-20 sm:px-8 lg:px-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
+              Client booking page
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+              Contour’s brand. Contour’s bookings.
+            </h2>
+            <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
+              Every salon gets a white-label booking page — logo, palette, and type that match their
+              world. Contour Preston is the live demo: Deep Ink, Champagne Gold, and a calm cream
+              screen clients actually book on.
+            </p>
+            <div className="mt-6">
+              <Button href="/book/contour-preston" variant="secondary" className="px-5">
+                Open Contour booking
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="flex justify-center rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] px-6 py-10 sm:px-10">
+            <ContourBookingPhone />
+          </div>
         </div>
       </section>
 
