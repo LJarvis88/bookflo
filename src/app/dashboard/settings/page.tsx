@@ -1,9 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
+import { InstallAppCard } from "@/components/pwa/InstallAppCard";
+import { getTenantPwa } from "@/lib/pwa";
 
 export default function SettingsPage() {
   const t = useDemoTenant();
+  const pwa = getTenantPwa(t.slug);
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
@@ -11,6 +15,24 @@ export default function SettingsPage() {
         <h1 className="font-display text-3xl font-semibold tracking-tight">Settings</h1>
         <p className="mt-1 text-sm text-bf-muted">Business profile for {t.name}</p>
       </header>
+
+      {pwa ? (
+        <section className="space-y-3">
+          <div>
+            <h2 className="font-display text-xl font-semibold tracking-tight">
+              Client home-screen app
+            </h2>
+            <p className="mt-1 text-sm text-bf-muted">
+              Clients install your booking link — icon and name use your brand. Share{" "}
+              <Link href={pwa.startUrl} className="font-medium text-bf-accent hover:underline">
+                {pwa.startUrl}
+              </Link>
+              .
+            </p>
+          </div>
+          <InstallAppCard pwa={pwa} tone="platform" />
+        </section>
+      ) : null}
 
       <form className="space-y-4 rounded-3xl border border-bf-line bg-white p-6">
         <label className="block space-y-1.5 text-sm">

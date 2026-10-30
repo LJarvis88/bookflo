@@ -13,7 +13,9 @@ import {
 } from "@/data/oh-my-social-media";
 import { getService, getStaff } from "@/data/tenants";
 import { TenantLogo } from "@/components/branding/TenantLogo";
+import { InstallAppCard } from "@/components/pwa/InstallAppCard";
 import { formatDateLabel, formatDuration, formatGBP } from "@/lib/format";
+import { getTenantPwa } from "@/lib/pwa";
 import type { BrandTokens, Tenant } from "@/lib/types";
 import { ArrowLeft, Check } from "lucide-react";
 
@@ -427,6 +429,19 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {getTenantPwa(tenant.slug) ? (
+        <div className="mx-auto w-full max-w-md px-5 pb-4">
+          <InstallAppCard
+            pwa={getTenantPwa(tenant.slug)!}
+            tone="tenant"
+            brandPrimary={brand.primary}
+            brandInk={brand.ink}
+            brandSurface={surface}
+            brandMuted={brand.muted}
+          />
+        </div>
+      ) : null}
 
       <footer
         className="border-t px-5 py-6 text-center text-xs"
