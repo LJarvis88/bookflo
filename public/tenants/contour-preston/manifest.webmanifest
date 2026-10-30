@@ -1,4 +1,5 @@
 {
+  "_comment": "DEMO SEED only — real clients upload their own mark at signup; see buildClientPwa()",
   "id": "/book/contour-preston",
   "name": "Contour Preston",
   "short_name": "Contour",

@@ -12,7 +12,13 @@ export interface BrandTokens {
   tagline: string;
   description: string;
   logoText: string;
+  /** Uploaded wordmark / logo (any aspect). */
   logoUrl?: string;
+  /**
+   * Square home-screen / PWA icon derived from the client upload.
+   * Production: generated at signup and served per tenant. Demo seeds use static paths.
+   */
+  appIconUrl?: string;
   coverStyle: "blush" | "ink" | "sage" | "noir";
   primary: string;
   secondary: string;

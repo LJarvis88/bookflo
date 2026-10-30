@@ -36,8 +36,8 @@ export default function LoginPage() {
             Add booking apps to Home Screen
           </h2>
           <p className="text-sm text-bf-muted">
-            Each client installs their own branded icon. Contour and OMS demos below — open the
-            booking link on your phone, then follow the steps.
+            Real product: each salon uploads their logo at signup — that becomes their install icon.
+            Contour and OMS below are demo seeds for Liv and Tee testing.
           </p>
           <div className="grid gap-3">
             <Link

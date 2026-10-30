@@ -6,16 +6,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { LivePreview } from "@/components/branding/LivePreview";
 import { TenantLogo } from "@/components/branding/TenantLogo";
+import { ApplyClientManifest } from "@/components/pwa/ApplyClientManifest";
+import { InstallAppCard } from "@/components/pwa/InstallAppCard";
 import { CONTOUR_PRESTON_BRAND } from "@/data/contour-preston";
+import { processLogoUpload } from "@/lib/pwa-icon";
+import { buildClientPwa } from "@/lib/pwa";
 import type { BrandTokens, WorkingHours } from "@/lib/types";
 import { formatGBP, weekdayLabel } from "@/lib/format";
-import { Sparkles, Check } from "lucide-react";
+import { Sparkles, Check, Upload } from "lucide-react";
 
 const STEPS = [
   "Account",
   "Business",
   "Website",
   "Branding",
+  "App icon",
   "Services",
   "Hours",
   "Preview",
@@ -67,12 +72,33 @@ export function OnboardingWizard() {
   const [services, setServices] = useState(starterServices);
   const [hours, setHours] = useState(defaultHours);
   const [aiApplied, setAiApplied] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const progress = ((step + 1) / STEPS.length) * 100;
+
+  const draftSlug = useMemo(() => {
+    const base = (businessName || "your-salon")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 40);
+    return base || "your-salon";
+  }, [businessName]);
+
+  const clientPwa = useMemo(
+    () =>
+      buildClientPwa(draftSlug, brand, {
+        startUrl: `/book/${draftSlug}`,
+        scope: `/book/${draftSlug}`,
+      }),
+    [draftSlug, brand],
+  );
 
   const canNext = useMemo(() => {
     if (step === 0) return ownerName.trim().length > 1 && email.includes("@");
     if (step === 1) return businessName.trim().length > 1;
+    // App icon step: initials fallback is enough; upload recommended
     return true;
   }, [step, ownerName, email, businessName]);
 
@@ -81,6 +107,8 @@ export function OnboardingWizard() {
       ...CONTOUR_PRESTON_BRAND,
       displayName: businessName || CONTOUR_PRESTON_BRAND.displayName,
       logoUrl: CONTOUR_PRESTON_BRAND.logoUrl,
+      // Demo seed only — real clients upload their own mark on the next step
+      appIconUrl: undefined,
       logoText: (businessName || "CP")
         .split(" ")
         .map((w) => w[0])
@@ -90,6 +118,20 @@ export function OnboardingWizard() {
     };
     setBrand(next);
     setAiApplied(true);
+  }
+
+  async function onLogoSelected(file: File | null) {
+    if (!file) return;
+    setUploadError(null);
+    setUploading(true);
+    try {
+      const { logoUrl, appIconUrl } = await processLogoUpload(file, brand.background);
+      setBrand((b) => ({ ...b, logoUrl, appIconUrl }));
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
   }
 
   function next() {
@@ -230,7 +272,7 @@ export function OnboardingWizard() {
                       className="mb-3 text-xs font-medium uppercase tracking-wider"
                       style={{ color: brand.muted }}
                     >
-                      Matched logo (demo)
+                      {aiApplied ? "Matched logo (demo seed)" : "Your logo"}
                     </p>
                     <TenantLogo brand={brand} size="lg" />
                   </div>
@@ -291,6 +333,74 @@ export function OnboardingWizard() {
             )}
 
             {step === 4 && (
+              <StepShell
+                title="Your home-screen icon"
+                subtitle="Upload your logo or mark — this becomes the Add to Home Screen icon clients see. Contour and OMS demos are seeds only; every real salon uses their own upload."
+              >
+                <ApplyClientManifest pwa={clientPwa} />
+
+                <label className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-bf-line bg-white/80 px-6 py-10 text-center transition hover:border-bf-ink/30">
+                  <Upload className="h-6 w-6 text-bf-muted" strokeWidth={1.75} />
+                  <div>
+                    <p className="text-sm font-semibold text-bf-ink">
+                      {uploading ? "Processing…" : "Upload logo or app mark"}
+                    </p>
+                    <p className="mt-1 text-xs text-bf-muted">
+                      PNG, JPG, SVG, or WebP · under 4 MB · square marks work best
+                    </p>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    disabled={uploading}
+                    onChange={(e) => onLogoSelected(e.target.files?.[0] ?? null)}
+                  />
+                </label>
+
+                {uploadError ? (
+                  <p className="text-sm text-red-700" role="alert">
+                    {uploadError}
+                  </p>
+                ) : null}
+
+                <div className="flex flex-wrap items-end gap-8 rounded-2xl border border-bf-line bg-[#f7f8fa] px-6 py-8">
+                  <div className="flex flex-col items-center gap-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={
+                        brand.appIconUrl ||
+                        brand.logoUrl ||
+                        "/icons/icon-192.png"
+                      }
+                      alt=""
+                      className="h-20 w-20 rounded-[22%] object-cover shadow-soft"
+                    />
+                    <p className="text-[11px] font-medium text-bf-ink">
+                      {clientPwa.shortName}
+                    </p>
+                    <p className="text-[10px] text-bf-muted">Home Screen preview</p>
+                  </div>
+                  <div className="min-w-0 flex-1 text-sm text-bf-muted">
+                    {brand.appIconUrl ? (
+                      <p>
+                        Clients who install your booking link get <strong className="text-bf-ink">{brand.displayName}</strong> with
+                        this icon — not BOOKFLO.
+                      </p>
+                    ) : (
+                      <p>
+                        No upload yet — initials <strong className="text-bf-ink">{brand.logoText}</strong> will
+                        show until you add a mark. You can change this anytime in Branding.
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <InstallAppCard pwa={clientPwa} tone="platform" />
+              </StepShell>
+            )}
+
+            {step === 5 && (
               <StepShell title="Services & prices" subtitle="Start with a few — edit anytime.">
                 <div className="space-y-3">
                   {services.map((svc, i) => (
@@ -341,7 +451,7 @@ export function OnboardingWizard() {
               </StepShell>
             )}
 
-            {step === 5 && (
+            {step === 6 && (
               <StepShell title="Opening hours" subtitle="Weekly schedule for availability.">
                 <div className="space-y-2">
                   {hours.map((h) => (
@@ -407,7 +517,7 @@ export function OnboardingWizard() {
               </StepShell>
             )}
 
-            {step === 6 && (
+            {step === 7 && (
               <StepShell title="Preview" subtitle="This is how clients will meet your brand.">
                 <div className="max-w-sm">
                   <LivePreview brand={brand} />
@@ -422,23 +532,39 @@ export function OnboardingWizard() {
                       .join(", ")}
                   </li>
                   {websiteUrl && <li>Website: {websiteUrl}</li>}
+                  <li>
+                    Home Screen icon:{" "}
+                    {brand.appIconUrl ? "your uploaded mark" : `initials “${brand.logoText}” (upload anytime)`}
+                  </li>
                 </ul>
               </StepShell>
             )}
 
-            {step === 7 && (
+            {step === 8 && (
               <StepShell
                 title="Ready to publish"
-                subtitle="Publishing is simulated — opens the Contour Preston demo dashboard."
+                subtitle="Publishing is simulated in this prototype. Your uploaded mark is what clients install — Contour/OMS icons on the demos are seeds only."
               >
+                <ApplyClientManifest pwa={clientPwa} />
                 <div className="rounded-2xl border border-bf-line bg-white/80 p-5">
-                  <p className="font-display text-2xl font-semibold tracking-tight">
-                    {brand.displayName || businessName || "Your salon"}
-                  </p>
-                  <p className="mt-2 text-sm text-bf-muted">
-                    Share link (demo): /book/contour-preston
-                  </p>
+                  <div className="flex items-center gap-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={brand.appIconUrl || brand.logoUrl || "/icons/icon-192.png"}
+                      alt=""
+                      className="h-14 w-14 rounded-[22%] object-cover shadow-soft"
+                    />
+                    <div>
+                      <p className="font-display text-2xl font-semibold tracking-tight">
+                        {brand.displayName || businessName || "Your salon"}
+                      </p>
+                      <p className="mt-1 text-sm text-bf-muted">
+                        Share link (prototype still demos Contour): /book/contour-preston
+                      </p>
+                    </div>
+                  </div>
                 </div>
+                <InstallAppCard pwa={clientPwa} tone="platform" />
               </StepShell>
             )}
           </motion.div>
