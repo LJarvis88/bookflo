@@ -6,6 +6,7 @@ import { HomeScreenMockup } from "@/components/marketing/HomeScreenMockup";
 import { ContourBookingPhone } from "@/components/marketing/ContourBookingPhone";
 import { OmsBookingPhone } from "@/components/marketing/OmsBookingPhone";
 import { Faq } from "@/components/marketing/Faq";
+import { UspBanner } from "@/components/marketing/UspBanner";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
@@ -419,33 +420,8 @@ export default function HomePage() {
         <Faq />
       </section>
 
-      {/* Final CTA */}
-      <section className="relative z-10 overflow-hidden border-t border-bf-line/70 bg-gradient-to-b from-[#eef4f7] to-[#f5f6f8]">
-        <div
-          className="pointer-events-none absolute left-1/2 top-0 h-64 w-[28rem] -translate-x-1/2 rounded-full bg-[#E7D5FA]/50 blur-3xl"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute bottom-0 right-[10%] h-48 w-72 rounded-full bg-bf-sky/35 blur-3xl"
-          aria-hidden
-        />
-        <div className="relative mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
-          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
-            Try BOOKFLO free for {TRIAL_DAYS} days
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-bf-muted">
-            Publish a booking page that feels like you — and run the day from a calm calendar.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button href="/signup" variant="dark" className="px-7 py-3">
-              Start free trial
-            </Button>
-            <Button href="/login" variant="secondary" className="px-6 py-3">
-              Log in
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* Premium USP — zero commission, above legal footer */}
+      <UspBanner />
 
       <LegalFooter />
     </div>
