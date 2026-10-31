@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { Syne, Manrope, Cormorant_Garamond, Outfit } from "next/font/google";
+import {
+  OG_IMAGE_PATH,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
 
 const syne = Syne({
@@ -27,9 +34,55 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "BOOKFLO — Your brand. Your bookings. Beautifully connected.",
-  description:
-    "Premium zero-commission white-label beauty booking SaaS. Brand craft, effortless booking, simple onboarding.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "beauty booking software",
+    "salon booking system",
+    "white-label booking",
+    "zero commission booking",
+    "aesthetics appointment software",
+    "BOOKFLO",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} — white-label beauty booking`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE_PATH],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: "/marketing/bookflo-email-logo.png",
+  },
 };
 
 export const viewport = {

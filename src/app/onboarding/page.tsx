@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { LegalFooter } from "@/components/marketing/LegalFooter";
+
+export const metadata: Metadata = {
+  title: "Onboarding",
+  description: "Set up your BOOKFLO salon booking page.",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/onboarding" },
+};
 
 export default function OnboardingPage() {
   return (

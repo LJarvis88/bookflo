@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { LegalFooter } from "@/components/marketing/LegalFooter";
+
+export const metadata: Metadata = {
+  title: "Start free trial",
+  description:
+    "Start a 14-day free BOOKFLO trial — white-label beauty booking with zero commission.",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/signup" },
+};
 
 export default function SignupPage() {
   return (
