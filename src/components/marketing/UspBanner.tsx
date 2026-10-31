@@ -5,7 +5,8 @@ import { TRIAL_DAYS } from "@/data/pricing";
 
 /**
  * Zero-commission USP — Luke’s orange→pink→lavender BOOKFLO phone mock.
- * Source: media/luke-usp-banner-orange-ref.png (phone art in /marketing/usp-bookflo-phone.webp).
+ * Source: media/luke-usp-banner-orange-ref.png
+ * Phone art: media/luke-usp-bookflo-phone-ref.png → /marketing/usp-bookflo-phone.{webp,png}.
  */
 export function UspBanner() {
   return (
@@ -82,8 +83,8 @@ export function UspBanner() {
             </div>
 
             <div className="relative z-10 flex items-center justify-center px-6 pb-10 pt-2 md:justify-end md:px-8 md:py-6 lg:pr-12">
-              <div className="relative w-full max-w-[300px] animate-fade-up md:-my-2 md:origin-bottom md:rotate-[6deg] md:[animation-delay:120ms]">
-                <BookfloUspPhone className="relative max-w-[280px]" />
+              <div className="relative w-full max-w-[320px] animate-fade-up md:-my-2 md:origin-bottom md:rotate-[6deg] md:[animation-delay:120ms]">
+                <BookfloUspPhone className="relative max-w-[300px]" />
               </div>
             </div>
           </div>
