@@ -3,12 +3,12 @@
 import { CONTOUR_PRESTON_BRAND, CONTOUR_PALETTE } from "@/data/contour-preston";
 import { TenantLogo } from "@/components/branding/TenantLogo";
 
-const CATEGORIES = ["Skin & facials", "Injectables", "Body", "Consults"] as const;
+const CATEGORIES = ["Consultations", "Dermaforce", "Laser", "CryoPen"] as const;
 
 const SERVICES = [
-  { name: "Signature Contour Facial", meta: "60 min · Amelia", price: "£85", active: true },
-  { name: "HydraGlow Infusion", meta: "45 min · Priya", price: "£75", active: false },
-  { name: "Chemical Peel — Brighten", meta: "40 min · Priya", price: "£95", active: false },
+  { name: "Consultations - Face To Face", meta: "30 min · Liv", price: "£20", active: true },
+  { name: "Dermaplane & Microneedling", meta: "60 min · Liv", price: "£120", active: false },
+  { name: "Laser Medium Areas", meta: "30 min · Liv", price: "£70", active: false },
 ] as const;
 
 /**
