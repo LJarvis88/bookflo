@@ -125,22 +125,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Branded home-screen install — clients upload their own logo mark */}
-      <section className="relative z-10 border-t border-bf-line/70 bg-white">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 md:py-24 lg:px-10">
-          <div>
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-bf-muted">
-              <Smartphone className="h-3.5 w-3.5" strokeWidth={1.75} />
-              White-label add-on
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-              Their booking app. On their home screen.
-            </h2>
-            <p className="mt-4 max-w-lg text-bf-muted leading-relaxed">
-              Clients upload their own logo mark — that icon, their name, no BOOKFLO on their install.
-              Oh My and Contour show as salon examples; Bookflo is the platform mark on this mock only.
-            </p>
-          </div>
+      {/* White-label home screen — Luke’s PNG, Apple-quiet layout */}
+      <section className="relative z-10 bg-white">
+        <div className="mx-auto max-w-[980px] px-6 pb-8 pt-28 text-center sm:px-8 md:pt-36">
+          <p className="text-[12px] font-medium tracking-[0.16em] text-bf-muted uppercase">
+            White-label add-on
+          </p>
+          <h2 className="mt-5 font-display text-[2rem] font-semibold tracking-tight text-bf-ink sm:text-[2.5rem] md:text-[3rem]">
+            Their booking app. On their home screen.
+          </h2>
+          <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-bf-muted">
+            Clients upload their own mark. No BOOKFLO on their install.
+          </p>
+        </div>
+        <div className="mx-auto max-w-[980px] px-6 pb-28 sm:px-8 md:pb-36">
           <HomeScreenMockup />
         </div>
       </section>
