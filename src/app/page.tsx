@@ -213,38 +213,67 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 max-w-xl text-bf-muted leading-relaxed">
               Point BOOKFLO at your site and we suggest colours, type, and tone. In this prototype the
-              match is mocked with Contour Preston’s palette and labelled{" "}
+              match is mocked with Contour Preston and Oh My Social Media palettes — each labelled{" "}
               <span className="font-medium text-bf-ink">“AI brand match — demo”</span>. Every token
               stays fully overridable.
             </p>
           </div>
-          <div className="rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] p-6">
-            <div className="flex items-center justify-between text-xs text-bf-muted">
-              <span>From contourpreston.example</span>
-              <span className="rounded-full bg-white px-2.5 py-1 font-medium text-bf-ink ring-1 ring-bf-line">
-                Demo only
-              </span>
+          <div className="flex flex-col gap-4">
+            <div className="rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] p-6">
+              <div className="flex items-center justify-between text-xs text-bf-muted">
+                <span>From contourpreston.example</span>
+                <span className="rounded-full bg-white px-2.5 py-1 font-medium text-bf-ink ring-1 ring-bf-line">
+                  Demo only
+                </span>
+              </div>
+              <div className="mt-5 grid grid-cols-5 gap-2 sm:gap-3">
+                {[
+                  ["#0C111B", "Deep Ink"],
+                  ["#192C42", "Midnight Navy"],
+                  ["#C8A36C", "Champagne Gold"],
+                  ["#F0EAE2", "Kim K Cream"],
+                  ["#D5C4B2", "Cashmere"],
+                ].map(([hex, name]) => (
+                  <div key={hex} className="space-y-2">
+                    <div
+                      className="aspect-square rounded-xl border border-black/5"
+                      style={{ background: hex }}
+                    />
+                    <p className="text-[10px] leading-tight text-bf-muted">
+                      {name}
+                      <br />
+                      {hex}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mt-5 grid grid-cols-5 gap-2 sm:gap-3">
-              {[
-                ["#0C111B", "Deep Ink"],
-                ["#192C42", "Midnight Navy"],
-                ["#C8A36C", "Champagne Gold"],
-                ["#F0EAE2", "Kim K Cream"],
-                ["#D5C4B2", "Cashmere"],
-              ].map(([hex, name]) => (
-                <div key={hex} className="space-y-2">
-                  <div
-                    className="aspect-square rounded-xl border border-black/5"
-                    style={{ background: hex }}
-                  />
-                  <p className="text-[10px] leading-tight text-bf-muted">
-                    {name}
-                    <br />
-                    {hex}
-                  </p>
-                </div>
-              ))}
+            <div className="rounded-2xl border border-bf-line bg-gradient-to-br from-[#f7f8fa] to-[#e8f0f4] p-6">
+              <div className="flex items-center justify-between text-xs text-bf-muted">
+                <span>From ohmysocialmedia.example</span>
+                <span className="rounded-full bg-white px-2.5 py-1 font-medium text-bf-ink ring-1 ring-bf-line">
+                  Demo only
+                </span>
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+                {[
+                  ["#EB0E7F", "Magenta"],
+                  ["#FE5F0B", "Bright Orange"],
+                  ["#FFFFFF", "White"],
+                ].map(([hex, name]) => (
+                  <div key={hex} className="space-y-2">
+                    <div
+                      className="aspect-square rounded-xl border border-black/5"
+                      style={{ background: hex }}
+                    />
+                    <p className="text-[10px] leading-tight text-bf-muted">
+                      {name}
+                      <br />
+                      {hex}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
