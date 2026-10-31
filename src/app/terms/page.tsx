@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { LegalDoc, LegalSection } from "@/components/marketing/LegalDoc";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { BOOKFLO_CONTACT_EMAIL, BOOKFLO_MAILTO } from "@/lib/contact";
 import { TRIAL_DAYS } from "@/data/pricing";
+import { SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms and Conditions",
@@ -18,7 +20,14 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalDoc title="Terms and conditions">
+    <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: SITE_NAME, path: "/" },
+          { name: "Terms and Conditions", path: "/terms" },
+        ])}
+      />
+      <LegalDoc title="Terms and conditions">
       <p>
         These Terms and Conditions govern your use of bookflo.app and the
         BOOKFLO product prototype. They are a working template, not a
@@ -140,5 +149,6 @@ export default function TermsPage() {
         <p className="text-sm">Last updated: 31 October 2026.</p>
       </LegalSection>
     </LegalDoc>
+    </>
   );
 }

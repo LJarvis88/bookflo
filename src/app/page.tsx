@@ -18,6 +18,8 @@ import {
   SITE_TAGLINE,
   SITE_URL,
 } from "@/lib/site";
+import { MARKETING_FAQS } from "@/data/faq";
+import { JsonLd } from "@/components/seo/JsonLd";
 import {
   ArrowRight,
   Sparkles,
@@ -75,6 +77,18 @@ const jsonLd = {
         description: plan.blurb,
       })),
     },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/#faq`,
+      mainEntity: MARKETING_FAQS.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      })),
+    },
   ],
 };
 
@@ -125,12 +139,7 @@ const testimonials = [
 export default function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white text-bf-ink">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={jsonLd} />
       {/* Soft lavender atmosphere — Pantone 7443 C #E7D5FA (not cream; not Fresha L/R purple) */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
         <div className="absolute -top-20 left-1/2 h-[520px] w-[680px] -translate-x-1/2 rounded-full bg-[#E7D5FA]/70 blur-[110px]" />

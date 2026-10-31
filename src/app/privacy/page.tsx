@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { LegalDoc, LegalSection } from "@/components/marketing/LegalDoc";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { BOOKFLO_CONTACT_EMAIL, BOOKFLO_MAILTO } from "@/lib/contact";
+import { SITE_NAME } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -17,7 +19,14 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalDoc title="Privacy Policy">
+    <>
+      <JsonLd
+        data={breadcrumbList([
+          { name: SITE_NAME, path: "/" },
+          { name: "Privacy Policy", path: "/privacy" },
+        ])}
+      />
+      <LegalDoc title="Privacy Policy">
       <p>
         This Privacy Policy explains how BOOKFLO (“we”, “us”) handles personal
         data when you use bookflo.app and related demo or trial services. It is
@@ -153,5 +162,6 @@ export default function PrivacyPage() {
         <p className="text-sm">Last updated: 31 October 2026.</p>
       </LegalSection>
     </LegalDoc>
+    </>
   );
 }

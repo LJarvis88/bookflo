@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BookingFlow } from "@/components/booking/BookingFlow";
+import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { getTenantBySlug, listTenantSlugs, TENANTS } from "@/data/tenants";
 import { absoluteUrl } from "@/lib/site";
 
@@ -62,5 +63,16 @@ export default async function BookPage({
   const { slug } = await params;
   const tenant = TENANTS.find((t) => t.slug === slug);
   if (!tenant) notFound();
-  return <BookingFlow tenant={getTenantBySlug(slug)} />;
+  const path = `/book/${tenant.slug}`;
+  // Schema only — booking chrome stays white-label (tenant title/logo in UI).
+  const crumbs = breadcrumbList([
+    { name: "Home", path: "/" },
+    { name: tenant.brand.displayName, path },
+  ]);
+  return (
+    <>
+      <JsonLd data={crumbs} />
+      <BookingFlow tenant={getTenantBySlug(slug)} />
+    </>
+  );
 }
