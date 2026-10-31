@@ -41,7 +41,7 @@ export function ContourBookingPhone({ className = "" }: { className?: string }) 
               aria-hidden
             />
 
-            {/* Quiet luxury header */}
+            {/* Contour brand header */}
             <div
               className="relative shrink-0 px-3.5 pb-3.5 pt-10"
               style={{
@@ -51,10 +51,10 @@ export function ContourBookingPhone({ className = "" }: { className?: string }) 
               <div className="flex flex-col items-center gap-2">
                 <TenantLogo brand={brand} size="sm" className="object-center max-h-[34px]" />
                 <p
-                  className="text-center text-[8.5px] font-light tracking-[0.18em] uppercase"
+                  className="text-center text-[8.5px] font-light tracking-[0.12em] uppercase"
                   style={{ color: cashmere }}
                 >
-                  Quiet luxury aesthetics
+                  {brand.tagline}
                 </p>
               </div>
 
