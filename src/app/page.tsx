@@ -15,7 +15,6 @@ import {
   Palette,
   CalendarDays,
   Shield,
-  Smartphone,
 } from "lucide-react";
 
 const features = [
