@@ -6,7 +6,7 @@ import { TRIAL_DAYS } from "@/data/pricing";
 /**
  * Zero-commission USP — Luke’s orange→pink→lavender BOOKFLO phone mock.
  * Source: media/luke-usp-banner-orange-ref.png
- * Phone art: media/luke-usp-bookflo-phone-ref.png → /marketing/usp-bookflo-phone.{webp,png}.
+ * Phone art: media/luke-usp-bookflo-phone-exact.png → /marketing/usp-bookflo-phone.png
  */
 export function UspBanner() {
   return (
