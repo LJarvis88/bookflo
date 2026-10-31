@@ -3,9 +3,16 @@ import { LegalDoc, LegalSection } from "@/components/marketing/LegalDoc";
 import { BOOKFLO_CONTACT_EMAIL, BOOKFLO_MAILTO } from "@/lib/contact";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — BOOKFLO",
+  title: "Privacy Policy",
   description:
     "How BOOKFLO processes personal data for accounts, bookings, and the marketing site.",
+  alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Privacy Policy — BOOKFLO",
+    description:
+      "How BOOKFLO processes personal data for accounts, bookings, and the marketing site.",
+    url: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

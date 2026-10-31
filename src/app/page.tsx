@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { LegalFooter } from "@/components/marketing/LegalFooter";
 import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
@@ -8,6 +9,14 @@ import { Faq } from "@/components/marketing/Faq";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
+import { BOOKFLO_CONTACT_EMAIL } from "@/lib/contact";
+import {
+  OG_IMAGE_PATH,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+} from "@/lib/site";
 import {
   ArrowRight,
   Sparkles,
@@ -15,6 +24,58 @@ import {
   CalendarDays,
   Shield,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: { absolute: `${SITE_NAME} — ${SITE_TAGLINE}` },
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    images: [{ url: OG_IMAGE_PATH, width: 1200, height: 630 }],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      email: BOOKFLO_CONTACT_EMAIL,
+      description: SITE_DESCRIPTION,
+      logo: `${SITE_URL}/marketing/bookflo-email-logo.png`,
+      sameAs: [] as string[],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      inLanguage: "en-GB",
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: SITE_NAME,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      offers: PLANS.map((plan) => ({
+        "@type": "Offer",
+        name: plan.name,
+        price: String(plan.price),
+        priceCurrency: "GBP",
+        description: plan.blurb,
+      })),
+    },
+  ],
+};
 
 const features = [
   {
@@ -63,6 +124,12 @@ const testimonials = [
 export default function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-white text-bf-ink">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       {/* Soft lavender atmosphere — Pantone 7443 C #E7D5FA (not cream; not Fresha L/R purple) */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
         <div className="absolute -top-20 left-1/2 h-[520px] w-[680px] -translate-x-1/2 rounded-full bg-[#E7D5FA]/70 blur-[110px]" />

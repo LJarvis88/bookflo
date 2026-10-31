@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { LegalFooter } from "@/components/marketing/LegalFooter";
+
+export const metadata: Metadata = {
+  title: "Log in",
+  description: "Log in to your BOOKFLO salon dashboard.",
+  robots: { index: false, follow: false },
+  alternates: { canonical: "/login" },
+};
 
 export default function LoginPage() {
   return (

@@ -4,9 +4,16 @@ import { BOOKFLO_CONTACT_EMAIL, BOOKFLO_MAILTO } from "@/lib/contact";
 import { TRIAL_DAYS } from "@/data/pricing";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions — BOOKFLO",
+  title: "Terms and Conditions",
   description:
     "Terms for using BOOKFLO, demo accounts, the free trial, and zero-commission subscription framing.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Terms and Conditions — BOOKFLO",
+    description:
+      "Terms for using BOOKFLO, demo accounts, the free trial, and zero-commission subscription framing.",
+    url: "/terms",
+  },
 };
 
 export default function TermsPage() {
