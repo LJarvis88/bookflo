@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/Button";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 
 const nav = [
-  { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
+  { href: "/#features", label: "Features" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export function SiteHeader() {

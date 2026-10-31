@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
+import { LegalFooter } from "@/components/marketing/LegalFooter";
 import { HeroProductMockup } from "@/components/marketing/HeroProductMockup";
 import { HomeScreenMockup } from "@/components/marketing/HomeScreenMockup";
 import { ContourBookingPhone } from "@/components/marketing/ContourBookingPhone";
@@ -8,7 +8,6 @@ import { Faq } from "@/components/marketing/Faq";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
-import { BOOKFLO_CONTACT_EMAIL, BOOKFLO_MAILTO } from "@/lib/contact";
 import {
   ArrowRight,
   Sparkles,
@@ -381,26 +380,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="relative z-10 border-t border-bf-line bg-white">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-4 px-5 py-8 text-sm text-bf-muted sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
-          <BookfloWordmark size="sm" />
-          <div className="flex flex-wrap gap-4">
-            <a href={BOOKFLO_MAILTO} className="hover:text-bf-ink">
-              {BOOKFLO_CONTACT_EMAIL}
-            </a>
-            <Link href="/dashboard" className="hover:text-bf-ink">
-              Dashboard
-            </Link>
-            <Link href="/book/contour-preston" className="hover:text-bf-ink">
-              Booking demo
-            </Link>
-            <Link href="/login" className="hover:text-bf-ink">
-              Log in
-            </Link>
-          </div>
-          <p>{TRIAL_DAYS}-day free trial · Zero commission</p>
-        </div>
-      </footer>
+      <LegalFooter />
     </div>
   );
 }
