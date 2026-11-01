@@ -137,7 +137,6 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "waiver",
       "intake form",
       "medical form",
-      "faces consent",
     ],
     answer:
       "Consent forms are coming in a later phase — planned free on every plan (value-first pricing). Soft caps only if someone abuses the system; not a paid upsell.",
@@ -172,7 +171,6 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "explain",
       "booking software",
       "salon software",
-      "fresha",
     ],
     answer:
       "BOOKFLO is premium white-label beauty booking — your brand on the client page, calendar-first admin for your team, zero commission, and a 14-day free trial on every plan.",

@@ -136,7 +136,7 @@ const testimonials = [
   },
   {
     quote:
-      "Fresha was fine until branding mattered. BOOKFLO is the first tool that treated our identity as the product.",
+      "Other booking tools were fine until branding mattered. BOOKFLO is the first that treated our identity as the product.",
     name: "Tom Hale",
     role: "Salon owner, Leeds",
   },
@@ -192,7 +192,7 @@ export default function HomePage() {
             Simple, flexible booking software
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-bf-muted">
-            Fresha-like admin for your team. Contour-level brand craft for your clients.
+            Calm calendar-first admin for your team. Contour-level brand craft for your clients.
           </p>
           <div className="mx-auto mt-14 grid max-w-5xl gap-10 sm:grid-cols-2">
             {features.map((f) => (
