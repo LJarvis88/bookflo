@@ -1,15 +1,23 @@
+"use client";
+
 import { PLANS, TRIAL_DAYS } from "@/data/pricing";
+import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 
 export default function SubscriptionPage() {
+  const tenant = useDemoTenant();
   const current = "salon";
+  const currentPlan = PLANS.find((plan) => plan.id === current);
 
   return (
     <div className="space-y-8">
       <header>
         <h1 className="font-display text-3xl font-semibold tracking-tight">Plan</h1>
         <p className="mt-1 text-sm text-bf-muted">
-          Contour Preston is on <strong className="text-bf-ink">Team · £39/mo</strong> (demo).
-          Every plan includes a {TRIAL_DAYS}-day free trial.
+          {tenant.name} is on{" "}
+          <strong className="text-bf-ink">
+            {currentPlan?.name ?? "Team"} · £{currentPlan?.price ?? 39}/mo
+          </strong>{" "}
+          (demo). Every plan includes a {TRIAL_DAYS}-day free trial.
         </p>
       </header>
 

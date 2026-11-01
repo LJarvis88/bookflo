@@ -4,11 +4,18 @@ import type { Tenant } from "@/lib/types";
 
 export const TENANTS: Tenant[] = [contourPreston, ohMySocialMedia];
 
+/** Public booking fallback only — never use as a silent dashboard default. */
 export const DEFAULT_TENANT_SLUG = contourPreston.slug;
 
+export function findTenantBySlug(
+  slug: string | null | undefined,
+): Tenant | undefined {
+  if (!slug) return undefined;
+  return TENANTS.find((t) => t.slug === slug);
+}
+
 export function getTenantBySlug(slug: string | null | undefined): Tenant {
-  if (!slug) return contourPreston;
-  return TENANTS.find((t) => t.slug === slug) ?? contourPreston;
+  return findTenantBySlug(slug) ?? contourPreston;
 }
 
 export function listTenantSlugs(): string[] {

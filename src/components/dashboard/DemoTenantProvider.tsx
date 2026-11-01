@@ -1,32 +1,102 @@
 "use client";
 
+import Link from "next/link";
 import {
   createContext,
   useContext,
-  useEffect,
+  useLayoutEffect,
   useState,
   type ReactNode,
 } from "react";
-import { getTenantBySlug, DEFAULT_TENANT_SLUG } from "@/data/tenants";
-import { readDemoTenantSlug } from "@/lib/demo-session";
+import { findTenantBySlug } from "@/data/tenants";
+import {
+  isKnownTenantSlug,
+  readDemoTenantSlug,
+  writeDemoTenantSlug,
+} from "@/lib/demo-session";
 import type { Tenant } from "@/lib/types";
 
-const DemoTenantContext = createContext<Tenant>(getTenantBySlug(DEFAULT_TENANT_SLUG));
+const DemoTenantContext = createContext<Tenant | null>(null);
+
+function resolveSlugFromClient(): string | null {
+  if (typeof window === "undefined") return null;
+
+  const fromQuery = new URLSearchParams(window.location.search).get("tenant");
+  if (isKnownTenantSlug(fromQuery)) return fromQuery;
+
+  return readDemoTenantSlug();
+}
+
+function stripTenantQueryParam() {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  if (!url.searchParams.has("tenant")) return;
+  url.searchParams.delete("tenant");
+  const next = `${url.pathname}${url.search}${url.hash}`;
+  window.history.replaceState({}, "", next);
+}
 
 export function DemoTenantProvider({ children }: { children: ReactNode }) {
-  const [tenant, setTenant] = useState<Tenant>(() =>
-    getTenantBySlug(DEFAULT_TENANT_SLUG),
-  );
+  // Start unresolved on purpose — never paint Contour (or any salon) as a default.
+  const [tenant, setTenant] = useState<Tenant | null>(null);
+  const [resolved, setResolved] = useState(false);
 
-  useEffect(() => {
-    setTenant(getTenantBySlug(readDemoTenantSlug()));
+  useLayoutEffect(() => {
+    const slug = resolveSlugFromClient();
+    if (slug) {
+      writeDemoTenantSlug(slug);
+      stripTenantQueryParam();
+      setTenant(findTenantBySlug(slug) ?? null);
+    } else {
+      setTenant(null);
+    }
+    setResolved(true);
   }, []);
 
+  if (!resolved) {
+    // Neutral shell only — no logo, name, or colours from any demo tenant.
+    return (
+      <div
+        className="min-h-screen bg-[#f7f8fa]"
+        aria-busy="true"
+        aria-label="Loading salon portal"
+      />
+    );
+  }
+
+  if (!tenant) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#f7f8fa] px-4 text-bf-ink">
+        <div className="max-w-sm text-center">
+          <p className="font-display text-xl font-semibold tracking-tight">
+            Salon portal
+          </p>
+          <p className="mt-2 text-sm text-bf-muted">
+            Sign in with your demo account to open your business dashboard.
+            No salon branding loads until your account is resolved.
+          </p>
+          <Link
+            href="/login"
+            className="mt-5 inline-flex rounded-full bg-bf-ink px-5 py-2.5 text-sm font-medium text-white"
+          >
+            Log in
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <DemoTenantContext.Provider value={tenant}>{children}</DemoTenantContext.Provider>
+    <DemoTenantContext.Provider value={tenant}>
+      {children}
+    </DemoTenantContext.Provider>
   );
 }
 
 export function useDemoTenant(): Tenant {
-  return useContext(DemoTenantContext);
+  const tenant = useContext(DemoTenantContext);
+  if (!tenant) {
+    throw new Error("useDemoTenant must be used inside a resolved DemoTenantProvider");
+  }
+  return tenant;
 }
