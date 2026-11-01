@@ -207,7 +207,9 @@ export default function HomePage() {
             White-label add-on
           </p>
           <h2 className="mt-5 font-display text-[2rem] font-semibold tracking-tight text-bf-ink sm:text-[2.5rem] md:text-[3rem]">
-            Their booking app. On their home screen.
+            Your booking app.
+            <br />
+            On their home screen.
           </h2>
           <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-bf-muted">
             Clients upload their own mark. No BOOKFLO on their install.
