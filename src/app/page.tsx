@@ -26,6 +26,7 @@ import {
   Palette,
   CalendarDays,
   Shield,
+  Bell,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -112,6 +113,11 @@ const features = [
     icon: Shield,
     title: "Zero commission",
     body: "Flat subscription with a 14-day free trial. No cut of your bookings. Stripe stays out of this prototype.",
+  },
+  {
+    icon: Bell,
+    title: "Free text and email reminders, built in.",
+    body: "Unlimited appointment reminders included on every plan — no per-message fees past a free allowance.",
   },
 ];
 
@@ -207,7 +213,9 @@ export default function HomePage() {
             White-label add-on
           </p>
           <h2 className="mt-5 font-display text-[2rem] font-semibold tracking-tight text-bf-ink sm:text-[2.5rem] md:text-[3rem]">
-            Their booking app. On their home screen.
+            Your booking app.
+            <br />
+            On their home screen.
           </h2>
           <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-bf-muted">
             Clients upload their own mark. No BOOKFLO on their install.
