@@ -26,6 +26,7 @@ import {
   Palette,
   CalendarDays,
   Shield,
+  Bell,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -112,6 +113,11 @@ const features = [
     icon: Shield,
     title: "Zero commission",
     body: "Flat subscription with a 14-day free trial. No cut of your bookings. Stripe stays out of this prototype.",
+  },
+  {
+    icon: Bell,
+    title: "Free text and email reminders, built in.",
+    body: "Unlimited appointment reminders included on every plan — no per-message fees past a free allowance.",
   },
 ];
 

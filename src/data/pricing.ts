@@ -23,6 +23,7 @@ export const PLANS: Plan[] = [
       "Single calendar column",
       "1 branded booking page",
       "Unlimited bookings",
+      "Free text & email reminders",
       "Email confirmations",
       "Email and chat support",
     ],
@@ -38,6 +39,7 @@ export const PLANS: Plan[] = [
       "Multiple calendar columns",
       "Up to 8 team members",
       "Branding editor + live preview",
+      "Free text & email reminders",
       "Customer list",
       "Phone, chat, and email support",
     ],
@@ -52,6 +54,7 @@ export const PLANS: Plan[] = [
     features: [
       "Everything in Team",
       "Unlimited staff",
+      "Free text & email reminders",
       "Priority support",
       "Custom domain path (soon)",
       "Stripe Connect ready (stub)",
