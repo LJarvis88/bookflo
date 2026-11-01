@@ -82,8 +82,9 @@ export function UspBanner() {
               </div>
             </div>
 
-            <div className="relative z-10 flex items-center justify-center px-6 pb-10 pt-2 md:justify-end md:px-8 md:py-6 lg:pr-12">
-              <div className="relative w-full max-w-[320px] animate-fade-up md:-my-2 md:origin-bottom md:rotate-[6deg] md:[animation-delay:120ms]">
+            {/* Phone: desktop only — mobile is copy + CTA on the gradient */}
+            <div className="relative z-10 hidden items-center justify-end px-8 py-6 md:flex lg:pr-12">
+              <div className="relative w-full max-w-[320px] -my-2 origin-bottom rotate-[6deg] animate-fade-up [animation-delay:120ms]">
                 <BookfloUspPhone className="relative max-w-[300px]" />
               </div>
             </div>
