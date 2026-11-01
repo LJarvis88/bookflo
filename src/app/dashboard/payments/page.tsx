@@ -1,4 +1,10 @@
+"use client";
+
+import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
+
 export default function PaymentsPage() {
+  const tenant = useDemoTenant();
+
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <header>
@@ -20,7 +26,7 @@ export default function PaymentsPage() {
           </span>
         </div>
         <p className="text-sm text-bf-muted leading-relaxed">
-          SaaS subscription invoices will appear here. For now Contour Preston is on the Salon plan
+          SaaS subscription invoices will appear here. For now {tenant.name} is on the Salon plan
           (£39/mo) as fictional entitlement only.
         </p>
         <button

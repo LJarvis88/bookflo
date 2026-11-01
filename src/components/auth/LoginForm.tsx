@@ -36,8 +36,12 @@ export function LoginForm() {
       return;
     }
 
+    // Persist + pass slug on the URL so the dashboard resolves THIS tenant
+    // before paint — never falls back to Contour while OMS settles.
     writeDemoTenantSlug(account.tenantSlug);
-    router.push("/dashboard");
+    router.push(
+      `/dashboard?tenant=${encodeURIComponent(account.tenantSlug)}`,
+    );
   }
 
   return (
