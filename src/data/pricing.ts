@@ -54,7 +54,6 @@ export const PLANS: Plan[] = [
     features: [
       "Everything in Team",
       "Unlimited staff",
-      "Free text & email reminders",
       "Priority support",
       "Custom domain path (soon)",
       "Stripe Connect ready (stub)",
