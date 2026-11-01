@@ -1,12 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { BookfloUspPhone } from "@/components/marketing/BookfloUspPhone";
 import { TRIAL_DAYS } from "@/data/pricing";
 
 /**
- * Zero-commission USP — Luke’s orange→pink→lavender BOOKFLO phone mock.
- * Source: media/luke-usp-banner-orange-ref.png
- * Phone art: media/luke-usp-bookflo-phone-exact.png → /marketing/usp-bookflo-phone.png
+ * Zero-commission USP.
+ * Desktop: Luke’s exact full banner PNG (copy + phone) — no redraw.
+ * Mobile: HTML copy + CTA on the gradient; phone hidden.
+ * Source: media/luke-usp-desktop-full.png → /marketing/usp-luke-desktop-full.png
  */
 export function UspBanner() {
   return (
@@ -15,8 +15,31 @@ export function UspBanner() {
       className="relative z-10 overflow-hidden border-t border-bf-line/70 bg-[#f4f4f6]"
     >
       <div className="relative mx-auto max-w-[1400px] px-5 py-14 sm:px-8 md:py-16 lg:px-10">
-        <div className="relative overflow-hidden rounded-[1.75rem] shadow-lift sm:rounded-[2rem]">
-          {/* Orange → hot pink → lavender panel */}
+        <h2 id="usp-banner-heading" className="sr-only">
+          Zero commission. Your brand stays yours.
+        </h2>
+
+        {/* Desktop — Luke’s exact mock (full banner with phone) */}
+        <div className="relative hidden md:block">
+          <a
+            href="/signup"
+            className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-bf-ink"
+          >
+            <img
+              src="/marketing/usp-luke-desktop-full.png"
+              alt="Zero commission. Your brand stays yours. Flat subscription, 14-day free trial. Clients book on a page that looks like you — not a marketplace. Start free trial."
+              width={1774}
+              height={772}
+              className="mx-auto block h-auto w-full drop-shadow-[0_18px_40px_rgba(40,12,48,0.18)]"
+              decoding="async"
+              loading="eager"
+              fetchPriority="low"
+            />
+          </a>
+        </div>
+
+        {/* Mobile — copy + CTA only; no phone */}
+        <div className="relative overflow-hidden rounded-[1.75rem] shadow-lift md:hidden sm:rounded-[2rem]">
           <div
             className="absolute inset-0"
             style={{
@@ -25,7 +48,6 @@ export function UspBanner() {
             }}
             aria-hidden
           />
-          {/* Soft wave / blob atmosphere (Luke mock) */}
           <div
             className="pointer-events-none absolute -left-[8%] bottom-[-35%] h-[120%] w-[55%] rounded-[100%] bg-[#FF9A55]/35 blur-2xl"
             aria-hidden
@@ -58,35 +80,23 @@ export function UspBanner() {
             />
           </svg>
 
-          <div className="relative grid md:grid-cols-[1.1fr_0.9fr] md:items-center">
-            <div className="relative z-10 flex flex-col justify-center px-8 py-12 sm:px-10 sm:py-14 md:px-12 lg:px-14 lg:py-16">
-              <h2
-                id="usp-banner-heading"
-                className="max-w-md text-balance font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl md:text-[2.55rem] md:leading-[1.12]"
+          <div className="relative z-10 flex flex-col justify-center px-8 py-12 sm:px-10 sm:py-14">
+            <p className="max-w-md text-balance font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              Zero commission. Your brand stays yours.
+            </p>
+            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/90 sm:text-base">
+              Flat subscription, {TRIAL_DAYS}-day free trial. Clients book on a page that looks like
+              you — not a marketplace.
+            </p>
+            <div className="mt-8">
+              <Button
+                href="/signup"
+                variant="secondary"
+                className="border-transparent bg-white px-7 py-3 text-bf-ink shadow-soft hover:border-transparent hover:bg-white/95"
               >
-                Zero commission. Your brand stays yours.
-              </h2>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/90 sm:text-base">
-                Flat subscription, {TRIAL_DAYS}-day free trial. Clients book on a page that looks like
-                you — not a marketplace.
-              </p>
-              <div className="mt-8">
-                <Button
-                  href="/signup"
-                  variant="secondary"
-                  className="border-transparent bg-white px-7 py-3 text-bf-ink shadow-soft hover:border-transparent hover:bg-white/95"
-                >
-                  Start free trial
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Phone: desktop only — mobile is copy + CTA on the gradient */}
-            <div className="relative z-10 hidden items-center justify-end px-8 py-6 md:flex lg:pr-12">
-              <div className="relative w-full max-w-[320px] -my-2 origin-bottom rotate-[6deg] animate-fade-up [animation-delay:120ms]">
-                <BookfloUspPhone className="relative max-w-[300px]" />
-              </div>
+                Start free trial
+                <ArrowRight className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
