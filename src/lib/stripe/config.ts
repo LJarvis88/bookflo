@@ -7,26 +7,69 @@ export function connectsPaymentsEnabled(tenantSlug: string): boolean {
   return tenantSlug === OMS_TENANT_SLUG;
 }
 
+export type StripeMode = "test" | "live";
+
+/**
+ * Explicit STRIPE_MODE wins. Otherwise infer from key prefixes.
+ * Mixed test/live keys always throw — never half-cutover.
+ */
+export function getStripeMode(): StripeMode {
+  const forced = process.env.STRIPE_MODE?.trim().toLowerCase();
+  if (forced === "live" || forced === "test") {
+    return forced;
+  }
+  const secret = process.env.STRIPE_SECRET_KEY?.trim() ?? "";
+  if (secret.startsWith("sk_live_")) return "live";
+  return "test";
+}
+
+export function isStripeLiveMode(): boolean {
+  return getStripeMode() === "live";
+}
+
+function requireKey(
+  value: string,
+  envName: string,
+  mode: StripeMode,
+  kind: "secret" | "publishable",
+): string {
+  if (!value) {
+    throw new Error(`${envName} is not set`);
+  }
+  const livePrefix = kind === "secret" ? "sk_live_" : "pk_live_";
+  const testPrefix = kind === "secret" ? "sk_test_" : "pk_test_";
+  if (mode === "live") {
+    if (!value.startsWith(livePrefix)) {
+      throw new Error(
+        `${envName} must be a LIVE ${kind} key (${livePrefix}) when STRIPE_MODE=live`,
+      );
+    }
+  } else if (!value.startsWith(testPrefix)) {
+    throw new Error(
+      `${envName} must be a TEST ${kind} key (${testPrefix}) when STRIPE_MODE=test`,
+    );
+  }
+  return value;
+}
+
 export function getStripeSecretKey(): string {
-  const key = process.env.STRIPE_SECRET_KEY?.trim() ?? "";
-  if (!key) {
-    throw new Error("STRIPE_SECRET_KEY is not set");
-  }
-  if (!key.startsWith("sk_test_")) {
-    throw new Error("Only Stripe TEST secret keys (sk_test_) are allowed");
-  }
-  return key;
+  const mode = getStripeMode();
+  return requireKey(
+    process.env.STRIPE_SECRET_KEY?.trim() ?? "",
+    "STRIPE_SECRET_KEY",
+    mode,
+    "secret",
+  );
 }
 
 export function getStripePublishableKey(): string {
-  const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim() ?? "";
-  if (!key) {
-    throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not set");
-  }
-  if (!key.startsWith("pk_test_")) {
-    throw new Error("Only Stripe TEST publishable keys (pk_test_) are allowed");
-  }
-  return key;
+  const mode = getStripeMode();
+  return requireKey(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim() ?? "",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    mode,
+    "publishable",
+  );
 }
 
 export function getAppUrl(): string {
@@ -36,9 +79,32 @@ export function getAppUrl(): string {
   return "http://localhost:3000";
 }
 
-export function assertTestModeKeys(): void {
+/**
+ * Optional absolute origin for Stripe API when UI is on static deed
+ * and /api/stripe runs on a Node host (e.g. Vercel).
+ * Empty → same-origin `/api/stripe/...`.
+ */
+export function getStripeApiBase(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_STRIPE_API_BASE?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+  return "";
+}
+
+export function stripeApiUrl(path: string): string {
+  const base = getStripeApiBase();
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return base ? `${base}${normalized}` : normalized;
+}
+
+/** Validate keys for the active mode (test or live). */
+export function assertStripeKeys(): void {
   getStripeSecretKey();
   getStripePublishableKey();
+}
+
+/** @deprecated Prefer assertStripeKeys — kept for existing route imports. */
+export function assertTestModeKeys(): void {
+  assertStripeKeys();
 }
 
 export type PaymentChoice = "full" | "deposit";
