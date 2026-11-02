@@ -81,7 +81,12 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/marketing/bookflo-email-logo.png",
+    // Marketing tab icon only — no apple-touch / favicon.ico / icon.svg file
+    // conventions in app/ (those forced BOOKFLO B onto OMS Add to Home Screen).
+    icon: [
+      { url: "/marketing/bookflo-favicon.ico", sizes: "48x48", type: "image/x-icon" },
+      { url: "/marketing/bookflo-email-logo.png", type: "image/png" },
+    ],
   },
 };
 

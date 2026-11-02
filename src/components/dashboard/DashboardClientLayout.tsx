@@ -7,7 +7,9 @@ import {
   DemoTenantProvider,
   useDemoTenant,
 } from "@/components/dashboard/DemoTenantProvider";
+import { ApplyTenantManifest } from "@/components/pwa/ApplyTenantManifest";
 import { clearDemoTenantSlug } from "@/lib/demo-session";
+import { getAdminPwa } from "@/lib/pwa";
 
 const mobileLinks = [
   ["/dashboard", "Appointments"],
@@ -23,6 +25,7 @@ const mobileLinks = [
 
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const tenant = useDemoTenant();
+  const adminPwa = getAdminPwa(tenant.slug);
 
   // OMS admin may use a soft cream wash for hierarchy; other tenants stay cool grey.
   // OMS public booking stays pure white via brand tokens — not this shell.
@@ -31,6 +34,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen text-bf-ink" style={{ background: shellBg }}>
+      {adminPwa ? <ApplyTenantManifest pwa={adminPwa} /> : null}
       <div className="mx-auto flex min-h-screen max-w-[1480px]">
         <div className="hidden w-56 shrink-0 md:block lg:w-60">
           <div className="sticky top-0 h-screen">
