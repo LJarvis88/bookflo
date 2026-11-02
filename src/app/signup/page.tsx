@@ -3,11 +3,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { LegalFooter } from "@/components/marketing/LegalFooter";
+import {
+  BOOKFLO_CONTACT_EMAIL,
+  BOOKFLO_MAILTO,
+  BOOKFLO_WHATSAPP_DISPLAY,
+  bookfloWaitlistWhatsAppUrl,
+} from "@/lib/contact";
 
 export const metadata: Metadata = {
-  title: "Start free trial",
+  title: "Join the waitlist",
   description:
-    "Start a 14-day free BOOKFLO trial — white-label beauty booking with zero commission.",
+    "BOOKFLO is demo-only right now — invite-only access. Join the waitlist via WhatsApp.",
   robots: { index: false, follow: false },
   alternates: { canonical: "/signup" },
 };
@@ -21,41 +27,36 @@ export default function SignupPage() {
             <BookfloWordmark size="lg" />
           </Link>
           <div className="mt-10 rounded-3xl border border-bf-line bg-white/80 p-8 shadow-soft backdrop-blur">
-            <h1 className="font-display text-3xl font-semibold tracking-tight">Start your free trial</h1>
-            <p className="mt-2 text-sm text-bf-muted">
-              14 days free on every plan. Demo signup — creates no real account.
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bf-muted">
+              Invite only
             </p>
-            <form className="mt-8 space-y-4" action="/onboarding">
-              <label className="block space-y-1.5 text-sm">
-                <span className="font-medium text-bf-ink">Your name</span>
-                <input
-                  type="text"
-                  placeholder="Amelia Hart"
-                  className="w-full rounded-xl border border-bf-line bg-white px-3.5 py-2.5 outline-none focus:border-bf-accent"
-                />
-              </label>
-              <label className="block space-y-1.5 text-sm">
-                <span className="font-medium text-bf-ink">Work email</span>
-                <input
-                  type="email"
-                  placeholder="you@salon.example"
-                  className="w-full rounded-xl border border-bf-line bg-white px-3.5 py-2.5 outline-none focus:border-bf-accent"
-                />
-              </label>
-              <label className="block space-y-1.5 text-sm">
-                <span className="font-medium text-bf-ink">Password</span>
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  className="w-full rounded-xl border border-bf-line bg-white px-3.5 py-2.5 outline-none focus:border-bf-accent"
-                />
-              </label>
-              <Button type="submit" variant="dark" className="w-full py-3">
-                Continue to onboarding
+            <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+              Public signup is closed
+            </h1>
+            <p className="mt-3 text-sm leading-relaxed text-bf-muted">
+              BOOKFLO is running invite-only demos. New accounts are not created from this site —
+              message us on WhatsApp to join the waitlist, and we&apos;ll open access when
+              we&apos;re ready.
+            </p>
+            <div className="mt-8 space-y-3">
+              <Button
+                href={bookfloWaitlistWhatsAppUrl()}
+                variant="dark"
+                className="w-full py-3"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp waitlist · {BOOKFLO_WHATSAPP_DISPLAY}
               </Button>
-            </form>
-            <p className="mt-6 text-center text-sm text-bf-muted">
-              Already have an account?{" "}
+              <a
+                href={BOOKFLO_MAILTO}
+                className="block text-center text-sm font-medium text-bf-accent hover:underline"
+              >
+                Or email {BOOKFLO_CONTACT_EMAIL}
+              </a>
+            </div>
+            <p className="mt-8 text-center text-sm text-bf-muted">
+              Already invited?{" "}
               <Link href="/login" className="font-medium text-bf-accent hover:underline">
                 Log in
               </Link>

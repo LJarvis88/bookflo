@@ -1,8 +1,15 @@
+import { isAllowlistedTenantSlug } from "@/lib/demo-auth";
 import { listTenantSlugs } from "@/data/tenants";
 
 /** localStorage + cookie key — same name so older demos keep working. */
 export const DEMO_TENANT_STORAGE_KEY = "bookflo-demo-tenant";
 export const DEMO_TENANT_COOKIE = "bookflo-demo-tenant";
+
+/**
+ * Client auth flag set only after allowlisted login succeeds.
+ * Dashboard requires this — a bare tenant cookie / ?tenant= is not enough.
+ */
+export const DEMO_AUTH_STORAGE_KEY = "bookflo-demo-auth";
 
 export function isKnownTenantSlug(
   slug: string | null | undefined,
@@ -50,8 +57,23 @@ export function writeDemoTenantSlug(slug: string): void {
   ].join("; ");
 }
 
+/** Mark this browser as allowlist-authenticated for the given tenant. */
+export function writeDemoAuthSlug(slug: string): void {
+  if (typeof window === "undefined") return;
+  if (!isAllowlistedTenantSlug(slug)) return;
+  localStorage.setItem(DEMO_AUTH_STORAGE_KEY, slug);
+  writeDemoTenantSlug(slug);
+}
+
+export function readDemoAuthSlug(): string | null {
+  if (typeof window === "undefined") return null;
+  const slug = localStorage.getItem(DEMO_AUTH_STORAGE_KEY);
+  return isAllowlistedTenantSlug(slug) ? slug : null;
+}
+
 export function clearDemoTenantSlug(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(DEMO_TENANT_STORAGE_KEY);
+  localStorage.removeItem(DEMO_AUTH_STORAGE_KEY);
   document.cookie = `${DEMO_TENANT_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax`;
 }

@@ -27,7 +27,7 @@ export function UspBanner() {
           >
             <img
               src="/marketing/usp-luke-desktop-full.png"
-              alt="Zero commission. Your brand stays yours. Flat subscription, 14-day free trial. Clients book on a page that looks like you — not a marketplace. Start free trial."
+              alt="Zero commission. Your brand stays yours. Flat subscription, 14-day free trial. Clients book on a page that looks like you — not a marketplace. Join the waitlist."
               width={1774}
               height={772}
               className="mx-auto block h-auto w-full drop-shadow-[0_18px_40px_rgba(40,12,48,0.18)]"
@@ -94,7 +94,7 @@ export function UspBanner() {
                 variant="secondary"
                 className="border-transparent bg-white px-7 py-3 text-bf-ink shadow-soft hover:border-transparent hover:bg-white/95"
               >
-                Start free trial
+                Join waitlist
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>

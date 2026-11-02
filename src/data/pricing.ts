@@ -27,7 +27,7 @@ export const PLANS: Plan[] = [
       "Email confirmations",
       "Email and chat support",
     ],
-    cta: "Start free trial",
+    cta: "Join waitlist",
   },
   {
     id: "salon",
@@ -44,7 +44,7 @@ export const PLANS: Plan[] = [
       "Phone, chat, and email support",
     ],
     highlighted: true,
-    cta: "Start free trial",
+    cta: "Join waitlist",
   },
   {
     id: "pro",
@@ -58,6 +58,6 @@ export const PLANS: Plan[] = [
       "Custom domain path (soon)",
       "Stripe Connect (OMS deposits live in test)",
     ],
-    cta: "Start free trial",
+    cta: "Join waitlist",
   },
 ];

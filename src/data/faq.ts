@@ -6,7 +6,7 @@ export const MARKETING_FAQS = [
   },
   {
     q: "Do you offer a free trial?",
-    a: "Yes — every plan includes a 14-day free trial. No card required in this prototype; subscription billing is stubbed for Phase 3.",
+    a: "Yes — every plan includes a 14-day free trial when signup opens. Right now access is invite-only while we run demos; join the waitlist and we’ll let you know.",
   },
   {
     q: "Will my booking page look like BOOKFLO?",

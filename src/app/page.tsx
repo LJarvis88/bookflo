@@ -169,7 +169,7 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Button href="/signup" variant="dark" className="px-7 py-3">
-                Start free trial
+                Join waitlist
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <Button href="/book/contour-preston" variant="secondary" className="px-6 py-3">

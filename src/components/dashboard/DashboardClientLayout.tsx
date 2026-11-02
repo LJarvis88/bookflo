@@ -7,6 +7,7 @@ import {
   DemoTenantProvider,
   useDemoTenant,
 } from "@/components/dashboard/DemoTenantProvider";
+import { clearDemoTenantSlug } from "@/lib/demo-session";
 
 const mobileLinks = [
   ["/dashboard", "Appointments"],
@@ -43,12 +44,16 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
                 <BookfloWordmark size="sm" />
                 <p className="text-xs text-bf-muted">{tenant.name}</p>
               </div>
-              <Link
-                href="/login"
+              <button
+                type="button"
                 className="shrink-0 rounded-full bg-bf-ink px-3.5 py-2 text-xs font-medium text-white"
+                onClick={() => {
+                  clearDemoTenantSlug();
+                  window.location.href = "/login";
+                }}
               >
-                Log in
-              </Link>
+                Log out
+              </button>
             </div>
             <nav
               aria-label="Dashboard"
