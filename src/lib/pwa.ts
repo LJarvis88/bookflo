@@ -12,13 +12,12 @@ export interface TenantPwaConfig {
   icons: { src: string; sizes: string }[];
 }
 
-const OMS_ICONS = {
-  appleTouchIcon: "/tenants/oh-my-social-media/icons/apple-touch-icon.png",
-  icons: [
-    { src: "/tenants/oh-my-social-media/icons/icon-192.png", sizes: "192x192" },
-    { src: "/tenants/oh-my-social-media/icons/icon-512.png", sizes: "512x512" },
-  ],
-} as const;
+const OMS_APPLE_TOUCH =
+  "/tenants/oh-my-social-media/icons/apple-touch-icon.png";
+const OMS_ICONS: { src: string; sizes: string }[] = [
+  { src: "/tenants/oh-my-social-media/icons/icon-192.png", sizes: "192x192" },
+  { src: "/tenants/oh-my-social-media/icons/icon-512.png", sizes: "512x512" },
+];
 
 /** Public booking PWA — clients Add to Home Screen from /book/oh-my-social-media. */
 export const OMS_BOOKING_PWA: TenantPwaConfig = {
@@ -28,10 +27,11 @@ export const OMS_BOOKING_PWA: TenantPwaConfig = {
   description: "Bold content days for beauty brands who want to be seen — book with OMS.",
   startUrl: "/book/oh-my-social-media",
   scope: "/book/oh-my-social-media",
-  themeColor: "#000000",
-  backgroundColor: "#000000",
+  themeColor: "#EB0E7F",
+  backgroundColor: "#F01787",
   manifestPath: "/tenants/oh-my-social-media/manifest.webmanifest",
-  ...OMS_ICONS,
+  appleTouchIcon: OMS_APPLE_TOUCH,
+  icons: OMS_ICONS,
 };
 
 /** Admin PWA — Tee Add to Home Screen from /dashboard (OMS mark, not BOOKFLO). */
@@ -42,10 +42,11 @@ export const OMS_ADMIN_PWA: TenantPwaConfig = {
   description: "Oh My Social Media admin — calendar, clients, and bookings.",
   startUrl: "/dashboard",
   scope: "/dashboard",
-  themeColor: "#000000",
-  backgroundColor: "#000000",
+  themeColor: "#EB0E7F",
+  backgroundColor: "#F01787",
   manifestPath: "/tenants/oh-my-social-media/admin-manifest.webmanifest",
-  ...OMS_ICONS,
+  appleTouchIcon: OMS_APPLE_TOUCH,
+  icons: OMS_ICONS,
 };
 
 export function getBookingPwa(slug: string): TenantPwaConfig | undefined {
