@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 import { getService } from "@/data/tenants";
 import { DEMO_TODAY, formatTimeRange } from "@/lib/format";
+import { connectsPaymentsEnabled } from "@/lib/stripe/config";
 import type { Appointment, StaffMember } from "@/lib/types";
 
 const DAY_OPTIONS = [
@@ -138,8 +139,26 @@ export function StaffDayBoard() {
   const goPrev = () => setDayIndex((i) => Math.max(0, i - 1));
   const goNext = () => setDayIndex((i) => Math.min(DAY_OPTIONS.length - 1, i + 1));
 
+  const showStripeCue = connectsPaymentsEnabled(tenant.slug);
+
   return (
     <div className="space-y-5">
+      {showStripeCue && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-bf-line bg-white px-4 py-3.5">
+          <div>
+            <p className="text-sm font-medium text-bf-ink">Stripe Connect</p>
+            <p className="text-sm text-bf-muted">
+              Open Admin → Payments to connect card deposits for client bookings.
+            </p>
+          </div>
+          <Link
+            href="/dashboard/payments"
+            className="inline-flex shrink-0 rounded-full bg-bf-ink px-4 py-2 text-sm font-medium text-white"
+          >
+            Open Payments
+          </Link>
+        </div>
+      )}
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <button

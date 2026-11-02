@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
+import { connectsPaymentsEnabled } from "@/lib/stripe/config";
 
 export default function SettingsPage() {
   const t = useDemoTenant();
+  const showStripeLink = connectsPaymentsEnabled(t.slug);
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
@@ -11,6 +14,21 @@ export default function SettingsPage() {
         <h1 className="font-display text-3xl font-semibold tracking-tight">Settings</h1>
         <p className="mt-1 text-sm text-bf-muted">Business profile for {t.name}</p>
       </header>
+
+      {showStripeLink && (
+        <div className="rounded-3xl border border-bf-line bg-white p-5">
+          <p className="font-display text-lg font-semibold tracking-tight">Stripe payments</p>
+          <p className="mt-1 text-sm text-bf-muted leading-relaxed">
+            Connect Stripe so clients can pay deposits or in full on your booking page.
+          </p>
+          <Link
+            href="/dashboard/payments"
+            className="mt-4 inline-flex rounded-full bg-bf-ink px-4 py-2 text-sm font-medium text-white"
+          >
+            Open Admin → Payments
+          </Link>
+        </div>
+      )}
 
       <form className="space-y-4 rounded-3xl border border-bf-line bg-white p-6">
         <label className="block space-y-1.5 text-sm">
