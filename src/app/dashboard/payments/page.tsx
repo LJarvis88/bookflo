@@ -6,6 +6,7 @@ import {
   getSaasBillingExemption,
   isFreeForLifeTenant,
 } from "@/lib/saas-billing";
+import { clientStripeApiUrl } from "@/lib/stripe/api-base";
 import { connectsPaymentsEnabled } from "@/lib/stripe/config";
 
 interface ConnectStatus {
@@ -34,7 +35,9 @@ export default function PaymentsPage() {
     setStatusLoading(true);
     try {
       const res = await fetch(
-        `/api/stripe/connect/status?tenantSlug=${encodeURIComponent(tenant.slug)}`,
+        clientStripeApiUrl(
+          `/api/stripe/connect/status?tenantSlug=${encodeURIComponent(tenant.slug)}`,
+        ),
       );
       const data = (await res.json()) as ConnectStatus;
       if (!res.ok) {
@@ -71,7 +74,7 @@ export default function PaymentsPage() {
     setOnboardBusy(true);
     setOnboardError(null);
     try {
-      const res = await fetch("/api/stripe/connect/onboard", {
+      const res = await fetch(clientStripeApiUrl("/api/stripe/connect/onboard"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tenantSlug: tenant.slug }),
@@ -94,14 +97,18 @@ export default function PaymentsPage() {
       <header>
         <h1 className="font-display text-3xl font-semibold tracking-tight">Payments</h1>
         <p className="mt-1 text-sm text-bf-muted">
-          Test mode only — Stripe TEST keys on Luke’s BOOKFLO platform account.
+          Stripe Connect on Luke’s BOOKFLO platform account — client payments go to{" "}
+          {tenant.name}.
         </p>
       </header>
 
       <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-        <strong>Test mode</strong> — live keys are blocked. Client booking payments use Stripe
-        Connect (destination charges) so funds go to the connected business, not BOOKFLO SaaS
-        billing.
+        <strong>{status?.mode === "live" ? "Live mode" : "Test mode"}</strong>
+        {status?.mode === "live"
+          ? " — real card charges. "
+          : " — use test cards until Luke flips STRIPE_MODE=live. "}
+        Client booking payments use Stripe Connect (destination charges) so funds go to the
+        connected business, not BOOKFLO SaaS billing.
       </div>
 
       <section className="space-y-4 rounded-3xl border border-bf-line bg-white/70 p-6">

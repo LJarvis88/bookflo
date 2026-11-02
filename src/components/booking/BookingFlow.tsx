@@ -14,6 +14,7 @@ import {
 import { getService, getStaff } from "@/data/tenants";
 import { TenantLogo } from "@/components/branding/TenantLogo";
 import { formatDateLabel, formatDuration, formatGBP } from "@/lib/format";
+import { clientStripeApiUrl } from "@/lib/stripe/api-base";
 import { amountForPaymentChoice, type PaymentChoice } from "@/lib/stripe/config";
 import type { BrandTokens, Tenant } from "@/lib/types";
 import { ArrowLeft, Check } from "lucide-react";
@@ -128,7 +129,7 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
     setCheckoutError(null);
     const bookingRef = `${refPrefix}-${Math.floor(100000 + Math.random() * 900000)}`;
     try {
-      const res = await fetch("/api/stripe/checkout", {
+      const res = await fetch(clientStripeApiUrl("/api/stripe/checkout"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
