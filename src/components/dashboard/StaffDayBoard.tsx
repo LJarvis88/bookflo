@@ -3,7 +3,11 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
-import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
+import { CreateBookingModal } from "@/components/dashboard/CreateBookingModal";
+import {
+  useCreateAppointment,
+  useDemoTenant,
+} from "@/components/dashboard/DemoTenantProvider";
 import { getService } from "@/data/tenants";
 import { DEMO_TODAY, formatTimeRange } from "@/lib/format";
 import type { Appointment, StaffMember } from "@/lib/types";
@@ -117,6 +121,8 @@ function StaffAvatar({ staff }: { staff: StaffMember }) {
 
 export function StaffDayBoard() {
   const tenant = useDemoTenant();
+  const createAppointment = useCreateAppointment();
+  const [createOpen, setCreateOpen] = useState(false);
   const [dayIndex, setDayIndex] = useState(
     Math.max(
       0,
@@ -140,6 +146,14 @@ export function StaffDayBoard() {
 
   return (
     <div className="space-y-5">
+      {createOpen && (
+        <CreateBookingModal
+          tenant={tenant}
+          defaultDate={day.date}
+          onClose={() => setCreateOpen(false)}
+          onCreate={createAppointment}
+        />
+      )}
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <button
@@ -178,6 +192,7 @@ export function StaffDayBoard() {
           </Link>
           <button
             type="button"
+            onClick={() => setCreateOpen(true)}
             className="inline-flex items-center gap-1.5 rounded-full bg-bf-ink px-4 py-2 text-sm font-medium text-white"
           >
             <Plus className="h-4 w-4" />

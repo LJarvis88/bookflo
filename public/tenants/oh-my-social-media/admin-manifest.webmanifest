@@ -1,0 +1,39 @@
+{
+  "id": "/dashboard?tenant=oh-my-social-media#v54",
+  "name": "Oh My Social Media",
+  "short_name": "OMS",
+  "description": "Oh My Social Media admin — calendar, clients, and bookings.",
+  "start_url": "/dashboard",
+  "scope": "/dashboard",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F01787",
+  "theme_color": "#EB0E7F",
+  "lang": "en-GB",
+  "icons": [
+    {
+      "src": "https://bookflo.app/tenants/oh-my-social-media/icons/icon-192.png?v54",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://bookflo.app/tenants/oh-my-social-media/icons/oms-a2hs-v54.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://bookflo.app/tenants/oh-my-social-media/icons/icon-512.png?v54",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://bookflo.app/tenants/oh-my-social-media/icons/icon-512.png?v54",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
