@@ -34,6 +34,10 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const brand = tenant.brand;
   const isOmsTenant = tenant.slug === "oh-my-social-media";
   const refPrefix = isOmsTenant ? "OMS" : "CP";
+  const stripeLive =
+    process.env.NEXT_PUBLIC_STRIPE_MODE === "live" ||
+    (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "").startsWith("pk_live_");
+  const stripeModeLabel = stripeLive ? "live" : "test";
 
   const [step, setStep] = useState<Step>("category");
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -496,7 +500,7 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
                 </div>
                 <p className="mt-3 text-xs" style={{ color: brand.muted }}>
                   {omsNeedsPayment
-                    ? "Next: choose pay in full or a 50% deposit (Stripe test mode)."
+                    ? `Next: choose pay in full or a 50% deposit (Stripe ${stripeModeLabel} mode).`
                     : isOmsTenant
                       ? "No payment required for this booking."
                       : "Pay at venue · No card required in this demo"}
@@ -515,7 +519,10 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
             {step === "payment" && service && staff && date && time && (
               <Block title="How would you like to pay?">
                 <p className="mb-4 text-sm leading-relaxed" style={{ color: brand.muted }}>
-                  Secure card checkout via Stripe. Funds go to {tenant.name}. Test mode only.
+                  Secure card checkout via Stripe. Funds go to {tenant.name}.{" "}
+                  {stripeLive
+                    ? "Live mode — real card charges."
+                    : "Test mode only."}
                 </p>
                 <div className="space-y-2.5">
                   <PaymentOption

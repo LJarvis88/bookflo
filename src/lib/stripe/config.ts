@@ -2,6 +2,10 @@
 
 export const OMS_TENANT_SLUG = "oh-my-social-media";
 
+/** Temporary £1 live smoke service (full £1 / deposit 50p). */
+export const OMS_LIVE_SMOKE_SERVICE_ID = "oms_svc_live_smoke";
+export const OMS_LIVE_SMOKE_PRICE_PENCE = 100;
+
 /** OMS is the only tenant with Connect booking payments in this phase. */
 export function connectsPaymentsEnabled(tenantSlug: string): boolean {
   return tenantSlug === OMS_TENANT_SLUG;
