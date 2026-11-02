@@ -17,6 +17,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   children: ReactNode;
   className?: string;
+  target?: string;
+  rel?: string;
 }
 
 export function Button({
@@ -24,13 +26,23 @@ export function Button({
   href,
   children,
   className = "",
+  target,
+  rel,
   ...props
 }: ButtonProps) {
   const classes = `inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium tracking-tight transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bf-accent disabled:opacity-50 ${variants[variant]} ${className}`;
 
   if (href) {
+    const external = href.startsWith("http") || href.startsWith("mailto:");
+    if (external) {
+      return (
+        <a href={href} className={classes} target={target} rel={rel}>
+          {children}
+        </a>
+      );
+    }
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} target={target} rel={rel}>
         {children}
       </Link>
     );

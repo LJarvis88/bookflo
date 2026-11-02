@@ -24,17 +24,10 @@ export default function LoginPage() {
               Welcome back
             </h1>
             <p className="mt-2 text-sm text-bf-muted">
-              Stub login — no real auth in this prototype. Tap a demo account to fill the form.
+              Log in to your BOOKFLO dashboard.
             </p>
 
             <LoginForm />
-
-            <p className="mt-6 text-center text-sm text-bf-muted">
-              New here?{" "}
-              <Link href="/signup" className="font-medium text-bf-accent hover:underline">
-                Create an account
-              </Link>
-            </p>
           </div>
         </div>
       </div>

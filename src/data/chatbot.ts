@@ -106,7 +106,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "credit card",
     ],
     answer:
-      "Every plan includes a 14-day free trial. Start from the homepage signup — no marketplace skin, just your branded booking page.",
+      "Every plan includes a 14-day free trial when signup opens. Right now BOOKFLO is invite-only demos — join the waitlist from the site or WhatsApp, and we’ll open access soon.",
   },
   {
     id: "branding",

@@ -9,22 +9,30 @@ import {
   type ReactNode,
 } from "react";
 import { findTenantBySlug } from "@/data/tenants";
+import { isAllowlistedTenantSlug } from "@/lib/demo-auth";
 import {
-  isKnownTenantSlug,
-  readDemoTenantSlug,
-  writeDemoTenantSlug,
+  readDemoAuthSlug,
+  writeDemoAuthSlug,
 } from "@/lib/demo-session";
 import type { Tenant } from "@/lib/types";
 
 const DemoTenantContext = createContext<Tenant | null>(null);
 
-function resolveSlugFromClient(): string | null {
+/**
+ * Resolve tenant only from allowlisted auth — never from a bare ?tenant=
+ * query or cookie alone. Public visitors cannot open admin without login.
+ */
+function resolveAuthenticatedSlug(): string | null {
   if (typeof window === "undefined") return null;
 
-  const fromQuery = new URLSearchParams(window.location.search).get("tenant");
-  if (isKnownTenantSlug(fromQuery)) return fromQuery;
+  const authSlug = readDemoAuthSlug();
+  if (!isAllowlistedTenantSlug(authSlug)) return null;
 
-  return readDemoTenantSlug();
+  const fromQuery = new URLSearchParams(window.location.search).get("tenant");
+  // Query may refine the session only when it matches the authenticated slug.
+  if (fromQuery && fromQuery !== authSlug) return null;
+
+  return authSlug;
 }
 
 function stripTenantQueryParam() {
@@ -42,9 +50,9 @@ export function DemoTenantProvider({ children }: { children: ReactNode }) {
   const [resolved, setResolved] = useState(false);
 
   useLayoutEffect(() => {
-    const slug = resolveSlugFromClient();
+    const slug = resolveAuthenticatedSlug();
     if (slug) {
-      writeDemoTenantSlug(slug);
+      writeDemoAuthSlug(slug);
       stripTenantQueryParam();
       setTenant(findTenantBySlug(slug) ?? null);
     } else {
@@ -72,7 +80,7 @@ export function DemoTenantProvider({ children }: { children: ReactNode }) {
             Salon portal
           </p>
           <p className="mt-2 text-sm text-bf-muted">
-            Sign in with your demo account to open your business dashboard.
+            Sign in with your invite to open your business dashboard.
             No salon branding loads until your account is resolved.
           </p>
           <Link
