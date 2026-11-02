@@ -1,10 +1,11 @@
-import { NextResponse } from "next/server";
 import { findTenantBySlug, getService } from "@/data/tenants";
+import { jsonWithCors, optionsResponse } from "@/lib/stripe/cors";
 import {
   OMS_TENANT_SLUG,
   amountForPaymentChoice,
-  assertTestModeKeys,
+  assertStripeKeys,
   getAppUrl,
+  getStripeMode,
   type PaymentChoice,
 } from "@/lib/stripe/config";
 import { getConnectAccountId } from "@/lib/stripe/connect-store";
@@ -26,33 +27,40 @@ interface CheckoutBody {
   bookingRef?: string;
 }
 
+export function OPTIONS(request: Request) {
+  return optionsResponse(request);
+}
+
 /**
  * Create a Stripe Checkout Session on the BOOKFLO platform account,
  * destination-charging to the OMS Express Connect account (0% application fee).
  */
 export async function POST(request: Request) {
   try {
-    assertTestModeKeys();
+    assertStripeKeys();
     const body = (await request.json()) as CheckoutBody;
     const tenantSlug = body.tenantSlug?.trim();
     const serviceId = body.serviceId?.trim();
     const paymentChoice = body.paymentChoice;
     const customerEmail = body.customerEmail?.trim().toLowerCase() ?? "";
     const customerName = body.customerName?.trim() ?? "";
+    const mode = getStripeMode();
 
     if (!tenantSlug || !serviceId || !paymentChoice) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         { error: "tenantSlug, serviceId, and paymentChoice are required" },
         { status: 400 },
       );
     }
 
     if (paymentChoice !== "full" && paymentChoice !== "deposit") {
-      return NextResponse.json({ error: "Invalid paymentChoice" }, { status: 400 });
+      return jsonWithCors(request, { error: "Invalid paymentChoice" }, { status: 400 });
     }
 
     if (tenantSlug !== OMS_TENANT_SLUG) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         { error: "Online booking payments are enabled for Oh My Social Media only." },
         { status: 403 },
       );
@@ -60,23 +68,25 @@ export async function POST(request: Request) {
 
     const tenant = findTenantBySlug(tenantSlug);
     if (!tenant) {
-      return NextResponse.json({ error: "Unknown tenant" }, { status: 404 });
+      return jsonWithCors(request, { error: "Unknown tenant" }, { status: 404 });
     }
 
     const service = getService(tenant, serviceId);
     if (!service || !service.active) {
-      return NextResponse.json({ error: "Unknown service" }, { status: 404 });
+      return jsonWithCors(request, { error: "Unknown service" }, { status: 404 });
     }
 
     if (service.pricePence <= 0) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         { error: "This service does not require payment" },
         { status: 400 },
       );
     }
 
     if (!customerEmail.includes("@") || !customerName) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         { error: "customerName and customerEmail are required" },
         { status: 400 },
       );
@@ -84,7 +94,8 @@ export async function POST(request: Request) {
 
     const connectAccountId = await getConnectAccountId(tenantSlug);
     if (!connectAccountId) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         {
           error:
             "Oh My Social Media has not connected Stripe yet. Ask Tee to open Admin → Payments and complete Connect onboarding.",
@@ -97,7 +108,8 @@ export async function POST(request: Request) {
     const stripe = getStripe();
     const account = await stripe.accounts.retrieve(connectAccountId);
     if (!account.charges_enabled) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         {
           error:
             "Stripe Connect onboarding is incomplete. Tee must finish the Express onboarding link before clients can pay.",
@@ -128,6 +140,7 @@ export async function POST(request: Request) {
       customer_phone: body.customerPhone ?? "",
       service_price_pence: String(service.pricePence),
       amount_charged_pence: String(amountPence),
+      stripe_mode: mode,
     };
 
     const session = await stripe.checkout.sessions.create({
@@ -161,22 +174,23 @@ export async function POST(request: Request) {
     });
 
     if (!session.url) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         { error: "Checkout Session missing redirect URL" },
         { status: 500 },
       );
     }
 
-    return NextResponse.json({
+    return jsonWithCors(request, {
       url: session.url,
       sessionId: session.id,
       bookingRef,
       amountPence,
       paymentChoice,
-      mode: "test",
+      mode,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Checkout failed";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonWithCors(request, { error: message }, { status: 500 });
   }
 }

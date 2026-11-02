@@ -14,6 +14,7 @@ import {
 import { getService, getStaff } from "@/data/tenants";
 import { TenantLogo } from "@/components/branding/TenantLogo";
 import { formatDateLabel, formatDuration, formatGBP } from "@/lib/format";
+import { clientStripeApiUrl } from "@/lib/stripe/api-base";
 import { amountForPaymentChoice, type PaymentChoice } from "@/lib/stripe/config";
 import type { BrandTokens, Tenant } from "@/lib/types";
 import { ArrowLeft, Check } from "lucide-react";
@@ -33,6 +34,10 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const brand = tenant.brand;
   const isOmsTenant = tenant.slug === "oh-my-social-media";
   const refPrefix = isOmsTenant ? "OMS" : "CP";
+  const stripeLive =
+    process.env.NEXT_PUBLIC_STRIPE_MODE === "live" ||
+    (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? "").startsWith("pk_live_");
+  const stripeModeLabel = stripeLive ? "live" : "test";
 
   const [step, setStep] = useState<Step>("category");
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -128,7 +133,7 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
     setCheckoutError(null);
     const bookingRef = `${refPrefix}-${Math.floor(100000 + Math.random() * 900000)}`;
     try {
-      const res = await fetch("/api/stripe/checkout", {
+      const res = await fetch(clientStripeApiUrl("/api/stripe/checkout"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -495,7 +500,7 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
                 </div>
                 <p className="mt-3 text-xs" style={{ color: brand.muted }}>
                   {omsNeedsPayment
-                    ? "Next: choose pay in full or a 50% deposit (Stripe test mode)."
+                    ? `Next: choose pay in full or a 50% deposit (Stripe ${stripeModeLabel} mode).`
                     : isOmsTenant
                       ? "No payment required for this booking."
                       : "Pay at venue · No card required in this demo"}
@@ -514,7 +519,10 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
             {step === "payment" && service && staff && date && time && (
               <Block title="How would you like to pay?">
                 <p className="mb-4 text-sm leading-relaxed" style={{ color: brand.muted }}>
-                  Secure card checkout via Stripe. Funds go to {tenant.name}. Test mode only.
+                  Secure card checkout via Stripe. Funds go to {tenant.name}.{" "}
+                  {stripeLive
+                    ? "Live mode — real card charges."
+                    : "Test mode only."}
                 </p>
                 <div className="space-y-2.5">
                   <PaymentOption
