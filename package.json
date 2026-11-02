@@ -7,16 +7,19 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/prepare-build.mjs && next build",
+    "build:static": "BOOKFLO_STATIC_EXPORT=1 node scripts/prepare-build.mjs && BOOKFLO_STATIC_EXPORT=1 next build && node scripts/restore-api-after-static.mjs",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^10.2.0",
     "framer-motion": "^14.9.0",
     "lucide-react": "^1.65.0",
     "next": "^16.4.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "stripe": "^23.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

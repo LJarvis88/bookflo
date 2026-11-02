@@ -2,7 +2,7 @@
 
 **Your brand. Your bookings. Beautifully connected.**
 
-Premium zero-commission white-label beauty booking SaaS. This Phase 2 build is a Next.js UI prototype with fictional in-memory demo data (Contour Preston). No real database, auth, Stripe, or AI scraping.
+Premium zero-commission white-label beauty booking SaaS. Phase 2 Next.js UI prototype with in-memory demo data (Contour Preston + Oh My Social Media). Stripe Connect is wired in **TEST mode** for OMS booking payments (pay in full or 50% deposit). No production database or live Stripe keys.
 
 ## Requirements
 
@@ -38,10 +38,11 @@ Open [http://localhost:3000](http://localhost:3000).
 | `/dashboard/services` | Services & prices |
 | `/dashboard/staff` | Staff + hours |
 | `/dashboard/branding` | Branding editor + live preview |
-| `/dashboard/payments` | Billing + Connect **test-mode stubs** |
-| `/dashboard/subscription` | Plan management stub |
+| `/dashboard/payments` | SaaS billing exemptions + OMS Stripe Connect onboarding (TEST) |
+| `/dashboard/subscription` | Plan management (Tee free for life) |
 | `/dashboard/settings` | Business profile (read-only demo) |
 | `/book/contour-preston` | Contour Preston customer booking flow |
+| `/book/oh-my-social-media` | OMS booking — pay in full or 50% deposit via Connect |
 
 ## Stack
 
@@ -58,15 +59,33 @@ Open [http://localhost:3000](http://localhost:3000).
 - Tenant booking page at `/book/contour-preston` is Contour Preston branded — not a BOOKFLO skin.
 - “AI brand match — demo” fills Contour Preston sample tokens; always overridable; not live scraping.
 
+## Stripe (TEST mode)
+
+Copy `.env.example` → `.env.local` and set Luke’s BOOKFLO **test** keys (`pk_test_` / `sk_test_` only — live keys are rejected).
+
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe.js / Checkout (publishable) |
+| `STRIPE_SECRET_KEY` | Server Checkout Sessions + Connect Account Links |
+| `NEXT_PUBLIC_APP_URL` | Success/cancel + Connect return URLs |
+| `STRIPE_CONNECT_OMS_ACCOUNT_ID` | Optional pinned OMS Express account id (hosted) |
+| `BOOKFLO_STATIC_EXPORT` | Set `1` only for `npm run build:static` (deed HTML; parks `/api`) |
+
+Default `npm run build` is **Node-capable** (required for Connect). Pure static deed publishes: `npm run build:static`. Ops notes: store doc `stripe-connect-oms.md`.
+
+OMS Admin → Payments → **Connect Stripe account** opens Express onboarding for Tee. Checkout uses destination charges (0% application fee) so client payments go to Oh My Social Media. Tee is **free for life** on BOOKFLO SaaS (never Stripe Billing).
+
 ## Phase 3+ stubs (intentionally not live)
 
 - Auth / sessions / multi-tenant persistence
 - Postgres (or similar) + real tenancy
-- Stripe Billing & Connect (UI labelled **test mode**)
+- Stripe Billing for paying SaaS subscribers
 - Transactional email / SMS
 - Real AI website scraping for brand match
-- Custom domains, file uploads, production deploy
+- Custom domains, file uploads, production live keys
 
-## Demo business
+## Demo businesses
 
-**Contour Preston** — aesthetics studio, Winckley Square, Preston. UK services, staff, hours, and appointments are fictional.
+**Contour Preston** — aesthetics studio, Winckley Square, Preston. Pay at venue in this build.
+
+**Oh My Social Media** — Tee’s content studio. Online pay in full / 50% deposit via Stripe Connect (TEST).
