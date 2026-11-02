@@ -1,6 +1,11 @@
-import { NextResponse } from "next/server";
 import { findTenantBySlug } from "@/data/tenants";
-import { OMS_TENANT_SLUG, assertTestModeKeys, getAppUrl } from "@/lib/stripe/config";
+import { jsonWithCors, optionsResponse } from "@/lib/stripe/cors";
+import {
+  OMS_TENANT_SLUG,
+  assertStripeKeys,
+  getAppUrl,
+  getStripeMode,
+} from "@/lib/stripe/config";
 import {
   getConnectAccountId,
   setConnectAccountId,
@@ -9,27 +14,33 @@ import { getStripe } from "@/lib/stripe/server";
 
 export const runtime = "nodejs";
 
+export function OPTIONS(request: Request) {
+  return optionsResponse(request);
+}
+
 /**
  * Create (or reuse) an Express Connect account for a tenant and return
  * an Account Link so Tee can complete onboarding later.
- * Platform = Luke’s BOOKFLO Stripe TEST account — never Toni/Tee’s.
+ * Platform = Luke’s BOOKFLO Stripe account (test or live per STRIPE_MODE) — never Toni/Tee’s.
  */
 export async function POST(request: Request) {
   try {
-    assertTestModeKeys();
+    assertStripeKeys();
     const body = (await request.json()) as { tenantSlug?: string };
     const tenantSlug = body.tenantSlug?.trim();
+    const mode = getStripeMode();
     if (!tenantSlug) {
-      return NextResponse.json({ error: "tenantSlug required" }, { status: 400 });
+      return jsonWithCors(request, { error: "tenantSlug required" }, { status: 400 });
     }
 
     const tenant = findTenantBySlug(tenantSlug);
     if (!tenant) {
-      return NextResponse.json({ error: "Unknown tenant" }, { status: 404 });
+      return jsonWithCors(request, { error: "Unknown tenant" }, { status: 404 });
     }
 
     if (tenantSlug !== OMS_TENANT_SLUG) {
-      return NextResponse.json(
+      return jsonWithCors(
+        request,
         {
           error:
             "Stripe Connect onboarding is enabled for Oh My Social Media only in this phase.",
@@ -62,6 +73,7 @@ export async function POST(request: Request) {
           bookflo_tenant_id: tenant.id,
           bookflo_tenant_slug: tenant.slug,
           platform: "bookflo",
+          stripe_mode: mode,
         },
       });
       accountId = account.id;
@@ -76,21 +88,24 @@ export async function POST(request: Request) {
       type: "account_onboarding",
     });
 
-    return NextResponse.json({
+    return jsonWithCors(request, {
       accountId,
       url: accountLink.url,
-      mode: "test",
+      mode,
       hint: "Tee completes Stripe Express onboarding in this link. Client booking payments then route to Oh My Social Media via Connect.",
     });
   } catch (err) {
     const raw = err instanceof Error ? err.message : "Connect onboard failed";
     const needsConnectSignup = /signed up for Connect/i.test(raw);
-    return NextResponse.json(
+    return jsonWithCors(
+      request,
       {
         error: needsConnectSignup
           ? "Luke must enable Stripe Connect on the BOOKFLO platform account first (Stripe Dashboard → Connect), then Tee can complete Express onboarding."
           : raw,
-        code: needsConnectSignup ? "platform_connect_not_enabled" : "connect_onboard_failed",
+        code: needsConnectSignup
+          ? "platform_connect_not_enabled"
+          : "connect_onboard_failed",
       },
       { status: 500 },
     );
