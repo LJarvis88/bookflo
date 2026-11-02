@@ -4,17 +4,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import {
-  DEMO_ACCOUNTS,
-  DEMO_OWNER,
+  DEMO_ACCESS_DENIED_MESSAGE,
+  DEMO_PUBLIC_PICKER_ACCOUNTS,
+  DEMO_TEE,
   type DemoAccount,
   findDemoAccount,
 } from "@/lib/demo-auth";
-import { writeDemoTenantSlug } from "@/lib/demo-session";
+import { writeDemoAuthSlug } from "@/lib/demo-session";
 
 export function LoginForm() {
   const router = useRouter();
-  const [email, setEmail] = useState<string>(DEMO_OWNER.email);
-  const [password, setPassword] = useState<string>(DEMO_OWNER.password);
+  const [email, setEmail] = useState<string>(DEMO_TEE.email);
+  const [password, setPassword] = useState<string>(DEMO_TEE.password);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -31,14 +32,13 @@ export function LoginForm() {
 
     const account = findDemoAccount(email, password);
     if (!account) {
-      setError("Use one of the demo accounts shown above.");
+      setError(DEMO_ACCESS_DENIED_MESSAGE);
       setSubmitting(false);
       return;
     }
 
-    // Persist + pass slug on the URL so the dashboard resolves THIS tenant
-    // before paint — never falls back to Contour while OMS settles.
-    writeDemoTenantSlug(account.tenantSlug);
+    // Hard allowlist only — Tee + Liv credentials. Auth flag gates /dashboard.
+    writeDemoAuthSlug(account.tenantSlug);
     router.push(
       `/dashboard?tenant=${encodeURIComponent(account.tenantSlug)}`,
     );
@@ -48,9 +48,9 @@ export function LoginForm() {
     <>
       <div className="mt-5 space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-bf-muted">
-          Demo accounts
+          Demo access
         </p>
-        {DEMO_ACCOUNTS.map((account) => (
+        {DEMO_PUBLIC_PICKER_ACCOUNTS.map((account) => (
           <button
             key={account.email}
             type="button"
@@ -75,12 +75,17 @@ export function LoginForm() {
         ))}
       </div>
 
-      <form className="mt-6 space-y-4 sm:mt-8" onSubmit={onSubmit}>
+      <form
+        className="mt-6 space-y-4 sm:mt-8"
+        onSubmit={onSubmit}
+        method="post"
+        action="#"
+        noValidate
+      >
         <label className="block space-y-1.5 text-sm">
           <span className="font-medium text-bf-ink">Email</span>
           <input
             type="email"
-            name="email"
             autoComplete="username"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -92,7 +97,6 @@ export function LoginForm() {
           <span className="font-medium text-bf-ink">Password</span>
           <input
             type="password"
-            name="password"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

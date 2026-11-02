@@ -33,7 +33,7 @@ export function SiteHeader() {
             Log in
           </Button>
           <Button href="/signup" variant="dark" className="px-4">
-            Sign up
+            Join waitlist
           </Button>
           <button
             type="button"
@@ -58,11 +58,18 @@ export function SiteHeader() {
                 {item.label}
               </a>
             ))}
-            <Link href="/book/contour-preston" className="py-1 text-bf-muted">
+            <Link
+              href="/book/contour-preston"
+              className="py-1 text-bf-muted"
+              onClick={() => setOpen(false)}
+            >
               Demo booking
             </Link>
-            <Link href="/login" className="py-1 text-bf-muted">
+            <Link href="/login" className="py-1 text-bf-muted" onClick={() => setOpen(false)}>
               Log in
+            </Link>
+            <Link href="/signup" className="py-1 font-medium text-bf-ink" onClick={() => setOpen(false)}>
+              Join waitlist
             </Link>
           </div>
         </div>

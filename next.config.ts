@@ -11,12 +11,18 @@ const DEEDPAGE_ASSET_ORIGIN =
   process.env.NEXT_PUBLIC_ASSET_PREFIX?.replace(/\/$/, "") ||
   "https://bookflo-contour-3485.deed.page";
 
+/** Local/dev: skip remote assetPrefix so hydration uses this server's JS. */
+const assetPrefix =
+  process.env.NODE_ENV === "production" ? DEEDPAGE_ASSET_ORIGIN : undefined;
+
 const nextConfig: NextConfig = {
   // Static export for durable hosts that don't need a Vercel account
   // (Netlify, Cloudflare Pages, deed.page, GitHub Pages).
   output: "export",
   images: { unoptimized: true },
-  assetPrefix: DEEDPAGE_ASSET_ORIGIN,
+  assetPrefix,
+  // Local/dev agents often hit 127.0.0.1 — allow HMR/hydration there.
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
 };
 
 export default nextConfig;
