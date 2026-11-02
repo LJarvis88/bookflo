@@ -10,7 +10,22 @@ function allowedOrigins(): string[] {
   const extra = process.env.STRIPE_API_CORS_ORIGINS?.split(",")
     .map((s) => s.trim())
     .filter(Boolean);
-  return [...DEFAULT_ORIGINS, ...(extra ?? [])];
+  const apiBase = process.env.NEXT_PUBLIC_STRIPE_API_BASE?.trim().replace(
+    /\/$/,
+    "",
+  );
+  const fromApiBase = apiBase?.startsWith("http") ? [apiBase] : [];
+  // Allow ephemeral Cloudflare quick-tunnels used during cutover.
+  const tunnel = (process.env.STRIPE_API_PUBLIC_ORIGIN ?? "")
+    .trim()
+    .replace(/\/$/, "");
+  const fromTunnel = tunnel ? [tunnel] : [];
+  return [
+    ...DEFAULT_ORIGINS,
+    ...fromApiBase,
+    ...fromTunnel,
+    ...(extra ?? []),
+  ];
 }
 
 export function corsHeaders(request: Request): HeadersInit {
