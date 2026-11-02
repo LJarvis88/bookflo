@@ -153,7 +153,7 @@ export default function PaymentsPage() {
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-xl font-semibold">Stripe Connect</h2>
           <span className="rounded-full bg-bf-fog px-2.5 py-1 text-xs font-medium text-bf-muted">
-            Test mode
+            {status?.mode === "live" ? "Live mode" : "Test mode"}
           </span>
         </div>
 
