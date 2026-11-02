@@ -136,6 +136,21 @@ export const ohMySocialMedia: Tenant = {
       pricePence: 0,
       active: true,
     },
+    /**
+     * Temporary live card smoke — £1 pay-in-full / 50p deposit.
+     * Visible only when NEXT_PUBLIC_OMS_LIVE_SMOKE=1 (build-time).
+     * Remove or set the flag off after Luke’s go-ahead smoke.
+     */
+    {
+      id: "oms_svc_live_smoke",
+      categoryId: "oms_cat_discovery",
+      name: "BOOKFLO live card smoke (£1)",
+      description:
+        "Temporary £1 live Stripe path for Luke/Tee. Pay in full = £1.00 · 50% deposit = £0.50. Do not use for client shoots.",
+      durationMinutes: 15,
+      pricePence: 100,
+      active: process.env.NEXT_PUBLIC_OMS_LIVE_SMOKE === "1",
+    },
   ],
   staff: [
     {
