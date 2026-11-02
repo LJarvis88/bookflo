@@ -26,9 +26,10 @@ const primaryLinks = [
   { href: "/dashboard/staff", label: "Team", icon: UserRound },
 ];
 
-const secondaryLinks = [
-  { href: "/dashboard/branding", label: "Branding", icon: Palette },
+/** Admin section — Payments first so Tee finds Stripe Connect without scrolling past Branding. */
+const adminLinks = [
   { href: "/dashboard/payments", label: "Payments", icon: CreditCard },
+  { href: "/dashboard/branding", label: "Branding", icon: Palette },
   { href: "/dashboard/subscription", label: "Plan", icon: BadgePoundSterling },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
@@ -91,7 +92,10 @@ export function Sidebar() {
           ))}
         </div>
         <div className="space-y-0.5 border-t border-bf-line pt-3">
-          {secondaryLinks.map((link) => (
+          <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-bf-muted">
+            Admin
+          </p>
+          {adminLinks.map((link) => (
             <NavLink key={link.href} {...link} active={isActive(link.href)} />
           ))}
         </div>

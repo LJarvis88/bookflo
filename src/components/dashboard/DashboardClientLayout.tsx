@@ -15,8 +15,9 @@ const mobileLinks = [
   ["/dashboard/customers", "Customers"],
   ["/dashboard/services", "Services"],
   ["/dashboard/staff", "Team"],
-  ["/dashboard/branding", "Branding"],
+  // Payments early in the chip row so Tee sees Stripe without scrolling far.
   ["/dashboard/payments", "Payments"],
+  ["/dashboard/branding", "Branding"],
   ["/dashboard/subscription", "Plan"],
   ["/dashboard/settings", "Settings"],
 ] as const;
