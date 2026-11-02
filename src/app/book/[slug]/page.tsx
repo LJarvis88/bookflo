@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { BookingFlow } from "@/components/booking/BookingFlow";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { getTenantBySlug, listTenantSlugs, TENANTS } from "@/data/tenants";
+import { getBookingPwa } from "@/lib/pwa";
 import { absoluteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -27,6 +28,22 @@ export async function generateMetadata({
     `Book an appointment with ${tenant.brand.displayName}.`;
   const path = `/book/${tenant.slug}`;
   const ogImage = tenant.brand.logoUrl;
+  const pwa = getBookingPwa(tenant.slug);
+  // Prefer square PWA mark for home-screen/favicon — never the wide wordmark.
+  const iconMeta = pwa
+    ? {
+        icon: pwa.icons.map((icon) => ({
+          url: icon.src,
+          sizes: icon.sizes,
+          type: "image/png",
+        })),
+        apple: [
+          { url: pwa.appleTouchIcon, sizes: "180x180", type: "image/png" },
+        ],
+      }
+    : ogImage
+      ? { icon: ogImage }
+      : undefined;
 
   return {
     title: { absolute: title },
@@ -34,7 +51,7 @@ export async function generateMetadata({
     alternates: { canonical: path },
     // Keep white-label demos tenant-branded (no BOOKFLO favicon/siteName).
     applicationName: tenant.brand.displayName,
-    icons: ogImage ? { icon: ogImage } : undefined,
+    icons: iconMeta,
     openGraph: {
       title,
       description,
