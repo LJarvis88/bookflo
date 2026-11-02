@@ -158,7 +158,20 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "complimentary",
     ],
     answer:
-      "Founding ambassadors get 12 months of complimentary Pro in exchange for promoting BOOKFLO. Current ambassadors: Liv (Contour Preston) and Tee (Oh My Social Media). Luke adds more as we grow.",
+      "Founding ambassadors get 12 months of complimentary Pro in exchange for promoting BOOKFLO. Current ambassador: Liv (Contour Preston). Tee / Oh My Social Media is free for life as Luke’s partner — separate from the ambassador clock.",
+  },
+  {
+    id: "tee-free-for-life",
+    label: "Tee / OMS free for life",
+    keywords: [
+      "free for life",
+      "tee free",
+      "oms free",
+      "partner pricing",
+      "oh my social media free",
+    ],
+    answer:
+      "Tee (Oh My Social Media) is free for life on BOOKFLO SaaS — we never bill her a subscription. Client shoot payments still go to OMS via Stripe Connect (pay in full or 50% deposit).",
   },
   {
     id: "what-is",
@@ -209,7 +222,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "card machine",
     ],
     answer:
-      "Client payments stay between you and your clients for now (pay at venue in the prototype). Stripe Connect is planned later — we’re polishing the booking experience first.",
+      "Client card payments use Stripe Connect on Luke’s BOOKFLO platform account, with funds destined to your connected business. Oh My Social Media booking offers pay in full or a 50% deposit. Contour still defaults to pay at venue in this build.",
   },
 ];
 

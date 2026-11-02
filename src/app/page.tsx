@@ -112,7 +112,7 @@ const features = [
   {
     icon: Shield,
     title: "Zero commission",
-    body: "Flat subscription with a 14-day free trial. No cut of your bookings. Stripe stays out of this prototype.",
+    body: "Flat subscription with a 14-day free trial. No cut of your bookings. Stripe Connect for client deposits — 0% platform commission.",
   },
   {
     icon: Bell,

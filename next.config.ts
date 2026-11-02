@@ -11,10 +11,15 @@ const DEEDPAGE_ASSET_ORIGIN =
   process.env.NEXT_PUBLIC_ASSET_PREFIX?.replace(/\/$/, "") ||
   "https://bookflo-contour-3485.deed.page";
 
+/**
+ * Stripe Connect Checkout / Account Links need Node route handlers.
+ * Pure static deed publishes set BOOKFLO_STATIC_EXPORT=1 (see scripts/prepare-build.mjs).
+ * Default: Node-capable build so OMS payments work locally and on Fly/Vercel/Render.
+ */
+const useStaticExport = process.env.BOOKFLO_STATIC_EXPORT === "1";
+
 const nextConfig: NextConfig = {
-  // Static export for durable hosts that don't need a Vercel account
-  // (Netlify, Cloudflare Pages, deed.page, GitHub Pages).
-  output: "export",
+  ...(useStaticExport ? { output: "export" as const } : {}),
   images: { unoptimized: true },
   assetPrefix: DEEDPAGE_ASSET_ORIGIN,
 };

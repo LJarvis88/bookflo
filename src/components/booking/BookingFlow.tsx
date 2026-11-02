@@ -14,6 +14,7 @@ import {
 import { getService, getStaff } from "@/data/tenants";
 import { TenantLogo } from "@/components/branding/TenantLogo";
 import { formatDateLabel, formatDuration, formatGBP } from "@/lib/format";
+import { amountForPaymentChoice, type PaymentChoice } from "@/lib/stripe/config";
 import type { BrandTokens, Tenant } from "@/lib/types";
 import { ArrowLeft, Check } from "lucide-react";
 
@@ -25,22 +26,13 @@ type Step =
   | "time"
   | "contact"
   | "review"
+  | "payment"
   | "confirmed";
-
-const STEP_ORDER: Step[] = [
-  "category",
-  "service",
-  "staff",
-  "date",
-  "time",
-  "contact",
-  "review",
-  "confirmed",
-];
 
 export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const brand = tenant.brand;
-  const refPrefix = tenant.slug === "oh-my-social-media" ? "OMS" : "CP";
+  const isOmsTenant = tenant.slug === "oh-my-social-media";
+  const refPrefix = isOmsTenant ? "OMS" : "CP";
 
   const [step, setStep] = useState<Step>("category");
   const [categoryId, setCategoryId] = useState<string | null>(null);
@@ -53,6 +45,9 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [refCode, setRefCode] = useState("");
+  const [paymentChoice, setPaymentChoice] = useState<PaymentChoice | null>(null);
+  const [checkoutBusy, setCheckoutBusy] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const services = useMemo(
     () => tenant.services.filter((s) => s.categoryId === categoryId && s.active),
@@ -61,18 +56,46 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
 
   const service = serviceId ? getService(tenant, serviceId) : undefined;
   const staff = staffId ? getStaff(tenant, staffId) : undefined;
+  const omsNeedsPayment = Boolean(
+    isOmsTenant && service && service.pricePence > 0,
+  );
 
-  const availableDates =
-    tenant.slug === "oh-my-social-media"
-      ? [...OMS_AVAILABLE_DATES]
-      : DEMO_AVAILABLE_DATES;
+  const stepOrder = useMemo<Step[]>(() => {
+    if (omsNeedsPayment) {
+      return [
+        "category",
+        "service",
+        "staff",
+        "date",
+        "time",
+        "contact",
+        "review",
+        "payment",
+        "confirmed",
+      ];
+    }
+    return [
+      "category",
+      "service",
+      "staff",
+      "date",
+      "time",
+      "contact",
+      "review",
+      "confirmed",
+    ];
+  }, [omsNeedsPayment]);
 
-  const bookingSlots =
-    tenant.slug === "oh-my-social-media"
-      ? getOmsSlotsForService(serviceId)
-      : BOOKING_SLOTS;
+  const availableDates = isOmsTenant
+    ? [...OMS_AVAILABLE_DATES]
+    : DEMO_AVAILABLE_DATES;
 
-  const stepIndex = STEP_ORDER.indexOf(step);
+  const bookingSlots = isOmsTenant
+    ? getOmsSlotsForService(serviceId)
+    : BOOKING_SLOTS;
+
+  const stepIndex = stepOrder.indexOf(step);
+  const progressDenominator = Math.max(stepOrder.length - 1, 1);
 
   function go(next: Step) {
     setStep(next);
@@ -80,12 +103,66 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
 
   function back() {
     if (stepIndex <= 0) return;
-    go(STEP_ORDER[stepIndex - 1]);
+    go(stepOrder[stepIndex - 1]);
   }
 
-  function confirm() {
-    setRefCode(`${refPrefix}-${Math.floor(100000 + Math.random() * 900000)}`);
+  function confirm(ref?: string) {
+    setRefCode(ref ?? `${refPrefix}-${Math.floor(100000 + Math.random() * 900000)}`);
     go("confirmed");
+  }
+
+  function continueFromReview() {
+    setCheckoutError(null);
+    if (omsNeedsPayment) {
+      setPaymentChoice(null);
+      go("payment");
+      return;
+    }
+    confirm();
+  }
+
+  async function startCheckout(choice: PaymentChoice) {
+    if (!service || !staff || !date || !time) return;
+    setPaymentChoice(choice);
+    setCheckoutBusy(true);
+    setCheckoutError(null);
+    const bookingRef = `${refPrefix}-${Math.floor(100000 + Math.random() * 900000)}`;
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tenantSlug: tenant.slug,
+          serviceId: service.id,
+          paymentChoice: choice,
+          customerName: name,
+          customerEmail: email,
+          customerPhone: phone,
+          staffId: staff.id,
+          date,
+          time,
+          notes,
+          bookingRef,
+        }),
+      });
+      const data = (await res.json()) as {
+        url?: string;
+        error?: string;
+        bookingRef?: string;
+      };
+      if (!res.ok || !data.url) {
+        setCheckoutError(
+          data.error ?? "Could not start checkout. Please try again.",
+        );
+        setCheckoutBusy(false);
+        return;
+      }
+      setRefCode(data.bookingRef ?? bookingRef);
+      window.location.href = data.url;
+    } catch {
+      setCheckoutError("Network error starting checkout.");
+      setCheckoutBusy(false);
+    }
   }
 
   const surface = brand.surface ?? brand.secondary;
@@ -155,24 +232,23 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
                 className="text-[11px] font-medium uppercase tracking-[0.18em]"
                 style={{ color: brand.muted }}
               >
-                {String(stepIndex + 1).padStart(2, "0")} / {String(STEP_ORDER.length - 1).padStart(2, "0")}
+                {String(stepIndex + 1).padStart(2, "0")} /{" "}
+                {String(progressDenominator).padStart(2, "0")}
               </p>
             </div>
             <div
               className="h-px overflow-hidden"
               style={{
-                background:
-                  tenant.slug === "oh-my-social-media" ? "#EFEFF1" : `${brand.primary}28`,
+                background: isOmsTenant ? "#EFEFF1" : `${brand.primary}28`,
               }}
             >
               <div
                 className="h-full transition-all duration-300"
                 style={{
-                  width: `${((stepIndex + 1) / (STEP_ORDER.length - 1)) * 100}%`,
-                  background:
-                    tenant.slug === "oh-my-social-media"
-                      ? `linear-gradient(90deg, ${brand.primary}, ${brand.secondary})`
-                      : brand.primary,
+                  width: `${((stepIndex + 1) / progressDenominator) * 100}%`,
+                  background: isOmsTenant
+                    ? `linear-gradient(90deg, ${brand.primary}, ${brand.secondary})`
+                    : brand.primary,
                 }}
               />
             </div>
@@ -418,16 +494,66 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
                   {notes && <Row label="Notes" value={notes} muted={brand.muted} />}
                 </div>
                 <p className="mt-3 text-xs" style={{ color: brand.muted }}>
-                  Pay at venue · No card required in this demo
+                  {omsNeedsPayment
+                    ? "Next: choose pay in full or a 50% deposit (Stripe test mode)."
+                    : isOmsTenant
+                      ? "No payment required for this booking."
+                      : "Pay at venue · No card required in this demo"}
                 </p>
                 <button
                   type="button"
-                  onClick={confirm}
+                  onClick={continueFromReview}
                   className="mt-4 w-full rounded-full py-3 text-sm font-medium"
                   style={{ background: brand.buttonBg, color: brand.buttonText }}
                 >
-                  Confirm booking
+                  {omsNeedsPayment ? "Continue to payment" : "Confirm booking"}
                 </button>
+              </Block>
+            )}
+
+            {step === "payment" && service && staff && date && time && (
+              <Block title="How would you like to pay?">
+                <p className="mb-4 text-sm leading-relaxed" style={{ color: brand.muted }}>
+                  Secure card checkout via Stripe. Funds go to {tenant.name}. Test mode only.
+                </p>
+                <div className="space-y-2.5">
+                  <PaymentOption
+                    title="Pay in full"
+                    amount={formatGBP(service.pricePence)}
+                    hint="Settle the full booking amount now"
+                    active={paymentChoice === "full"}
+                    disabled={checkoutBusy}
+                    onClick={() => startCheckout("full")}
+                    brand={brand}
+                  />
+                  <PaymentOption
+                    title="50% deposit"
+                    amount={formatGBP(amountForPaymentChoice(service.pricePence, "deposit"))}
+                    hint={`Pay ${formatGBP(amountForPaymentChoice(service.pricePence, "deposit"))} now · ${formatGBP(service.pricePence - amountForPaymentChoice(service.pricePence, "deposit"))} due at shoot`}
+                    active={paymentChoice === "deposit"}
+                    disabled={checkoutBusy}
+                    onClick={() => startCheckout("deposit")}
+                    brand={brand}
+                  />
+                </div>
+                {checkoutBusy && (
+                  <p className="mt-4 text-center text-sm" style={{ color: brand.muted }}>
+                    Opening Stripe Checkout…
+                  </p>
+                )}
+                {checkoutError && (
+                  <p
+                    className="mt-4 rounded-2xl px-4 py-3 text-sm leading-relaxed"
+                    style={{
+                      background: "#FFF5F7",
+                      color: brand.ink,
+                      outline: `1px solid ${brand.primary}33`,
+                    }}
+                    role="alert"
+                  >
+                    {checkoutError}
+                  </p>
+                )}
               </Block>
             )}
 
@@ -461,7 +587,11 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
                   <Row label="Where" value={tenant.address} muted={brand.muted} />
                 </div>
                 <p className="mt-6 text-xs" style={{ color: brand.muted }}>
-                  Confirmation email is mocked in this prototype.
+                  {paymentChoice
+                    ? paymentChoice === "deposit"
+                      ? "50% deposit recorded · confirmation email mocked in this prototype."
+                      : "Paid in full · confirmation email mocked in this prototype."
+                    : "Confirmation email is mocked in this prototype."}
                 </p>
               </div>
             )}
@@ -569,5 +699,51 @@ function Row({
       <span style={{ color: muted }}>{label}</span>
       <span className="text-right font-medium">{value}</span>
     </div>
+  );
+}
+
+function PaymentOption({
+  title,
+  amount,
+  hint,
+  active,
+  disabled,
+  onClick,
+  brand,
+}: {
+  title: string;
+  amount: string;
+  hint: string;
+  active: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  brand: BrandTokens;
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      className="flex w-full flex-col gap-1.5 rounded-2xl px-4 py-4 text-left transition disabled:opacity-60"
+      style={{
+        background: "#FFFFFF",
+        boxShadow: active
+          ? `inset 2px 0 0 ${brand.primary}, inset 0 0 0 1px ${brand.primary}66`
+          : `inset 0 0 0 1px #E8E8EC`,
+      }}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <span className="text-[15px] font-medium tracking-tight">{title}</span>
+        <span
+          className="shrink-0 text-sm tabular-nums tracking-tight"
+          style={{ color: active ? brand.primary : brand.ink }}
+        >
+          {amount}
+        </span>
+      </div>
+      <p className="text-[13px] leading-relaxed" style={{ color: brand.muted }}>
+        {hint}
+      </p>
+    </button>
   );
 }

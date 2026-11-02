@@ -56,7 +56,7 @@ export const PLANS: Plan[] = [
       "Unlimited staff",
       "Priority support",
       "Custom domain path (soon)",
-      "Stripe Connect ready (stub)",
+      "Stripe Connect (OMS deposits live in test)",
     ],
     cta: "Start free trial",
   },

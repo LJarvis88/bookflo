@@ -2,7 +2,7 @@
 export const MARKETING_FAQS = [
   {
     q: "Is BOOKFLO really zero commission?",
-    a: "Yes. You pay a flat monthly subscription. We don’t take a cut of your bookings. Client payments stay between you and your clients (pay at venue in this prototype; Stripe Connect arrives later).",
+    a: "Yes. You pay a flat monthly subscription. We don’t take a cut of your bookings. Client card payments use Stripe Connect so money goes to your business — Oh My Social Media already offers pay in full or a 50% deposit.",
   },
   {
     q: "Do you offer a free trial?",
