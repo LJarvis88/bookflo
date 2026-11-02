@@ -32,7 +32,10 @@ const OMS_ICONS: { src: string; sizes: string }[] = [
   },
 ];
 
-/** Public booking PWA — Add to Home Screen from /book/oh-my-social-media. */
+/**
+ * Public booking PWA — for OMS *clients* only.
+ * Toni’s Home Screen icon is the admin path (OMS_ADMIN_PWA), not this.
+ */
 export const OMS_BOOKING_PWA: TenantPwaConfig = {
   slug: "oh-my-social-media",
   name: "Oh My Social Media",
@@ -48,17 +51,22 @@ export const OMS_BOOKING_PWA: TenantPwaConfig = {
   icons: OMS_ICONS,
 };
 
-/** Admin PWA — Tee Add to Home Screen from /dashboard. */
+/**
+ * Toni’s ONE Home Screen icon — admin diary.
+ * Apply from /login and /dashboard. start_url → login; after sign-in she lands
+ * on /dashboard (appointments). Scope is site-root so standalone can move
+ * login ↔ dashboard. Do not dual-install the public book WebClip.
+ */
 export const OMS_ADMIN_PWA: TenantPwaConfig = {
   slug: "oh-my-social-media-admin",
   name: "Oh My Social Media",
   shortName: "OMS",
   description: "Oh My Social Media admin — calendar, clients, and bookings.",
-  startUrl: "/dashboard",
-  scope: "/dashboard",
+  startUrl: `${SITE_URL}/login`,
+  scope: `${SITE_URL}/`,
   themeColor: "#EB0E7F",
   backgroundColor: "#F01787",
-  manifestPath: `${SITE_URL}/tenants/oh-my-social-media/admin-manifest.webmanifest`,
+  manifestPath: `${SITE_URL}/tenants/oh-my-social-media/admin-manifest-v58.webmanifest`,
   appleTouchIcon: OMS_APPLE_TOUCH,
   icons: OMS_ICONS,
 };
