@@ -15,7 +15,12 @@ export async function generateMetadata({
   const tenant = getTenantBySlug(slug);
   const pwa = getBookingPwa(slug);
   if (!pwa) {
-    return { title: tenant?.name ?? "Book" };
+    // Contour (and any non-OMS book route): no OMS icons; do not inherit a
+    // site-wide apple-touch BOOKFLO B either (apple-icon.png removed).
+    return {
+      title: tenant?.name ?? "Book",
+      applicationName: tenant?.brand.displayName,
+    };
   }
 
   return {
@@ -25,14 +30,21 @@ export async function generateMetadata({
       title: pwa.shortName,
       statusBarStyle: "black-translucent",
     },
+    // Absolute OMS URLs only — no sizes on apple (iOS quirk).
     icons: {
       icon: pwa.icons.map((icon) => ({
         url: icon.src,
         sizes: icon.sizes,
         type: "image/png",
       })),
-      apple: [{ url: pwa.appleTouchIcon, sizes: "180x180", type: "image/png" }],
+      apple: [{ url: pwa.appleTouchIcon, type: "image/png" }],
       shortcut: [{ url: pwa.appleTouchIcon, type: "image/png" }],
+      other: [
+        {
+          rel: "apple-touch-icon-precomposed",
+          url: pwa.appleTouchIcon,
+        },
+      ],
     },
     manifest: pwa.manifestPath,
     other: {

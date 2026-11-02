@@ -81,6 +81,8 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
+    // Marketing only — do NOT set apple here. File-based apple-icon.png was
+    // removed so Safari cannot fall back to BOOKFLO B on tenant book routes.
     icon: "/marketing/bookflo-email-logo.png",
   },
 };

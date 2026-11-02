@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/site";
+
 export interface TenantPwaConfig {
   slug: string;
   name: string;
@@ -8,21 +10,24 @@ export interface TenantPwaConfig {
   themeColor: string;
   backgroundColor: string;
   manifestPath: string;
+  /** Absolute URL — Safari A2HS is unreliable with relative + query-bust paths. */
   appleTouchIcon: string;
   icons: { src: string; sizes: string }[];
 }
 
-/** Cache-bust so Safari drops the old BOOKFLO B after re-add. */
-const OMS_ICON_V = "v53";
-const OMS_APPLE_TOUCH =
-  `/tenants/oh-my-social-media/icons/apple-touch-icon.png?${OMS_ICON_V}`;
+/**
+ * New filename every time Toni still sees BOOKFLO B — iOS often ignores
+ * ?query cache-bust on apple-touch-icon and keeps a poisoned WebClip cache.
+ */
+const OMS_A2HS_FILE = "oms-a2hs-v54.png";
+const OMS_APPLE_TOUCH = `${SITE_URL}/tenants/oh-my-social-media/icons/${OMS_A2HS_FILE}`;
 const OMS_ICONS: { src: string; sizes: string }[] = [
   {
-    src: `/tenants/oh-my-social-media/icons/icon-192.png?${OMS_ICON_V}`,
+    src: `${SITE_URL}/tenants/oh-my-social-media/icons/icon-192.png?v54`,
     sizes: "192x192",
   },
   {
-    src: `/tenants/oh-my-social-media/icons/icon-512.png?${OMS_ICON_V}`,
+    src: `${SITE_URL}/tenants/oh-my-social-media/icons/icon-512.png?v54`,
     sizes: "512x512",
   },
 ];
@@ -32,12 +37,13 @@ export const OMS_BOOKING_PWA: TenantPwaConfig = {
   slug: "oh-my-social-media",
   name: "Oh My Social Media",
   shortName: "OMS",
-  description: "Bold content days for beauty brands who want to be seen — book with OMS.",
+  description:
+    "Bold content days for beauty brands who want to be seen — book with OMS.",
   startUrl: "/book/oh-my-social-media",
   scope: "/book/oh-my-social-media",
   themeColor: "#EB0E7F",
   backgroundColor: "#F01787",
-  manifestPath: "/tenants/oh-my-social-media/manifest.webmanifest",
+  manifestPath: `${SITE_URL}/tenants/oh-my-social-media/manifest.webmanifest`,
   appleTouchIcon: OMS_APPLE_TOUCH,
   icons: OMS_ICONS,
 };
@@ -52,7 +58,7 @@ export const OMS_ADMIN_PWA: TenantPwaConfig = {
   scope: "/dashboard",
   themeColor: "#EB0E7F",
   backgroundColor: "#F01787",
-  manifestPath: "/tenants/oh-my-social-media/admin-manifest.webmanifest",
+  manifestPath: `${SITE_URL}/tenants/oh-my-social-media/admin-manifest.webmanifest`,
   appleTouchIcon: OMS_APPLE_TOUCH,
   icons: OMS_ICONS,
 };

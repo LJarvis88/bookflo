@@ -30,18 +30,9 @@ export async function generateMetadata({
   const path = `/book/${tenant.slug}`;
   const ogImage = tenant.brand.logoUrl;
   const pwa = getBookingPwa(tenant.slug);
-  // Prefer square PWA mark for home-screen — never the wide wordmark or BOOKFLO B.
+  // OMS icons come from book/[slug]/layout (absolute, no sizes). Contour keeps logo only.
   const iconMeta = pwa
-    ? {
-        icon: pwa.icons.map((icon) => ({
-          url: icon.src,
-          sizes: icon.sizes,
-          type: "image/png",
-        })),
-        apple: [
-          { url: pwa.appleTouchIcon, sizes: "180x180", type: "image/png" },
-        ],
-      }
+    ? undefined
     : ogImage
       ? { icon: ogImage }
       : undefined;
@@ -100,6 +91,21 @@ export default async function BookPage({
   const pwa = getBookingPwa(slug);
   return (
     <>
+      {/* Hoisted into <head> — absolute OMS mark, no sizes (iOS A2HS quirk). */}
+      {pwa ? (
+        <>
+          <link rel="apple-touch-icon" href={pwa.appleTouchIcon} />
+          <link rel="apple-touch-icon-precomposed" href={pwa.appleTouchIcon} />
+          <link rel="shortcut icon" href={pwa.appleTouchIcon} type="image/png" />
+          <link
+            rel="icon"
+            href={pwa.icons[0]?.src ?? pwa.appleTouchIcon}
+            type="image/png"
+            sizes="192x192"
+          />
+          <link rel="manifest" href={pwa.manifestPath} />
+        </>
+      ) : null}
       {pwa ? <ApplyTenantManifest pwa={pwa} /> : null}
       <JsonLd data={crumbs} />
       <BookingFlow tenant={getTenantBySlug(slug)} />
