@@ -155,17 +155,9 @@ export const ohMySocialMedia: Tenant = {
     {
       id: "oms_staff_tee",
       name: "Tee",
-      role: "Founder · director",
+      role: "Founder · Photographer",
       initials: "TE",
       color: OMS_PALETTE.magenta,
-      active: true,
-    },
-    {
-      id: "oms_staff_jaz",
-      name: "Jaz Rivera",
-      role: "Shooter",
-      initials: "JR",
-      color: OMS_PALETTE.orange,
       active: true,
     },
   ],
