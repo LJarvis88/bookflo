@@ -13,12 +13,13 @@ import { getAdminPwa } from "@/lib/pwa";
 
 const mobileLinks = [
   ["/dashboard", "Appointments"],
+  // Payments early so Tee can reach Connect without horizontal-scrolling the chip row.
+  ["/dashboard/payments", "Payments"],
   ["/dashboard/calendar", "Week"],
   ["/dashboard/customers", "Customers"],
   ["/dashboard/services", "Services"],
   ["/dashboard/staff", "Team"],
   ["/dashboard/branding", "Branding"],
-  ["/dashboard/payments", "Payments"],
   ["/dashboard/subscription", "Plan"],
   ["/dashboard/settings", "Settings"],
 ] as const;
@@ -74,7 +75,8 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
           </div>
-          <main className="flex-1 overflow-x-hidden px-4 py-5 sm:px-6 lg:px-8 lg:py-7">
+          {/* overflow-x-clip avoids the iOS quirk where overflow-x:hidden can trap vertical scroll */}
+          <main className="min-w-0 flex-1 overflow-x-clip px-4 py-5 pb-10 sm:px-6 lg:px-8 lg:py-7">
             {children}
           </main>
         </div>

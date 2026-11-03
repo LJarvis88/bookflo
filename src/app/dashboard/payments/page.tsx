@@ -85,7 +85,7 @@ export default function PaymentsPage() {
         setOnboardBusy(false);
         return;
       }
-      window.location.href = data.url;
+      window.location.assign(data.url);
     } catch {
       setOnboardError("Network error starting Connect onboarding");
       setOnboardBusy(false);
@@ -93,7 +93,7 @@ export default function PaymentsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className="mx-auto max-w-2xl space-y-6 sm:space-y-8">
       <header>
         <h1 className="font-display text-3xl font-semibold tracking-tight">Payments</h1>
         <p className="mt-1 text-sm text-bf-muted">
@@ -102,55 +102,9 @@ export default function PaymentsPage() {
         </p>
       </header>
 
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-        <strong>{status?.mode === "live" ? "Live mode" : "Test mode"}</strong>
-        {status?.mode === "live"
-          ? " — real card charges. "
-          : " — use test cards until Luke flips STRIPE_MODE=live. "}
-        Client booking payments use Stripe Connect (destination charges) so funds go to the
-        connected business, not BOOKFLO SaaS billing.
-      </div>
-
-      <section className="space-y-4 rounded-3xl border border-bf-line bg-white/70 p-6">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="font-display text-xl font-semibold">BOOKFLO SaaS billing</h2>
-          <span className="rounded-full bg-bf-fog px-2.5 py-1 text-xs font-medium text-bf-muted">
-            Test mode
-          </span>
-        </div>
-        {saasExemption ? (
-          <div className="space-y-2 text-sm leading-relaxed">
-            <p>
-              <span className="font-medium text-bf-ink">{saasExemption.label}</span>
-              {" — "}
-              {saasExemption.detail}
-            </p>
-            {freeForLife && (
-              <p className="rounded-2xl border border-bf-line bg-bf-fog/60 px-3 py-2 text-bf-muted">
-                No Stripe Billing subscription will be created for {tenant.name}. Client shoot
-                payments still use Connect below.
-              </p>
-            )}
-          </div>
-        ) : (
-          <p className="text-sm text-bf-muted leading-relaxed">
-            SaaS subscription invoices will appear here. {tenant.name} is on the Salon plan
-            (£39/mo) as fictional entitlement only.
-          </p>
-        )}
-        <button
-          type="button"
-          disabled
-          className="rounded-full border border-bf-line px-4 py-2 text-sm text-bf-muted opacity-70"
-        >
-          {freeForLife
-            ? "Stripe Billing portal — not applicable (free for life)"
-            : "Open Stripe Billing portal (stub)"}
-        </button>
-      </section>
-
-      <section className="space-y-4 rounded-3xl border border-bf-line bg-white/70 p-6">
-        <div className="flex items-center justify-between gap-3">
+      {/* Connect first on mobile — was buried under SaaS billing below the fold. */}
+      <section className="space-y-4 rounded-3xl border border-bf-line bg-white/70 p-4 sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="font-display text-xl font-semibold">Stripe Connect</h2>
           <span className="rounded-full bg-bf-fog px-2.5 py-1 text-xs font-medium text-bf-muted">
             {status?.mode === "live" ? "Live mode" : "Test mode"}
@@ -161,7 +115,7 @@ export default function PaymentsPage() {
           <>
             <p className="text-sm text-bf-muted leading-relaxed">
               Connect an Express account so client payments (pay in full or 50% deposit) from{" "}
-              <code className="text-bf-ink">/book/{tenant.slug}</code> transfer to{" "}
+              <code className="break-all text-bf-ink">/book/{tenant.slug}</code> transfer to{" "}
               {tenant.name}. Platform account is BOOKFLO (Luke) — never Tee’s personal Stripe for
               SaaS.
             </p>
@@ -192,7 +146,7 @@ export default function PaymentsPage() {
               </div>
               <div>
                 <dt className="text-bf-muted">Connect account</dt>
-                <dd className="font-medium font-mono text-xs break-all">
+                <dd className="break-all font-mono text-xs font-medium">
                   {status?.accountId ?? "—"}
                 </dd>
               </div>
@@ -202,12 +156,12 @@ export default function PaymentsPage() {
                 {onboardError ?? status?.error}
               </p>
             )}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
               <button
                 type="button"
                 onClick={() => void startOnboarding()}
                 disabled={onboardBusy}
-                className="rounded-full bg-bf-ink px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full bg-bf-ink px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60 sm:w-auto"
               >
                 {onboardBusy
                   ? "Opening Stripe…"
@@ -219,13 +173,13 @@ export default function PaymentsPage() {
                 type="button"
                 onClick={() => void refreshStatus()}
                 disabled={statusLoading}
-                className="rounded-full border border-bf-line px-4 py-2 text-sm text-bf-ink disabled:opacity-60"
+                className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-bf-line px-4 py-2.5 text-sm text-bf-ink disabled:opacity-60 sm:w-auto"
               >
                 Refresh status
               </button>
             </div>
             <p className="text-xs text-bf-muted leading-relaxed">
-              Tee: click Connect, complete Stripe Express onboarding with Oh My Social Media
+              Tee: tap Connect, complete Stripe Express onboarding with Oh My Social Media
               details, then return here. Clients can then pay deposits/full amounts on the public
               booking page.
             </p>
@@ -249,12 +203,57 @@ export default function PaymentsPage() {
             <button
               type="button"
               disabled
-              className="rounded-full border border-bf-line px-4 py-2 text-sm text-bf-muted opacity-70"
+              className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-bf-line px-4 py-2.5 text-sm text-bf-muted opacity-70 sm:w-auto"
             >
               Connect Stripe account (not enabled for this tenant)
             </button>
           </>
         )}
+      </section>
+
+      <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        <strong>{status?.mode === "live" ? "Live mode" : "Test mode"}</strong>
+        {status?.mode === "live"
+          ? " — real card charges. "
+          : " — use test cards until Luke flips STRIPE_MODE=live. "}
+        Client booking payments use Stripe Connect (destination charges) so funds go to the
+        connected business, not BOOKFLO SaaS billing.
+      </div>
+
+      <section className="space-y-4 rounded-3xl border border-bf-line bg-white/70 p-4 sm:p-6">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="font-display text-xl font-semibold">BOOKFLO SaaS billing</h2>
+          <span className="rounded-full bg-bf-fog px-2.5 py-1 text-xs font-medium text-bf-muted">
+            Test mode
+          </span>
+        </div>
+        {saasExemption ? (
+          <div className="space-y-2 text-sm leading-relaxed">
+            <p>
+              <span className="font-medium text-bf-ink">{saasExemption.label}</span>
+              {" — "}
+              {saasExemption.detail}
+            </p>
+            {freeForLife && (
+              <p className="rounded-2xl border border-bf-line bg-bf-fog/60 px-3 py-2 text-bf-muted">
+                No Stripe Billing subscription will be created for {tenant.name}. Client shoot
+                payments still use Connect above.
+              </p>
+            )}
+          </div>
+        ) : (
+          <p className="text-sm text-bf-muted leading-relaxed">
+            SaaS subscription invoices will appear here. {tenant.name} is on the Salon plan
+            (£39/mo) as fictional entitlement only.
+          </p>
+        )}
+        <button
+          type="button"
+          disabled
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-full border border-bf-line px-4 py-2.5 text-sm text-bf-muted opacity-70 sm:w-auto"
+        >
+          {freeForLife ? "Billing portal N/A (free for life)" : "Open Stripe Billing portal (stub)"}
+        </button>
       </section>
     </div>
   );
