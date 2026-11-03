@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { BookingFlow } from "@/components/booking/BookingFlow";
 import { JsonLd, breadcrumbList } from "@/components/seo/JsonLd";
 import { getTenantBySlug, listTenantSlugs, TENANTS } from "@/data/tenants";
+import { ApplyTenantManifest } from "@/components/pwa/ApplyTenantManifest";
+import { getBookingPwa } from "@/lib/pwa";
 import { absoluteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -27,6 +29,13 @@ export async function generateMetadata({
     `Book an appointment with ${tenant.brand.displayName}.`;
   const path = `/book/${tenant.slug}`;
   const ogImage = tenant.brand.logoUrl;
+  const pwa = getBookingPwa(tenant.slug);
+  // OMS icons come from book/[slug]/layout (absolute, no sizes). Contour keeps logo only.
+  const iconMeta = pwa
+    ? undefined
+    : ogImage
+      ? { icon: ogImage }
+      : undefined;
 
   return {
     title: { absolute: title },
@@ -34,7 +43,17 @@ export async function generateMetadata({
     alternates: { canonical: path },
     // Keep white-label demos tenant-branded (no BOOKFLO favicon/siteName).
     applicationName: tenant.brand.displayName,
-    icons: ogImage ? { icon: ogImage } : undefined,
+    icons: iconMeta,
+    ...(pwa
+      ? {
+          manifest: pwa.manifestPath,
+          appleWebApp: {
+            capable: true,
+            title: pwa.shortName,
+            statusBarStyle: "black-translucent" as const,
+          },
+        }
+      : {}),
     openGraph: {
       title,
       description,
@@ -69,8 +88,25 @@ export default async function BookPage({
     { name: "Home", path: "/" },
     { name: tenant.brand.displayName, path },
   ]);
+  const pwa = getBookingPwa(slug);
   return (
     <>
+      {/* Hoisted into <head> — absolute OMS mark, no sizes (iOS A2HS quirk). */}
+      {pwa ? (
+        <>
+          <link rel="apple-touch-icon" href={pwa.appleTouchIcon} />
+          <link rel="apple-touch-icon-precomposed" href={pwa.appleTouchIcon} />
+          <link rel="shortcut icon" href={pwa.appleTouchIcon} type="image/png" />
+          <link
+            rel="icon"
+            href={pwa.icons[0]?.src ?? pwa.appleTouchIcon}
+            type="image/png"
+            sizes="192x192"
+          />
+          <link rel="manifest" href={pwa.manifestPath} />
+        </>
+      ) : null}
+      {pwa ? <ApplyTenantManifest pwa={pwa} /> : null}
       <JsonLd data={crumbs} />
       <BookingFlow tenant={getTenantBySlug(slug)} />
     </>

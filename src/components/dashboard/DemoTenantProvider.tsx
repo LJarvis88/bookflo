@@ -3,20 +3,34 @@
 import Link from "next/link";
 import {
   createContext,
+  useCallback,
   useContext,
   useLayoutEffect,
+  useMemo,
   useState,
   type ReactNode,
 } from "react";
 import { findTenantBySlug } from "@/data/tenants";
+import {
+  appendStoredAppointment,
+  mergeAppointments,
+  readStoredAppointments,
+} from "@/lib/appointment-store";
+import { hasStaffOverlap } from "@/lib/booking-overlap";
 import { isAllowlistedTenantSlug } from "@/lib/demo-auth";
 import {
   readDemoAuthSlug,
   writeDemoAuthSlug,
 } from "@/lib/demo-session";
-import type { Tenant } from "@/lib/types";
+import type { Appointment, Tenant } from "@/lib/types";
 
 const DemoTenantContext = createContext<Tenant | null>(null);
+
+type CreateAppointmentResult = { ok: true } | { ok: false; error: string };
+
+const CreateAppointmentContext = createContext<
+  ((apt: Appointment) => CreateAppointmentResult) | null
+>(null);
 
 /**
  * Resolve tenant only from allowlisted auth — never from a bare ?tenant=
@@ -44,6 +58,10 @@ function stripTenantQueryParam() {
   window.history.replaceState({}, "", next);
 }
 
+function withAppointments(base: Tenant, appointments: Appointment[]): Tenant {
+  return { ...base, appointments };
+}
+
 export function DemoTenantProvider({ children }: { children: ReactNode }) {
   // Start unresolved on purpose — never paint Contour (or any salon) as a default.
   const [tenant, setTenant] = useState<Tenant | null>(null);
@@ -54,12 +72,55 @@ export function DemoTenantProvider({ children }: { children: ReactNode }) {
     if (slug) {
       writeDemoAuthSlug(slug);
       stripTenantQueryParam();
-      setTenant(findTenantBySlug(slug) ?? null);
+      const base = findTenantBySlug(slug);
+      if (!base) {
+        setTenant(null);
+      } else {
+        const stored = readStoredAppointments(slug);
+        setTenant(
+          withAppointments(base, mergeAppointments(base.appointments, stored)),
+        );
+      }
     } else {
       setTenant(null);
     }
     setResolved(true);
   }, []);
+
+  const createAppointment = useCallback(
+    (apt: Appointment): CreateAppointmentResult => {
+      if (!tenant) {
+        return { ok: false, error: "Not signed in." };
+      }
+      if (
+        hasStaffOverlap({
+          appointments: tenant.appointments,
+          staffId: apt.staffId,
+          date: apt.date,
+          startTime: apt.startTime,
+          endTime: apt.endTime,
+          excludeId: apt.id,
+        })
+      ) {
+        return {
+          ok: false,
+          error: "That time overlaps an existing booking for this team member.",
+        };
+      }
+      const stored = appendStoredAppointment(tenant.slug, apt);
+      const base = findTenantBySlug(tenant.slug);
+      if (!base) {
+        return { ok: false, error: "Unknown salon." };
+      }
+      setTenant(
+        withAppointments(base, mergeAppointments(base.appointments, stored)),
+      );
+      return { ok: true };
+    },
+    [tenant],
+  );
+
+  const createValue = useMemo(() => createAppointment, [createAppointment]);
 
   if (!resolved) {
     // Neutral shell only — no logo, name, or colours from any demo tenant.
@@ -96,7 +157,9 @@ export function DemoTenantProvider({ children }: { children: ReactNode }) {
 
   return (
     <DemoTenantContext.Provider value={tenant}>
-      {children}
+      <CreateAppointmentContext.Provider value={createValue}>
+        {children}
+      </CreateAppointmentContext.Provider>
     </DemoTenantContext.Provider>
   );
 }
@@ -107,4 +170,16 @@ export function useDemoTenant(): Tenant {
     throw new Error("useDemoTenant must be used inside a resolved DemoTenantProvider");
   }
   return tenant;
+}
+
+export function useCreateAppointment(): (
+  apt: Appointment,
+) => CreateAppointmentResult {
+  const create = useContext(CreateAppointmentContext);
+  if (!create) {
+    throw new Error(
+      "useCreateAppointment must be used inside a resolved DemoTenantProvider",
+    );
+  }
+  return create;
 }

@@ -1,5 +1,4 @@
 import type { BrandTokens, Tenant } from "@/lib/types";
-import { DEMO_TODAY } from "@/lib/format";
 
 /**
  * Oh My Social Media palette (sampled from brand kit PNG):
@@ -136,22 +135,29 @@ export const ohMySocialMedia: Tenant = {
       pricePence: 0,
       active: true,
     },
+    /**
+     * Temporary live card smoke — £1 pay-in-full / 50p deposit.
+     * Visible only when NEXT_PUBLIC_OMS_LIVE_SMOKE=1 (build-time).
+     * Remove or set the flag off after Luke’s go-ahead smoke.
+     */
+    {
+      id: "oms_svc_live_smoke",
+      categoryId: "oms_cat_discovery",
+      name: "BOOKFLO live card smoke (£1)",
+      description:
+        "Temporary £1 live Stripe path for Luke/Tee. Pay in full = £1.00 · 50% deposit = £0.50. Do not use for client shoots.",
+      durationMinutes: 15,
+      pricePence: 100,
+      active: process.env.NEXT_PUBLIC_OMS_LIVE_SMOKE === "1",
+    },
   ],
   staff: [
     {
       id: "oms_staff_tee",
       name: "Tee",
-      role: "Founder · director",
+      role: "Founder · Photographer",
       initials: "TE",
       color: OMS_PALETTE.magenta,
-      active: true,
-    },
-    {
-      id: "oms_staff_jaz",
-      name: "Jaz Rivera",
-      role: "Shooter",
-      initials: "JR",
-      color: OMS_PALETTE.orange,
       active: true,
     },
   ],
@@ -183,62 +189,8 @@ export const ohMySocialMedia: Tenant = {
       lastVisit: "2026-10-28",
     },
   ],
-  appointments: [
-    {
-      id: "oms_apt_1",
-      serviceId: "oms_svc_studio_2h",
-      staffId: "oms_staff_tee",
-      customerId: "oms_cus_1",
-      clientName: "Ava Brooks",
-      clientEmail: "ava@example.com",
-      clientPhone: "07700 900201",
-      date: DEMO_TODAY,
-      startTime: "10:00",
-      endTime: "12:00",
-      status: "confirmed",
-      pricePence: 20000,
-    },
-    {
-      id: "oms_apt_2",
-      serviceId: "oms_svc_content_3h",
-      staffId: "oms_staff_jaz",
-      customerId: "oms_cus_2",
-      clientName: "Leo Nash",
-      clientEmail: "leo@example.com",
-      clientPhone: "07700 900202",
-      date: DEMO_TODAY,
-      startTime: "12:00",
-      endTime: "15:00",
-      status: "confirmed",
-      pricePence: 25000,
-    },
-    {
-      id: "oms_apt_3",
-      serviceId: "oms_svc_studio_2h",
-      staffId: "oms_staff_tee",
-      clientName: "Sky Patel",
-      clientEmail: "sky@example.com",
-      clientPhone: "07700 900203",
-      date: DEMO_TODAY,
-      startTime: "14:00",
-      endTime: "16:00",
-      status: "pending",
-      pricePence: 20000,
-    },
-    {
-      id: "oms_apt_4",
-      serviceId: "oms_svc_content_6h",
-      staffId: "oms_staff_jaz",
-      clientName: "Rae Quinn",
-      clientEmail: "rae@example.com",
-      clientPhone: "07700 900204",
-      date: "2026-11-01",
-      startTime: "10:00",
-      endTime: "16:00",
-      status: "confirmed",
-      pricePence: 40000,
-    },
-  ],
+  // Empty live diary — Tee creates real bookings via Admin + Add (no Ava/Leo/Sky seeds).
+  appointments: [],
 };
 
 /** Slots for a given OMS service. Studio: 10 / 12 / 2; discovery shares those; content/package starts. */
