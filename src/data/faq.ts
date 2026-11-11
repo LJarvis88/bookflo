@@ -21,8 +21,8 @@ export const MARKETING_FAQS = [
     a: "Most salons can publish a shareable booking link in under fifteen minutes: account, business details, branding, services, hours, preview, publish.",
   },
   {
-    q: "Are reminders and the booking quiz included?",
-    a: "Email reminders and confirmations are included on every plan. Every account sees the booking quiz in the dashboard — unlocking it is a paid account upgrade, and you can always take bookings without it. SMS reminders are a separate, higher paid add-on for salons that want texts.",
+    q: "Are reminders free? What about SMS and the quiz?",
+    a: "Email reminders and confirmations are free on every plan — that’s the included channel. We don’t offer free or unlimited SMS. Text reminders are a paid add-on above the booking quiz. Every account sees the quiz in the dashboard; unlocking it is a paid account upgrade, and you can always take bookings without it.",
   },
   {
     q: "How do I contact BOOKFLO?",
