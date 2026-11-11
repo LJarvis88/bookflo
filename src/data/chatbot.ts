@@ -142,12 +142,27 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "Consent forms are coming in a later phase — planned free on every plan (value-first pricing). Soft caps only if someone abuses the system; not a paid upsell.",
   },
   {
+    id: "first-50",
+    label: "First 50 quiz free",
+    keywords: [
+      "first 50",
+      "first50",
+      "founding 50",
+      "founding-50",
+      "quiz free",
+      "free quiz",
+      "join first",
+    ],
+    answer:
+      "First 50 beauty founders get the booking quiz free for demo — claim at /join/first-50 (or /founding-50). After 50, quiz unlock is a paid upgrade; SMS reminders cost more. Email reminders stay included. Demo-only until January 2027.",
+  },
+  {
     id: "ambassadors",
     label: "Ambassadors",
     keywords: [
       "ambassador",
       "ambassadors",
-      "founding",
+      "founding ambassador",
       "liv",
       "contour",
       "tee",
@@ -158,7 +173,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "complimentary",
     ],
     answer:
-      "Founding ambassadors get 12 months of complimentary Pro in exchange for promoting BOOKFLO. Current ambassador: Liv (Contour Preston). Tee / Oh My Social Media is free for life as Luke’s partner — separate from the ambassador clock.",
+      "Founding ambassadors get 12 months of complimentary Pro in exchange for promoting BOOKFLO. Current ambassador: Liv (Contour Preston). Tee / Oh My Social Media is free for life as Luke’s partner — separate from the ambassador clock. Separate from First 50 quiz-free: /join/first-50.",
   },
   {
     id: "tee-free-for-life",
