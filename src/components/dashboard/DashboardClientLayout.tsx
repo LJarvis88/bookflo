@@ -15,6 +15,7 @@ const mobileLinks = [
   ["/dashboard/customers", "Customers"],
   ["/dashboard/services", "Services"],
   ["/dashboard/staff", "Team"],
+  ["/dashboard/quizzes", "Quiz"],
   ["/dashboard/branding", "Branding"],
   ["/dashboard/payments", "Payments"],
   ["/dashboard/subscription", "Plan"],
