@@ -25,7 +25,7 @@ export const PRICING_LADDER = [
   },
   {
     title: "SMS reminders",
-    body: "Higher paid add-on above quiz — for salons that want texts, priced to cover real message costs.",
+    body: "Paid add-on above quiz — not free or unlimited. For salons that want texts, priced to cover real message costs.",
   },
 ] as const;
 
@@ -70,6 +70,8 @@ export const PLANS: Plan[] = [
     features: [
       "Everything in Team",
       "Unlimited staff",
+      "Free email reminders",
+      "Booking quiz — unlock to use",
       "Priority support",
       "Custom domain path (soon)",
       "Stripe Connect (OMS deposits live in test)",

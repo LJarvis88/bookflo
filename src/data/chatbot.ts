@@ -15,7 +15,7 @@ export type ChatIntent = {
 };
 
 export const CHAT_WELCOME =
-  "Hi — I’m the BOOKFLO helper. Ask about pricing, the trial, branding, or commission. Want a person? I can open WhatsApp.";
+  "Hi — I’m the BOOKFLO helper. Ask about pricing, reminders, the trial, branding, or commission. Want a person? I can open WhatsApp.";
 
 export const CHAT_FALLBACK =
   "I’m not sure on that one yet. Email hello@bookflo.app, or tap WhatsApp below and a human will help.";
@@ -74,7 +74,39 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "studio",
     ],
     answer:
-      "Plans are Solo £19, Salon £39, and Pro £59 per month (shown on the site as Independent / Team / Studio). Annual billing is two months free: Solo £190, Salon £390, Pro £590 a year. Email reminders are included on every plan. The booking quiz appears in every dashboard — unlock it with a paid account upgrade when you want it (never required for bookings). SMS reminders are a higher paid add-on. Branding stays included on every plan; staff seats scale with the plan.",
+      "Plans are Solo £19, Salon £39, and Pro £59 per month (shown on the site as Independent / Team / Studio). Annual billing is two months free: Solo £190, Salon £390, Pro £590 a year. Email reminders are included on every plan. The booking quiz appears in every dashboard — unlock it with a paid account upgrade when you want it (never required for bookings). SMS reminders are a higher paid add-on above quiz. Branding stays included on every plan; staff seats scale with the plan.",
+  },
+  {
+    id: "reminders",
+    label: "Reminders",
+    keywords: [
+      "sms",
+      "texts",
+      "text message",
+      "text messaging",
+      "text reminder",
+      "text reminders",
+      "sms reminder",
+      "sms reminders",
+      "sms cost",
+      "sms costs",
+      "text cost",
+      "text costs",
+      "reminder",
+      "reminders",
+      "email reminder",
+      "email reminders",
+      "free sms",
+      "free text",
+      "free texts",
+      "unlimited sms",
+      "unlimited text",
+      "unlimited texts",
+      "appointment reminder",
+      "appointment reminders",
+    ],
+    answer:
+      "Email reminders and confirmations are free on every plan — that’s our default. We don’t include free or unlimited SMS. Text reminders are a paid add-on above the booking quiz, priced to cover real message costs. The quiz itself sits in your dashboard from day one; unlocking it is a separate account upgrade and is never required for bookings.",
   },
   {
     id: "commission",

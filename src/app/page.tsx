@@ -117,7 +117,7 @@ const features = [
   {
     icon: Bell,
     title: "Email reminders on every plan.",
-    body: "Confirmations and reminders by email stay included. The booking quiz is in your dashboard — unlock when you want it. SMS is a higher paid add-on.",
+    body: "Confirmations and reminders by email stay free and included. No free or unlimited SMS — texts are a paid add-on above the booking quiz.",
   },
 ];
 
