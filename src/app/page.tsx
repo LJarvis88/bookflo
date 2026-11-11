@@ -9,7 +9,7 @@ import { Faq } from "@/components/marketing/Faq";
 import { UspBanner } from "@/components/marketing/UspBanner";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { Button } from "@/components/ui/Button";
-import { PLANS, TRIAL_DAYS } from "@/data/pricing";
+import { PLANS, PRICING_LADDER, TRIAL_DAYS } from "@/data/pricing";
 import { BOOKFLO_CONTACT_EMAIL } from "@/lib/contact";
 import {
   OG_IMAGE_PATH,
@@ -116,8 +116,8 @@ const features = [
   },
   {
     icon: Bell,
-    title: "Free text and email reminders, built in.",
-    body: "Unlimited appointment reminders included on every plan — no per-message fees past a free allowance.",
+    title: "Email reminders on every plan.",
+    body: "Confirmations and reminders by email stay included. The booking quiz is in your dashboard — unlock when you want it. SMS is a higher paid add-on.",
   },
 ];
 
@@ -403,6 +403,25 @@ export default function HomePage() {
                 </Button>
               </div>
             ))}
+          </div>
+
+          <div className="mx-auto mt-14 max-w-6xl border-t border-bf-line/80 pt-10">
+            <p className="text-center font-display text-lg font-semibold tracking-tight text-bf-ink">
+              Clear extras, when you want them
+            </p>
+            <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-bf-muted">
+              Email stays included. Quiz sits ready in your dashboard — unlock to use. SMS is the step above.
+            </p>
+            <div className="mt-8 grid gap-8 sm:grid-cols-3 sm:gap-6">
+              {PRICING_LADDER.map((step) => (
+                <div key={step.title} className="text-center sm:text-left">
+                  <h3 className="font-display text-base font-semibold text-bf-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-bf-muted">{step.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

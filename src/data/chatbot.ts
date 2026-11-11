@@ -74,7 +74,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "studio",
     ],
     answer:
-      "Plans are Solo £19, Salon £39, and Pro £59 per month (shown on the site as Independent / Team / Studio). Annual billing is two months free: Solo £190, Salon £390, Pro £590 a year. Staff seats are the only paid upsell — branding stays included on every plan.",
+      "Plans are Solo £19, Salon £39, and Pro £59 per month (shown on the site as Independent / Team / Studio). Annual billing is two months free: Solo £190, Salon £390, Pro £590 a year. Email reminders are included on every plan. The booking quiz appears in every dashboard — unlock it with a paid account upgrade when you want it (never required for bookings). SMS reminders are a higher paid add-on. Branding stays included on every plan; staff seats scale with the plan.",
   },
   {
     id: "commission",
