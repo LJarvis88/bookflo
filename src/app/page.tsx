@@ -404,6 +404,16 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          <p className="mx-auto mt-8 max-w-xl text-center text-xs leading-relaxed text-bf-muted">
+            First 50 · quiz free for demo.{" "}
+            <a
+              href="/join/first-50"
+              className="font-medium text-bf-accent hover:underline"
+            >
+              Claim a founding spot
+            </a>
+            . After that, quiz unlock is paid — SMS costs more.
+          </p>
         </div>
       </section>
 
