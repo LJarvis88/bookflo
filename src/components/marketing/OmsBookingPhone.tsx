@@ -20,7 +20,7 @@ const SERVICES = [
   },
   {
     name: "3h content + studio",
-    meta: "Package · Tee + Jaz",
+    meta: "Package · with Tee",
     price: "£350",
     active: false,
   },
