@@ -430,7 +430,14 @@ export default function HomePage() {
             >
               Claim a founding spot
             </a>
-            . After that, quiz unlock is paid — SMS costs more.
+            . Christmas partners ·{" "}
+            <a
+              href="/join/partner"
+              className="font-medium text-bf-accent hover:underline"
+            >
+              6 months free core
+            </a>
+            . Quiz + SMS stay paid extras.
           </p>
         </div>
       </section>

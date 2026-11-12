@@ -157,6 +157,23 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "First 50 beauty founders get the booking quiz free for demo — claim at /join/first-50 (or /founding-50). After 50, quiz unlock is a paid upgrade; SMS reminders cost more. Email reminders stay included. Demo-only until January 2027.",
   },
   {
+    id: "christmas-partner",
+    label: "Christmas partner",
+    keywords: [
+      "christmas partner",
+      "christmas",
+      "xmas",
+      "partner interest",
+      "6 months free",
+      "six months free",
+      "free core",
+      "join partner",
+      "toni partner",
+    ],
+    answer:
+      "Christmas partner call: Toni is a BOOKFLO partner — beauty founders can register interest at /join/partner (or /partner) for 6 months free core booking. Quiz and SMS stay paid optional extras. Convert to Solo/Salon/Pro around months 3–6. Interest form only — not a public admin signup.",
+  },
+  {
     id: "ambassadors",
     label: "Ambassadors",
     keywords: [

@@ -16,6 +16,10 @@ export const BOOKFLO_WAITLIST_PREFILL =
 export const BOOKFLO_FOUNDING50_PREFILL =
   "Hi — I'd like to claim a First 50 founding spot on BOOKFLO (founding-50 · quiz free for demo).";
 
+/** Prefill for Christmas partner interest (6 months free core · Toni cohort). */
+export const BOOKFLO_PARTNER_PREFILL =
+  "Hi — I'd like to register interest as a BOOKFLO Christmas partner (6 months free core · quiz + SMS paid extras).";
+
 export function bookfloWhatsAppUrl(
   text: string = BOOKFLO_WHATSAPP_PREFILL,
 ): string {
@@ -30,5 +34,12 @@ export function bookfloFounding50WhatsAppUrl(details?: string): string {
   const body = details?.trim()
     ? `${BOOKFLO_FOUNDING50_PREFILL}\n\n${details.trim()}`
     : BOOKFLO_FOUNDING50_PREFILL;
+  return bookfloWhatsAppUrl(body);
+}
+
+export function bookfloPartnerWhatsAppUrl(details?: string): string {
+  const body = details?.trim()
+    ? `${BOOKFLO_PARTNER_PREFILL}\n\n${details.trim()}`
+    : BOOKFLO_PARTNER_PREFILL;
   return bookfloWhatsAppUrl(body);
 }
