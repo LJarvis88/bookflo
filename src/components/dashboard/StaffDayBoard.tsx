@@ -23,10 +23,9 @@ const CONTOUR_PASTELS: Record<string, { bg: string; border: string; text: string
   staff_priya: { bg: "#D7E8F0", border: "#A2BECC", text: "#3D5A68" },
 };
 
-/** OMS staff pastels — magenta / orange / rose soft fills. */
+/** OMS staff pastels — Tee only (magenta). */
 const OMS_PASTELS: Record<string, { bg: string; border: string; text: string }> = {
   oms_staff_tee: { bg: "#FCE4F0", border: "#F5B6D4", text: "#8B0A4A" },
-  oms_staff_jaz: { bg: "#FFE8D6", border: "#FFC399", text: "#9A3A00" },
   oms_staff_mina: { bg: "#F8E0EA", border: "#E8B0C8", text: "#6B2A48" },
 };
 
