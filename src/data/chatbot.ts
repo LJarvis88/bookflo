@@ -171,7 +171,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "toni partner",
     ],
     answer:
-      "Christmas partner call: Toni is a BOOKFLO partner — beauty founders can register interest at /join/partner (or /partner) for 6 months free core booking. Quiz and SMS stay paid optional extras. Convert to Solo/Salon/Pro around months 3–6. Interest form only — not a public admin signup.",
+      "Christmas partner call: Toni is a BOOKFLO partner — beauty founders can register interest at /join/partner (or /partner) for 6 months free core booking. Aim 30 partners. Quiz and SMS stay paid optional extras. Convert to Solo/Salon/Pro around months 3–6. Interest form only — not a public admin signup.",
   },
   {
     id: "ambassadors",

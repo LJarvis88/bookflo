@@ -4,8 +4,8 @@ export const PARTNER_PATH = "/join/partner";
 export const PARTNER_ALIAS_PATH = "/partner";
 export const PARTNER_TAG = "christmas-partner";
 
-/** Soft target for free-core cohort (Luke: 30–40). */
-export const PARTNER_FREE_TARGET = 40;
+/** Soft target for free-core cohort (Luke: aim 30 partners). */
+export const PARTNER_FREE_TARGET = 30;
 
 /**
  * Soft counter placeholder — bump as WhatsApp / form interests land.

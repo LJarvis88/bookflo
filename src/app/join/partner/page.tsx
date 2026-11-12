@@ -104,7 +104,7 @@ export default function ChristmasPartnerPage() {
               Toni is a BOOKFLO partner. We&apos;re inviting beauty founders into
               a free-core cohort —{" "}
               <span className="font-medium text-bf-ink">6 months</span> of
-              booking software on us. Aiming for {PARTNER_FREE_TARGET} partners.
+              booking software on us. Aim {PARTNER_FREE_TARGET} partners.
               Quiz and SMS stay paid extras.
             </p>
 
