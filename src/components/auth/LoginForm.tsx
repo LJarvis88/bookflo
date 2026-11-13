@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import {
   DEMO_ACCESS_DENIED_MESSAGE,
@@ -13,7 +12,6 @@ import {
 import { writeDemoAuthSlug } from "@/lib/demo-session";
 
 export function LoginForm() {
-  const router = useRouter();
   const [email, setEmail] = useState<string>(DEMO_TEE.email);
   const [password, setPassword] = useState<string>(DEMO_TEE.password);
   const [error, setError] = useState<string | null>(null);
@@ -38,10 +36,19 @@ export function LoginForm() {
     }
 
     // Hard allowlist only — Tee + Liv credentials. Auth flag gates /dashboard.
-    writeDemoAuthSlug(account.tenantSlug);
-    router.push(
-      `/dashboard?tenant=${encodeURIComponent(account.tenantSlug)}`,
-    );
+    // Full page load (not router.push): soft nav on bookflo.app / deed custom
+    // domains crashes mid-transition (removeChild) and leaves "Signing in…"
+    // stuck on the login UI even though the URL may already say /dashboard.
+    try {
+      writeDemoAuthSlug(account.tenantSlug);
+    } catch {
+      setError("Could not save your session in this browser. Try Safari settings → clear Website Data for this site, then log in again.");
+      setSubmitting(false);
+      return;
+    }
+
+    const next = `/dashboard?tenant=${encodeURIComponent(account.tenantSlug)}`;
+    window.location.assign(next);
   }
 
   return (

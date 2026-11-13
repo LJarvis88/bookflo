@@ -61,6 +61,7 @@ export function writeDemoTenantSlug(slug: string): void {
 export function writeDemoAuthSlug(slug: string): void {
   if (typeof window === "undefined") return;
   if (!isAllowlistedTenantSlug(slug)) return;
+  // May throw in private / blocked storage — callers should catch.
   localStorage.setItem(DEMO_AUTH_STORAGE_KEY, slug);
   writeDemoTenantSlug(slug);
 }
