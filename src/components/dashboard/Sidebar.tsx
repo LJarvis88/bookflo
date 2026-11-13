@@ -15,6 +15,7 @@ import {
   BadgePoundSterling,
   ExternalLink,
   ListChecks,
+  Sparkles,
 } from "lucide-react";
 import { useDemoTenant } from "@/components/dashboard/DemoTenantProvider";
 import { TenantLogo } from "@/components/branding/TenantLogo";
@@ -29,6 +30,7 @@ const primaryLinks = [
 
 const secondaryLinks = [
   { href: "/dashboard/quizzes", label: "Quiz", icon: ListChecks },
+  { href: "/dashboard/founding-30", label: "Founding 30", icon: Sparkles },
   { href: "/dashboard/partner-interests", label: "Partners", icon: Users },
   { href: "/dashboard/branding", label: "Branding", icon: Palette },
   { href: "/dashboard/payments", label: "Payments", icon: CreditCard },

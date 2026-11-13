@@ -423,7 +423,14 @@ export default function HomePage() {
             </div>
           </div>
           <p className="mx-auto mt-8 max-w-xl text-center text-xs leading-relaxed text-bf-muted">
-            First 50 · quiz free for demo.{" "}
+            BookFlo Founding 30 ·{" "}
+            <a
+              href="/founding-30"
+              className="font-medium text-bf-accent hover:underline"
+            >
+              6 months free core · apply
+            </a>
+            . First 50 · quiz free for demo.{" "}
             <a
               href="/join/first-50"
               className="font-medium text-bf-accent hover:underline"
@@ -435,7 +442,7 @@ export default function HomePage() {
               href="/join/partner"
               className="font-medium text-bf-accent hover:underline"
             >
-              6 months free core
+              interest list
             </a>
             . Quiz + SMS stay paid extras.
           </p>

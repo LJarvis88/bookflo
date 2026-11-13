@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BookfloWordmark } from "@/components/branding/BookfloWordmark";
 import { PartnerInterestForm } from "@/components/marketing/PartnerInterestForm";
+import { Founding30PartnerBanner } from "@/components/marketing/Founding30PartnerBanner";
 import { LegalFooter } from "@/components/marketing/LegalFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -73,16 +74,26 @@ export default function ChristmasPartnerPage() {
         aria-hidden
       />
 
+      <Founding30PartnerBanner />
+
       <header className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-5 py-6 sm:px-8">
         <Link href="/" className="inline-flex" aria-label="bookflo home">
           <BookfloWordmark size="lg" />
         </Link>
-        <Link
-          href="/join/first-50"
-          className="text-sm font-medium text-[#845D81]/80 transition-colors hover:text-[#845D81]"
-        >
-          First 50
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/founding-30"
+            className="text-sm font-medium text-[#845D81] transition-colors hover:text-[#845D81]/80"
+          >
+            Founding 30
+          </Link>
+          <Link
+            href="/join/first-50"
+            className="text-sm font-medium text-[#845D81]/80 transition-colors hover:text-[#845D81]"
+          >
+            First 50
+          </Link>
+        </div>
       </header>
 
       <main className="relative z-10 flex-1">

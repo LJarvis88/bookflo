@@ -43,3 +43,14 @@ export function bookfloPartnerWhatsAppUrl(details?: string): string {
     : BOOKFLO_PARTNER_PREFILL;
   return bookfloWhatsAppUrl(body);
 }
+
+/** Prefill for BookFlo Founding 30 applications (apply + admin only until January). */
+export const BOOKFLO_FOUNDING30_PREFILL =
+  "Hi — I'd like to apply for BookFlo Founding 30 (6 months free core · founding-30).";
+
+export function bookfloFounding30WhatsAppUrl(details?: string): string {
+  const body = details?.trim()
+    ? `${BOOKFLO_FOUNDING30_PREFILL}\n\n${details.trim()}`
+    : BOOKFLO_FOUNDING30_PREFILL;
+  return bookfloWhatsAppUrl(body);
+}

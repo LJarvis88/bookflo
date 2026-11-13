@@ -16,6 +16,11 @@ import {
   type PartnerInterestLead,
 } from "@/lib/partner-interest-store";
 import { partnerInterestApiUrl } from "@/lib/partner-api";
+import {
+  appendLocalFounding30,
+  applicationFromPartnerLead,
+} from "@/lib/founding30-store";
+import { founding30ApiUrl } from "@/lib/founding30-api";
 
 type Status = "idle" | "saving" | "saved" | "error";
 
@@ -55,6 +60,10 @@ export function PartnerInterestForm() {
 
     appendLocalPartnerInterest(lead);
 
+    // Option A dual-write → Founding 30 applications (same cohort, proper programme).
+    const f30 = applicationFromPartnerLead(lead);
+    appendLocalFounding30(f30);
+
     try {
       const res = await fetch(partnerInterestApiUrl("/api/partner-interest"), {
         method: "POST",
@@ -67,6 +76,16 @@ export function PartnerInterestForm() {
       }
     } catch {
       // Offline / static host — localStorage + WhatsApp remain.
+    }
+
+    try {
+      await fetch(founding30ApiUrl("/api/founding-30/apply"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(f30),
+      });
+    } catch {
+      // Dual-write best-effort on static hosts.
     }
 
     return lead;
@@ -123,7 +142,9 @@ export function PartnerInterestForm() {
       </h2>
       <p className="mt-2 text-sm leading-relaxed text-bf-muted">
         We record your details for the Christmas partner list — tagged{" "}
-        <span className="font-medium text-[#845D81]">{PARTNER_TAG}</span>. Demo
+        <span className="font-medium text-[#845D81]">{PARTNER_TAG}</span>
+        — and dual-write into{" "}
+        <span className="font-medium text-[#845D81]">Founding 30</span>. Demo
         login stays invite-only; this is interest, not a public admin account.
       </p>
 

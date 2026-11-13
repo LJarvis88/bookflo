@@ -1,6 +1,4 @@
 import type { BrandTokens, Tenant } from "@/lib/types";
-import { DEMO_TODAY } from "@/lib/format";
-
 /**
  * Oh My Social Media palette (sampled from brand kit PNG):
  * Magenta / fuchsia #EB0E7F · Bright orange #FE5F0B
