@@ -50,9 +50,14 @@ export function DemoTenantProvider({ children }: { children: ReactNode }) {
   const [resolved, setResolved] = useState(false);
 
   useLayoutEffect(() => {
+    // Resolve once on mount (login uses a full page load into /dashboard).
     const slug = resolveAuthenticatedSlug();
     if (slug) {
-      writeDemoAuthSlug(slug);
+      try {
+        writeDemoAuthSlug(slug);
+      } catch {
+        // Auth already present in memory for this paint; persistence can retry later.
+      }
       stripTenantQueryParam();
       setTenant(findTenantBySlug(slug) ?? null);
     } else {
