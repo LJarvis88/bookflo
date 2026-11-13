@@ -20,6 +20,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: absoluteUrl("/join/first-50"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/founding-30"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/founding-30/apply"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: absoluteUrl("/join/partner"),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: absoluteUrl("/privacy"),
       lastModified,
       changeFrequency: "yearly",
@@ -40,5 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...marketing, ...booking];
+  const quizzes: MetadataRoute.Sitemap = listTenantSlugs().map((slug) => ({
+    url: absoluteUrl(`/quiz/${slug}`),
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  return [...marketing, ...booking, ...quizzes];
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   BOOKING_SLOTS,
@@ -48,6 +48,36 @@ export function BookingFlow({ tenant = contourPreston }: { tenant?: Tenant }) {
   const [paymentChoice, setPaymentChoice] = useState<PaymentChoice | null>(null);
   const [checkoutBusy, setCheckoutBusy] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  const [deepLinkApplied, setDeepLinkApplied] = useState(false);
+
+  /** Quiz / share deep-links: /book/{slug}?service=… or ?category=… */
+  useEffect(() => {
+    if (deepLinkApplied || typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const serviceParam = params.get("service");
+    const categoryParam = params.get("category");
+
+    if (serviceParam) {
+      const svc = tenant.services.find((s) => s.id === serviceParam && s.active);
+      if (svc) {
+        setCategoryId(svc.categoryId);
+        setServiceId(svc.id);
+        setStep("staff");
+        setDeepLinkApplied(true);
+        return;
+      }
+    }
+
+    if (categoryParam) {
+      const cat = tenant.categories.find((c) => c.id === categoryParam);
+      if (cat) {
+        setCategoryId(cat.id);
+        setServiceId(null);
+        setStep("service");
+        setDeepLinkApplied(true);
+      }
+    }
+  }, [deepLinkApplied, tenant.categories, tenant.services]);
 
   const services = useMemo(
     () => tenant.services.filter((s) => s.categoryId === categoryId && s.active),

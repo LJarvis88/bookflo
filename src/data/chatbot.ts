@@ -74,7 +74,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "studio",
     ],
     answer:
-      "Plans are Solo £19, Salon £39, and Pro £59 per month (shown on the site as Independent / Team / Studio). Annual billing is two months free: Solo £190, Salon £390, Pro £590 a year. Staff seats are the only paid upsell — branding stays included on every plan.",
+      "Plans are Solo £19, Salon £39, and Pro £59 per month (shown on the site as Independent / Team / Studio). Annual billing is two months free: Solo £190, Salon £390, Pro £590 a year. Email reminders are included on every plan. The booking quiz appears in every dashboard — unlock it with a paid account upgrade when you want it (never required for bookings). SMS reminders are a higher paid add-on. Branding stays included on every plan; staff seats scale with the plan.",
   },
   {
     id: "commission",
@@ -142,12 +142,44 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "Consent forms are coming in a later phase — planned free on every plan (value-first pricing). Soft caps only if someone abuses the system; not a paid upsell.",
   },
   {
+    id: "first-50",
+    label: "First 50 quiz free",
+    keywords: [
+      "first 50",
+      "first50",
+      "founding 50",
+      "founding-50",
+      "quiz free",
+      "free quiz",
+      "join first",
+    ],
+    answer:
+      "First 50 beauty founders get the booking quiz free for demo — claim at /join/first-50 (or /founding-50). After 50, quiz unlock is a paid upgrade; SMS reminders cost more. Email reminders stay included. Demo-only until January 2027.",
+  },
+  {
+    id: "christmas-partner",
+    label: "Christmas partner",
+    keywords: [
+      "christmas partner",
+      "christmas",
+      "xmas",
+      "partner interest",
+      "6 months free",
+      "six months free",
+      "free core",
+      "join partner",
+      "toni partner",
+    ],
+    answer:
+      "Christmas partner call: Toni is a BOOKFLO partner — beauty founders can register interest at /join/partner (or /partner) for 6 months free core booking. Aim 30 partners. Quiz and SMS stay paid optional extras. Convert to Solo/Salon/Pro around months 3–6. Interest form only — not a public admin signup.",
+  },
+  {
     id: "ambassadors",
     label: "Ambassadors",
     keywords: [
       "ambassador",
       "ambassadors",
-      "founding",
+      "founding ambassador",
       "liv",
       "contour",
       "tee",
@@ -158,7 +190,7 @@ export const CHAT_INTENTS: ChatIntent[] = [
       "complimentary",
     ],
     answer:
-      "Founding ambassadors get 12 months of complimentary Pro in exchange for promoting BOOKFLO. Current ambassador: Liv (Contour Preston). Tee / Oh My Social Media is free for life as Luke’s partner — separate from the ambassador clock.",
+      "Founding ambassadors get 12 months of complimentary Pro in exchange for promoting BOOKFLO. Current ambassador: Liv (Contour Preston). Tee / Oh My Social Media is free for life as Luke’s partner — separate from the ambassador clock. Separate from First 50 quiz-free: /join/first-50.",
   },
   {
     id: "tee-free-for-life",

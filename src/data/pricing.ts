@@ -13,6 +13,22 @@ export interface Plan {
 
 export const TRIAL_DAYS = 14;
 
+/** Clear monetisation ladder under pricing cards — no invented £ for add-ons. */
+export const PRICING_LADDER = [
+  {
+    title: "Email reminders",
+    body: "Included on every plan — confirmations and reminders stay free.",
+  },
+  {
+    title: "Booking quiz",
+    body: "In your dashboard from day one. Unlock to use — a simple account upgrade. Never required for bookings.",
+  },
+  {
+    title: "SMS reminders",
+    body: "Higher paid add-on above quiz — for salons that want texts, priced to cover real message costs.",
+  },
+] as const;
+
 export const PLANS: Plan[] = [
   {
     id: "solo",
@@ -23,8 +39,8 @@ export const PLANS: Plan[] = [
       "Single calendar column",
       "1 branded booking page",
       "Unlimited bookings",
-      "Free text & email reminders",
-      "Email confirmations",
+      "Free email reminders",
+      "Booking quiz — unlock to use",
       "Email and chat support",
     ],
     cta: "Join waitlist",
@@ -39,8 +55,8 @@ export const PLANS: Plan[] = [
       "Multiple calendar columns",
       "Up to 8 team members",
       "Branding editor + live preview",
-      "Free text & email reminders",
-      "Customer list",
+      "Free email reminders",
+      "Booking quiz — unlock to use",
       "Phone, chat, and email support",
     ],
     highlighted: true,
